@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samyam Raj Bhatta</title>
+    <link rel="shortcut icon" type="x-icon" href="images/srb.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="main">
+        <nav>
+            <h2 class="logo">Sam<span>Yam</span></h2>
+            <!-- Navigation -->
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fas fa-user"></i>About</a></li>
+                <li><a href="#"><i class="fas fa-briefcase"></i>Experiences</a></li>
+                <li><a href="#"><i class="fas fa-ellipsis-h"></i>Others</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main content area -->
+        <div class="main-content">
+            <h1 class="updating-soon">Updating Soon...</h1>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle the menu and hamburger animation
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('show');
+            hamburger.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>

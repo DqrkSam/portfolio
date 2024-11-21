@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.main {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
+    background-size: 300% 300%;
+    animation: color 7s ease-in-out infinite;
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 7%;
+    position: relative;
+}
+
+.logo {
+    color: white;
+    font-size: 30px;
+}
+
+.logo span {
+    color: powderblue;
+}
+
+/* Hamburger menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger.open div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open div:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Navigation links */
+nav ul {
+    display: flex;
+    gap: 25px; /* Increased gap from 20px to 25px */
+}
+
+nav ul li {
+    list-style-type: none;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    position: relative; /* For positioning the hover line */
+    padding: 5px 0; /* Space for the hover line */
+}
+
+nav ul li a i {
+    margin-right: 10px;
+}
+
+nav ul li a:hover {
+    color: powderblue;
+    transform: scale(1.1);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Add the hover line */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: powderblue; /* Same color as the hover text */
+    transition: width 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Expand the hover line fully */
+}
+
+/* Keyframes for the background animation */
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* Main content style */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%; /* Adjusted height for centering */
+    text-align: center;
+    color: white;
+}
+
+.updating-soon {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7); /* Lightened color for blending */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); /* Soft glow */
+    animation: fadeInOut 4s ease-in-out infinite; /* Animation to make it fade in and out */
+}
+
+/* Fade-in and fade-out animation for the Updating Soon text */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav ul {
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
+        background-size: 300% 300%;
+        padding: 20px;
+        width: 200px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        display: none;
+        animation: color 7s ease-in-out infinite;
+        box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    nav ul.show {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    nav ul li {
+        padding: 15px 0;
+        text-align: right;
+    }
+}
+
+/* Fade-in animation for dropdown */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
