@@ -18,12 +18,16 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 20px 7%;
-    position: relative;
+    position: sticky; /* Make the navbar sticky */
+    top: 0; /* Stick it to the top of the viewport */
+    z-index: 10; /* Ensure it stays above other elements */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for clarity */
 }
 
 .logo {
     color: white;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .logo span {
@@ -163,8 +167,7 @@ nav ul li a:hover::after {
         position: absolute;
         top: 80px;
         right: 0;
-        background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
-        background-size: 300% 300%;
+        background: #24294e; /* Solid dark color for full opacity */
         padding: 20px;
         width: 200px;
         border-top-left-radius: 10px;
@@ -172,6 +175,7 @@ nav ul li a:hover::after {
         display: none;
         animation: color 7s ease-in-out infinite;
         box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 10; /* Ensure it appears above other content */
     }
 
     nav ul.show {
@@ -183,7 +187,15 @@ nav ul li a:hover::after {
         padding: 15px 0;
         text-align: right;
     }
+
+    
 }
+
+/* Adjusting content below the hamburger menu to prevent interactions */
+.content-section {
+    pointer-events: none; /* Prevent interaction with content while menu is open */
+}
+
 
 /* Fade-in animation for dropdown */
 @keyframes fadeIn {
