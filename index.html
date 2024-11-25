@@ -5,33 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samyam Raj Bhatta</title>
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="x-icon" href="images/logo.png">
-
-    <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
-    <meta property="og:title" content="Samyam Raj Bhatta">
-    <meta property="og:description" content="Personal website showcasing my skills, experiences, and future projects.">
-    <meta property="og:image" content="images/srb.png"> <!-- URL to your logo image -->
-    <meta property="og:url" content="https://www.samyam.info.np"> <!-- URL to your site -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Samyam Raj Bhatta">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Samyam Raj Bhatta">
-    <meta name="twitter:description" content="Personal website showcasing my skills, experiences, and future projects.">
-    <meta name="twitter:image" content="images/logo.png"> <!-- URL to your logo image -->
-
-    <!-- Link to external stylesheet -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="main">
         <nav>
-            <h2 class="logo">Sam<span>Yam</span></h2>
+            <h2 class="logo" onclick="openPopup()">Sam<span>Yam</span></h2>
             <!-- Navigation -->
             <div class="hamburger" onclick="toggleMenu()">
                 <div></div>
@@ -39,17 +21,18 @@
                 <div></div>
             </div>
             <ul id="nav-links">
-                <li><a href="javascript:void(0)" onclick="showSection('home', this)"><i class="fas fa-home"></i>Home</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('about', this)"><i class="fas fa-user"></i>About</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('experience', this)"><i class="fa-solid fa-gears"></i>Experience</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('work', this)"><i class="fas fa-info-circle"></i>More</a></li>
+                <li><a href="#home" onclick="showSection('home', this)"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#about" onclick="showSection('about', this)"><i class="fas fa-user"></i>About</a></li>
+                <li><a href="#experience" onclick="showSection('experience', this)"><i class="fa-solid fa-gears"></i>Experience</a></li>
+                <li><a href="#work" onclick="showSection('work', this)"><i class="fas fa-info-circle"></i>More</a></li>
+
             </ul>
         </nav>
 
         <!-- Main content area -->
         <div class="main-content">
             <div id="home" class="content-section">
-                <h1 class="updating-soon">Updating Soon...</h1>
+                <!-- Home section content -->
             </div>
             <div id="about" class="content-section">
                 <h2>Samyam Raj Bhatta</h2>
@@ -64,6 +47,50 @@
                 <p>To be added later.</p>
             </div>
         </div>
+
+        <!-- Name and location section -->
+        <div class="name-location">
+            <h1>Samyam Raj Bhatta</h1>
+            <p><i class="fas fa-map-marker-alt"></i> Chitwan, Nepal</p>           
+        </div>
+
+        <div class="floating-sidebar">
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="https://github.com" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com" target="_blank">
+                <i class="fab fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+        </div>        
+
+        <div class="profile-image">
+            <img src="images/pfp3.jpg" alt="Samyam Raj Bhatta">
+        </div>
+
+        <!-- Popup Container -->
+<div id="popup" class="popup-container">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <div class="popup-inner">
+            <h1 class="handwriting">
+                    <span>S</span><span>a</span><span>m</span><span>y</span><span>a</span><span>m</span><br>
+                    <span>R</span><span>a</span><span>j</span><br>
+                    <span>B</span><span>h</span><span>a</span><span>t</span><span>t</span><span>a</span>
+            </h1>
+        </div>
+    </div>
+</div>
+
     </div>
 
     <script>
@@ -77,33 +104,55 @@
 
         // JavaScript function to show the selected section and highlight the active link
         function showSection(section, element) {
-            // Hide all sections first
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(function (sec) {
-                sec.style.display = 'none';
-            });
+    const sections = document.querySelectorAll('.content-section');
+    const profileImage = document.querySelector('.profile-image');
+    const nameLocation = document.querySelector('.name-location');
 
-            // Show the clicked section
-            const activeSection = document.getElementById(section);
-            if (activeSection) {
-                activeSection.style.display = 'block';
-            }
+    // Hide all sections
+    sections.forEach(function (sec) {
+        sec.style.display = 'none';
+    });
 
-            // Remove the 'active' class from all navigation links
-            const navLinks = document.querySelectorAll('#nav-links a');
-            navLinks.forEach(function (link) {
-                link.classList.remove('active');
-            });
+    // Hide the profile image and name/location when not in home section
+    if (section !== 'home') {
+        profileImage.classList.add('hidden');
+        nameLocation.classList.add('hidden');
+    } else {
+        profileImage.classList.remove('hidden');
+        nameLocation.classList.remove('hidden');
+    }
 
-            // Add the 'active' class to the clicked link
-            element.classList.add('active');
-        }
+    // Show the clicked section
+    const activeSection = document.getElementById(section);
+    if (activeSection) {
+        activeSection.style.display = 'block';
+    }
 
-        // Default section to show on page load (home page)
-        window.onload = function () {
-            showSection('home', document.querySelector('#nav-links a')); // Set home as active by default
-        };
+    // Remove active class from all navigation links and add it to the clicked link
+    const navLinks = document.querySelectorAll('#nav-links a');
+    navLinks.forEach(function (link) {
+        link.classList.remove('active');
+    });
+    element.classList.add('active');
+}
+
+// Ensure the home section is displayed initially
+window.onload = function () {
+    showSection('home', document.querySelector('#nav-links a'));
+};
+
+    // Open the Popup
+function openPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'flex'; // Display the popup
+}
+
+// Close the Popup
+function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none'; // Hide the popup
+}
+
     </script>
-
 </body>
 </html>
