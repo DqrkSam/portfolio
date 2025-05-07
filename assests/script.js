@@ -20,3 +20,7 @@ function toggleMenu() {
       hamburger.classList.remove('active');
     }
   });
+
+  // Set the initial volume of the background music
+  const audioElement = document.getElementById('background-music');
+  audioElement.volume = 0.5; // Set the volume to 20% of the max volume (0.0 - 1.0)

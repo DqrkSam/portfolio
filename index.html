@@ -6,10 +6,19 @@
     <title>SamYam</title>
     <link rel="stylesheet" href="./assests/main.css" />
     <script src="../assests/script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" href="images/x-logo.ico" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="icon" href="images/x-logo.ico" type="image/x-icon" />
   </head>
   <body>
+
+    <audio id="background-music" autoplay loop style="display: none;">
+        <source src="assests/audio/background-song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>    
+
     <div class="overlay"></div>
     <div class="half-main"></div>
 
@@ -22,21 +31,35 @@
         <span></span>
         <span></span>
         <span></span>
-      </div>      
+      </div>
 
       <nav class="nav">
         <ul id="nav-links">
-          <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="/about/"><i class="fas fa-user"></i> About</a></li>
-          <li><a href="/projects/"><i class="fas fa-code"></i> Projects</a></li>
-          <li><a href="/extras/"><i class="fas fa-puzzle-piece"></i> Extras</a></li>
+          <li>
+            <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li>
+            <a href="/about/"><i class="fas fa-user"></i> About</a>
+          </li>
+          <li>
+            <a href="/projects/"><i class="fas fa-code"></i> Projects</a>
+          </li>
+          <li>
+            <a href="/extras/"><i class="fas fa-puzzle-piece"></i> Extras</a>
+          </li>
           <li><a href="#features" class="hlight">Website Features</a></li>
-        </ul>        
+        </ul>
       </nav>
     </header>
 
     <div class="main">
-      <!-- You can add other content here later -->
+      <!-- Your name and location section -->
+      <div class="name-location">
+        <h1>SAMYAM RAJ BHATTA</h1>
+        <p class="location">
+          <i class="fas fa-map-marker-alt"></i> Chitwan, Nepal
+        </p>
+      </div>
     </div>
   </body>
 </html>
