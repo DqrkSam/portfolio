@@ -1,559 +1,210 @@
 * {
+    box-sizing: border-box;
+  }
+  
+  body {
     margin: 0;
     padding: 0;
-}
-
-.main {
-    height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    color: #fff;
+    overflow-x: hidden;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
-    background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
-    background-size: 300% 300%;
-    animation: color 7s ease-in-out infinite;
-}
-
-/* Navigation styles */
-nav {
+    background: rgba(10, 10, 10, 0.65);
+    z-index: 0;
+  }
+  
+  .half-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50vh;
+    width: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(59, 10, 77, 0.85),
+      rgba(59, 10, 77, 0.6),
+      rgba(59, 10, 77, 0.2),
+      transparent
+    );
+    z-index: -2;
+  }
+  
+  /* ===== Top Bar Styling ===== */
+  
+  .top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 7%;
-    position: sticky; /* Make the navbar sticky */
-    top: 0; /* Stick it to the top of the viewport */
-    z-index: 10; /* Ensure it stays above other elements */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for clarity */
-}
-
-.logo {
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.logo span {
-    color: powderblue;
-}
-
-/* Hamburger menu */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.hamburger div {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    margin: 5px 0;
-    border-radius: 2px;
-    transition: all 0.3s ease-in-out;
-}
-
-.hamburger.open div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.open div:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.open div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Navigation links */
-nav ul {
-    display: flex;
-    gap: 25px; /* Increased gap from 20px to 25px */
-}
-
-nav ul li {
-    list-style-type: none;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    display: flex;
+    z-index: 3;
+  }
+  
+  .center-logo img {
+    width: 150px;
+    height: auto;
+  }
+  
+  /* ===== Navigation ===== */
+  
+  .nav {
+    display: inline-block;
     align-items: center;
-    position: relative; /* For positioning the hover line */
-    padding: 5px 0; /* Space for the hover line */
-}
-
-nav ul li a i {
-    margin-right: 10px;
-}
-
-nav ul li a:hover {
-    color: powderblue;
-    transform: scale(1.1);
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-/* Add the hover line */
-nav ul li a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background-color: powderblue; /* Same color as the hover text */
-    transition: width 0.3s ease-in-out;
-}
-
-nav ul li a:hover::after {
-    width: 100%; /* Expand the hover line fully */
-}
-
-/* Keyframes for the background animation */
-@keyframes color {
-    0% {
-        background-position: 0 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0 50%;
-    }
-}
-
-/* Popup Container */
-.popup-container {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  }
+  
+  .nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav ul li {
+    margin: 0;
+  }
+  
+  .nav a {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it stays above other content */
-}
-
-/* Popup Content */
-.popup-content {
-    position: relative;
-    background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
-    padding: 20px;
+    text-decoration: none;
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
-    width: 71%; /* 10% smaller than full width */
-    height: 60%; /* 10% smaller than full height */
-    max-width: 90%; /* Maximum width 10% less than viewport */
-    max-height: 90%; /* Maximum height 10% less than viewport */
-    color: white;
-    margin: 10% auto;
-    top: 0;
-    overflow: hidden;
-}
-
-/* Close Button */
-.close-btn {
-    position: absolute;
-    top: -6px;
-    right: 10px;
-    font-size: 2rem;
-    color: powderblue;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Popup Inner Content */
-.popup-inner {
-    text-align: center;
-}
-
-.popup-inner h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.popup-inner p {
-    font-size: 1.2rem;
-}
-
-.main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80%; /* Adjusted height for centering */
-    text-align: center;
-    color: white;
-}
-
-.content-section {
-    display: none; /* Hide all sections by default */
-}
-
-/* Name and Location Section */
-.name-location {
-    position: absolute;
-    top: 35%;
-    left: 13%;
-    transform: translateY(-50%);
-    color: white;
-    text-align: left;
-    z-index: 2; /* Ensure it stays above the background */
-    transition: opacity 0.3s ease;
-}
-
-.name-location h1 {
-    font-size: 2rem; /* Increased font size */
-    margin-bottom: 10px;
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Simple, clean font */
-    text-transform: uppercase; /* Make the name uppercase */
-    letter-spacing: 2px; /* Increased letter spacing for a sleek look */
-    text-shadow: none; /* Remove any shadow */
-}
-
-.name-location p {
-    display: flex;
-    align-items: center;
-    font-size: 1.1rem; /* Slightly increased size */
-    color: gray;
-}
-
-.name-location p i {
+  }
+  
+  .nav a i {
     margin-right: 8px;
-    color: gray;
-}
-
-.hidden {
+  }
+  
+  .nav a:hover {
+    color: #fff;
+  }
+  
+  .nav a.active {
+    color: #fff;
+  }
+  
+  .nav a.hlight {
+    background: #6a0dad;
+    color: #fff;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 rgba(155, 48, 255, 0);
+  }
+  
+  .nav a.hlight:hover {
+    transform: scale(1.08);
+    background: #9b30ff;
+    box-shadow: 0 0 25px rgba(155, 48, 255, 0.6), 0 0 50px rgba(106, 13, 173, 0.4);
+  }
+  
+  /* ===== Hamburger ===== */
+  
+  .hamburger {
+    width: 30px;
+    height: 25px;
     display: none;
-}
-
-/* Profile Image Section */
-.profile-image {
-    position: absolute;
-    top: 50%;
-    right: 15%;
-    transform: translateY(-50%);
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.4), 
-        inset 0 0 15px rgba(173, 216, 230, 0.6);
-    background: linear-gradient(45deg, #24294e, #02093e);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1; /* Ensure image is below text sections */
-    transition: opacity 0.3s ease;
-}
-
-.profile-image img {
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 10; /* Ensure it's above the nav */
+  }
+  
+  .hamburger span {
+    display: block;
+    height: 4px;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease; /* Smooth scaling on hover */
-}
-
-.profile-image:hover {
-    transform: translateY(-50%) scale(1.15); /* Scale up on hover */
-    box-shadow: 
-        0 0 25px rgba(255, 255, 255, 0.6), /* Slightly stronger glow */
-        inset 0 0 20px rgba(173, 216, 230, 0.8); /* Enhanced inner blend */
-}
-
-.profile-image:hover img {
-    transform: scale(1.1); /* Slight zoom for the image itself */
-}
-
-/* Floating Sidebar */
-.floating-sidebar {
-    position: fixed;
-    top: 50%; /* Center vertically */
-    right: 10px; /* Place at the right edge of the page */
-    transform: translateY(-50%);
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Animate into a cross */
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  /* ===== Main Content Placeholder ===== */
+  
+  .main {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    z-index: 1; /* Ensure it stays above most elements */
-}
-
-.floating-sidebar a {
-    text-decoration: none;
-    position: relative; /* Allows positioning of child elements */
-    display: flex;
     align-items: center;
-    justify-content: center; /* Align icons centrally */
-    width: 50px; /* Set a fixed width for icons */
-    height: 50px; /* Same as width for a square */
-    background-color: transparent; /* Transparent by default */
-    color: #ffffff; /* Default icon color */
-    border-radius: 50%; /* Make the icons circular */
-    transition: all 0.3s ease;
-}
-
-/* Ensure icons match the design color scheme */
-.floating-sidebar i {
-    font-size: 1.5rem;
-    transition: transform 0.3s ease; /* Scale icon on hover */
-}
-
-/* Hover Effects with Gradient Background */
-.floating-sidebar a:hover {
-    color: powderblue; /* Powderblue icons */
-    width: 45px;
-    height: 45px;
-}
-
-.floating-sidebar a:hover i {
-    transform: scale(2); /* Slightly expand icon on hover */
-    overflow: hidden;
-}
-
-/* Hidden Text for Social Names */
-.floating-sidebar a span {
-    position: absolute; /* Overlay without affecting layout */
-    right: 60px; /* Appear to the left of the icon */
-    background: linear-gradient(135deg, rgba(186, 85, 211, 0.9), rgba(72, 61, 139, 0.9)); /* Gradient similar to background */
-    color: white; /* Text color */
-    padding: 7px 10px; /* Padding for text */
-    border-radius: 5px; /* Rounded corners */
-    white-space: nowrap; /* Prevent text wrapping */
-    opacity: 0; /* Hidden by default */
-    visibility: hidden; /* Remove from layout flow */
-    transform: translateX(10px); /* Subtle slide-in effect from the right */
-    transition: all 0.3s ease; /* Smooth transitions */
-}
-
-.floating-sidebar a:hover span {
-    opacity: 1; /* Show on hover */
-    visibility: visible;
-    transform: translateX(0); /* Slide into place */
-}
-
-/* The handwriting animation applied to the name */
-.handwriting {
-    font-family: 'Satisfy', cursive; /* Use a brush or script font */
-    font-size: 6rem;
-    color: rgba(54, 39, 79, 0.55);
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    margin-right: 21%;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6); /* Soft shadow for the text */
-}
-
-/* Each span is a letter */
-.handwriting span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(50px); /* Optional: adds slight movement to each letter */
-    animation: writeBrush 0.8s ease forwards, strokeEffect 1.5s infinite alternate; /* Brushwriting + stroke animation */
-}
-
-/* Create a delay for each letter to appear one by one */
-.handwriting span:nth-child(1) {
-    animation-delay: 0.3s; /* First letter "S" */
-    color: rgba(26, 17, 57, 0.708);
-}
-
-.handwriting span:nth-child(2) {
-    animation-delay: 1.2s; /* Second letter "a" */
-}
-
-.handwriting span:nth-child(3) {
-    animation-delay: 1.4s; /* Third letter "m" */
-}
-
-.handwriting span:nth-child(4) {
-    animation-delay: 1.6s; /* Fourth letter "y" */
-}
-
-.handwriting span:nth-child(5) {
-    animation-delay: 1.8s; /* Fifth letter "a" */
-}
-
-.handwriting span:nth-child(6) {
-    animation-delay: 2s; /* Sixth letter "m" */
-}
-
-.handwriting span:nth-child(8) {
-    margin-left: 40%;
-    animation-delay: 0.6s; /* Sixth letter "R" */
-    color: rgba(26, 17, 57, 0.708);
-}
-
-.handwriting span:nth-child(9) {
-    animation-delay: 2.2s; /* Sixth letter "a" */
-}
-
-.handwriting span:nth-child(10) {
-    animation-delay: 2.4s; /* "j" */
-}
-
-.handwriting span:nth-child(12) {
-    margin-left: 80%;
-    animation-delay: 0.9s; /* "B" */
-    color: rgba(26, 17, 57, 0.708);
-}
-
-.handwriting span:nth-child(13) {
-    animation-delay: 2.6s; /* "h" */
-}
-
-.handwriting span:nth-child(14) {
-    animation-delay: 2.8s; /* "a" */
-}
-
-.handwriting span:nth-child(15) {
-    animation-delay: 3s; /* "t" */
-}
-
-.handwriting span:nth-child(16) {
-    animation-delay: 3.2s; /* "t" */
-}
-
-.handwriting span:nth-child(17) {
-    animation-delay: 3.4s; /* "a" */
-}
-
-/* The keyframes for the brushstroke animation */
-@keyframes writeBrush {
-    0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Create the traveling outer stroke effect with Cyan */
-@keyframes strokeEffect {
-    0% {
-        text-shadow: 0 0 5px #00FFFF, 0 0 15px #00FFFF; /* Initial stroke */
-    }
-    50% {
-        text-shadow: 1px 1px 5px #00FFFF, -1px -1px 10px #00FFFF; /* Stroke expands and travels */
-    }
-    100% {
-        text-shadow: 2px 2px 5px #00FFFF, -2px -2px 100px #00FFFF; /* Full effect with traveling stroke */
-    }
-}
-
-/* Mobile-friendly navigation */
-@media (max-width: 768px) {
+  }
+  
+  /* ===== Responsive (Mobile) ===== */
+  
+  @media (max-width: 768px) {
     .hamburger {
-        display: flex;
+      display: flex;
     }
-
-    nav ul {
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        right: 0;
-        background: #24294e; /* Solid dark color for full opacity */
-        padding: 20px;
-        width: 200px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        display: none;
-        animation: color 7s ease-in-out infinite;
-        box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
-        z-index: 10; /* Ensure it appears above other content */
+    .nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 50vw;
+      background: rgba(20, 20, 20, 0.95);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px; /* to account for top-bar height */
+      z-index: 9;
+      border-radius: 10px 0 0 10px;
     }
-
-    nav ul.show {
-        display: flex;
-        animation: fadeIn 0.3s ease;
+    .nav.active {
+      transform: translateX(0);
     }
-
-    nav ul li {
-        padding: 15px 0;
-        text-align: right;
+  
+    .nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      padding: 0 1rem;
+      display: flex;
     }
-
-    .main {
-        background: linear-gradient(45deg, #24294e, #02093e, #130a37, #181633, #363271);
-        animation: none; /* Disable animation on mobile */
+  
+    .nav ul li {
+      margin-bottom: 1.2rem;
+      width: 100%;
     }
-
-    .name-location {
-        top: 30%; /* Move name/location section up on smaller screens */
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center; /* Center-align text */
+  
+    .nav a {
+      width: 100%;
     }
-
-    .profile-image {
-        position: relative; /* Reset position for mobile */
-        top: 20px; /* Add space between name and image */
-        left: 0;
-        right: 0;
-        transform: none; /* Reset transform */
-        width: 200px; /* Adjusted size */
-        height: 200px; /* Adjusted size */
-        margin: 0 auto; /* Center image below the name and location */
-        box-shadow: 
-            0 0 20px rgba(255, 255, 255, 0.4), /* Soft glow effect */
-            inset 0 0 15px rgba(173, 216, 230, 0.6); /* Blend with background */
-        background: linear-gradient(45deg, #24294e, #02093e); /* Blending background */
+  
+    .nav a.hlight {
+      text-align: center;
     }
-
-    .profile-image img {
-        width: 100%; /* Smaller size for mobile */
-    }
-    .profile-image {
-        text-align: center;
-        margin-top: -37%;
-    }
-
-    /* Profile image hover effects on mobile */
-    .profile-image:hover {
-        transform: scale(1.05); /* Scale up on hover */
-        box-shadow: 
-            0 0 25px rgba(255, 255, 255, 0.6), /* Slightly stronger glow */
-            inset 0 0 20px rgba(173, 216, 230, 0.8); /* Enhanced inner blend */
-    }
-
-    .profile-image:hover img {
-        transform: scale(1.1); /* Slight zoom for the image itself */
-    }
-
-    .floating-sidebar {
-        right: 10px; /* 10px distance from the right edge on smaller screens */
-    }
-
-    .popup-content {
-        width: 80%;  /* Allows the pop-up to fit the screen */
-        margin-top: 15%;
-    }
-    .popup-content h1 {
-        font-size: 3.2rem;  /* Make text smaller for mobile */
-        margin-right: 23%;
-        margin-top: 15%;
-    }
-}
-
-/* Adjusting content section height and spacing on mobile */
-.main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh; /* Full height on mobile */
-    text-align: center;
-    color: white;
-    padding: 20px; /* Add padding for readability */
-}
-
-/* Keyframes for fade-in effect on mobile */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+  }  
