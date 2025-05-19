@@ -11,6 +11,20 @@ body {
   overflow: hidden;
   color: #fff;
   overflow-x: hidden;
+  cursor: none;
+}
+
+#custom-cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s ease;
 }
 
 .overlay {
@@ -56,7 +70,7 @@ body {
 .center-logo img {
   width: 150px;
   height: auto;
-  cursor: pointer;
+  cursor: none;
 }
 
 /* ===== Navigation ===== */
@@ -89,6 +103,7 @@ body {
   transition: color 0.3s ease;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  cursor: none;
 }
 
 .nav a i {
