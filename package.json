@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "> **Portfolio Website**\r >\r > This is a personal website created for fun using \".np\" domain, and hosted using git, github, and cloudfare services.\r > You can see my website live in `https://www.samyam.info.np`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DqrkSam/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DqrkSam/portfolio/issues"
+  },
+  "homepage": "https://github.com/DqrkSam/portfolio#readme",
+  "dependencies": {
+    "tailwindcss": "^4.1.7"
+  }
+}

@@ -1,65 +1,601 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SamYam</title>
-    <link rel="stylesheet" href="./assests/main.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link rel="icon" href="images/x-logo.ico" type="image/x-icon" />
-  </head>
-  <body>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SamYam</title>
+  <link rel="icon" type="image/x-icon" href="./images/x-logo.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2A4858;
+      --accent: #48D1CC;
+    }
 
-    <audio id="background-music" autoplay loop style="display: none;">
-        <source src="assests/audio/background-song.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>    
+    body {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('./images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
 
-    <div class="overlay"></div>
-    <div class="half-main"></div>
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(72, 209, 204, 0.1), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(42, 72, 88, 0.1), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    <header class="top-bar">
-      <div class="center-logo">
-        <img src="./images/name-logo.jpg" alt="Samyam" />
-      </div>
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      min-height: 100vh;
+    }
 
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+    .nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
 
-      <nav class="nav">
-        <ul id="nav-links">
-          <li>
-            <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
-          </li>
-          <li>
-            <a href="/about/"><i class="fas fa-user"></i> About</a>
-          </li>
-          <li>
-            <a href="/projects/"><i class="fas fa-code"></i> Projects</a>
-          </li>
-          <li>
-            <a href="/extras/"><i class="fas fa-puzzle-piece"></i> Extras</a>
-          </li>
-          <li><a href="/features/" class="hlight">Website Features</a></li>
-        </ul>
+    .nav-link i {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover i {
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: width 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: calc(100% - 1rem);
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .custom-button {
+      background: rgba(72, 209, 204, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .custom-button:hover {
+      background: rgba(72, 209, 204, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Custom Typed.js cursor styling */
+    .typed-cursor {
+      font-size: 2.5rem !important;
+      line-height: 1 !important;
+      margin-left: 0.2rem !important;
+      opacity: 0.7 !important;
+      animation: blink 1s infinite !important;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-link {
+        display: inline-flex;
+        padding: 0.5rem;
+      }
+      
+      .nav-link::after {
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+      }
+      
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: calc(100% - 1rem);
+        transform: translateX(-50%) scaleX(1);
+      }
+      
+      .typed-cursor {
+        font-size: 1.875rem !important;
+      }
+    }
+
+    /* Header styles */
+    header {
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    header:not(.scrolled) {
+      background: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(72, 209, 204, 0.2);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(72, 209, 204, 0.3);
+    }
+
+    /* Logo styles */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-image {
+      width: 2rem;
+      height: 2rem;
+      object-fit: contain;
+    }
+
+    /* Advanced Button Styles */
+    .advanced-button {
+      position: relative;
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: white;
+      background: rgba(72, 209, 204, 0.1);
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .advanced-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(72, 209, 204, 0.2),
+        transparent
+      );
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+
+    .advanced-button::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(72, 209, 204, 0.15);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+      z-index: -1;
+    }
+
+    .advanced-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(72, 209, 204, 0.6);
+      box-shadow: 0 10px 20px -10px rgba(72, 209, 204, 0.3);
+    }
+
+    .advanced-button:hover::before {
+      left: 100%;
+    }
+
+    .advanced-button:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .advanced-button .button-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .advanced-button i {
+      font-size: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+
+    .advanced-button:hover i {
+      transform: translateX(4px);
+    }
+
+    .advanced-button .button-text {
+      position: relative;
+    }
+
+    .advanced-button .button-text::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: rgba(72, 209, 204, 0.5);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .advanced-button:hover .button-text::after {
+      transform: scaleX(1);
+    }
+
+    /* Button group styles */
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    @media (max-width: 640px) {
+      .button-group {
+        gap: 1rem;
+      }
+      
+      .advanced-button {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Remove section indicator styles */
+    .section-indicator,
+    .indicator-label {
+      display: none;
+    }
+  </style>
+</head>
+<body class="font-sans text-white">
+  <div class="content-wrapper">
+    <!-- Navbar -->
+    <header class="fixed w-full z-50">
+      <nav class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="#" class="text-3xl font-bold">
+            Samyam
+          </a>
+          
+          <!-- Desktop Navigation -->
+          <ul class="hidden md:flex items-center space-x-6">
+            <li>
+              <a href="#home" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#about" class="nav-link">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+              </a>
+            </li>
+            <li>
+              <a href="#skills" class="nav-link">
+                <i class="fas fa-code"></i>
+                <span>Skills</span>
+              </a>
+            </li>
+            <li>
+              <a href="#projects" class="nav-link">
+                <i class="fas fa-project-diagram"></i>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="nav-link">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden text-white" id="menu-toggle">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden hidden pt-4 pb-3" id="mobile-menu">
+          <ul class="space-y-2">
+            <li><a href="#home" class="nav-link block"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about" class="nav-link block"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="#skills" class="nav-link block"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="#projects" class="nav-link block"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#contact" class="nav-link block"><i class="fas fa-envelope"></i> Contact</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
-    <div class="main">
-      <!-- Your name and location section -->
-      <div class="name-location">
-        <h1>SAMYAM RAJ BHATTA</h1>
-        <p class="location">
-          <i class="fas fa-map-marker-alt"></i> Chitwan, Nepal
-        </p>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-4">Hi, I'm Samyam</h1>
+        <div class="h-16">
+          <span class="text-2xl md:text-3xl" id="typed"></span>
+        </div>
+        <div class="button-group mt-8">
+          <a href="#projects" class="advanced-button">
+            <div class="button-content">
+              <span class="button-text">View Projects</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </a>
+          <a href="#contact" class="advanced-button">
+            <div class="button-content">
+              <span class="button-text">Let's Connect</span>
+              <i class="fas fa-envelope"></i>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
-    <div id="custom-cursor"></div>
-    <script src="./assests/script.js"></script>
-  </body>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen flex items-center">
+      <div class="max-w-4xl mx-auto px-4 py-20">
+        <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="glass-card p-8 rounded-xl">
+            <p class="text-lg leading-relaxed">
+              Hello! I'm a passionate web developer from Nepal, currently pursuing my education at Macquarie University. With a keen eye for design and a love for clean code, I create web experiences that are both beautiful and functional.
+            </p>
+          </div>
+          <div class="glass-card p-8 rounded-xl">
+            <h3 class="text-xl font-semibold mb-6">Quick Facts</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-4">
+                <i class="fas fa-map-marker-alt text-[#48D1CC] text-xl"></i>
+                <span>Based in Sydney, Australia</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <i class="fas fa-graduation-cap text-[#48D1CC] text-xl"></i>
+                <span>Studying at Macquarie University</span>
+              </li>
+              <li class="flex items-center gap-4">
+                <i class="fas fa-code text-[#48D1CC] text-xl"></i>
+                <span>Full Stack Development</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="min-h-screen flex items-center">
+      <div class="max-w-6xl mx-auto px-4 py-20">
+        <h2 class="text-4xl font-bold text-center mb-12">Skills & Technologies</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="glass-card p-6 rounded-xl text-center">
+            <i class="fab fa-react text-4xl text-[#48D1CC] mb-4"></i>
+            <h3 class="text-xl font-semibold mb-4">Frontend</h3>
+            <ul class="space-y-2">
+              <li>React</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS</li>
+            </ul>
+          </div>
+          <!-- Add more skill cards as needed -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="min-h-screen py-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">Featured Projects</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="glass-card rounded-xl overflow-hidden group">
+            <div class="relative">
+              <img src="images/background.jpg" alt="Project" class="w-full h-48 object-cover">
+              <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div class="flex gap-4">
+                  <a href="#" class="text-white hover:text-[#48D1CC]">
+                    <i class="fab fa-github text-2xl"></i>
+                  </a>
+                  <a href="#" class="text-white hover:text-[#48D1CC]">
+                    <i class="fas fa-external-link-alt text-2xl"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Project Title</h3>
+              <p class="text-gray-300 mb-4">Project description goes here...</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-sm">React</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Node.js</span>
+              </div>
+            </div>
+          </div>
+          <!-- Add more project cards as needed -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="min-h-screen flex items-center">
+      <div class="max-w-4xl mx-auto px-4 py-20">
+        <h2 class="text-4xl font-bold text-center mb-12">Let's Connect</h2>
+        <div class="glass-card p-8 rounded-xl">
+          <form class="space-y-6">
+            <input type="text" placeholder="Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#48D1CC] text-white placeholder-white/70">
+            <input type="email" placeholder="Email" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#48D1CC] text-white placeholder-white/70">
+            <textarea placeholder="Message" rows="4" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#48D1CC] text-white placeholder-white/70 resize-none"></textarea>
+            <button type="submit" class="custom-button w-full py-4 rounded-lg text-lg font-medium">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Typed.js initialization
+    var typed = new Typed('#typed', {
+      strings: ['Web Developer', 'UI Designer', 'Problem Solver'],
+      typeSpeed: 70,
+      backSpeed: 50,
+      loop: true,
+      showCursor: true,
+      cursorChar: '|',
+      autoInsertCss: true
+    });
+
+    // Header scroll effect and active section detection
+    const header = document.querySelector('header');
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Update active link on click
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // Scroll based active section update
+    function updateActiveSection() {
+      const scrollPosition = window.scrollY + header.offsetHeight + 100;
+
+      // Header background effect
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Only update active section if user is not currently clicking
+      if (!isClicking) {
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            const currentId = section.getAttribute('id');
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${currentId}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+    }
+
+    let isClicking = false;
+    document.addEventListener('mousedown', () => isClicking = true);
+    document.addEventListener('mouseup', () => {
+      isClicking = false;
+      setTimeout(() => isClicking = false, 100);
+    });
+
+    window.addEventListener('scroll', updateActiveSection);
+    window.addEventListener('load', updateActiveSection);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Smooth scroll with offset for header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        
+        if (target) {
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = targetPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
 </html>
