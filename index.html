@@ -16,6 +16,8 @@
     :root {
       --primary: #2A4858;
       --accent: #48D1CC;
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.6);
       --bg-gradient-dark: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
       --bg-gradient-light: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
     }
@@ -31,12 +33,15 @@
       padding: 0;
       cursor: none;
       transition: all 0.3s ease;
+      color: var(--text-primary);
     }
 
     body.light-theme {
       --primary: #48D1CC;
       --accent: #2A4858;
-      color: #2A4858;
+      --text-primary: #2A4858;
+      --text-secondary: rgba(42, 72, 88, 0.6);
+      color: var(--text-primary);
     }
 
     body.light-theme .nav-link {
@@ -78,7 +83,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: white;
+      color: var(--text-primary);
       padding: 0.5rem;
       transition: all 0.3s ease;
       width: fit-content;
@@ -408,12 +413,12 @@
     .social-link .social-title {
       font-weight: 500;
       font-size: 1.1rem;
-      color: white;
+      color: var(--text-primary);
     }
 
     .social-link .social-username {
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-secondary);
     }
 
     /* Contact Form */
@@ -430,7 +435,7 @@
       width: 100%;
       padding: 1rem 1.25rem;
       font-size: 1rem;
-      color: white;
+      color: var(--text-primary);
       background: rgba(42, 72, 88, 0.4);
       border: 1px solid rgba(72, 209, 204, 0.1);
       border-radius: 0.75rem;
@@ -907,6 +912,52 @@
     .skip-to-main:focus {
       top: 0;
     }
+
+    /* Add these styles to your existing styles */
+    #userButton.active i {
+      transform: rotate(180deg);
+    }
+
+    #userDropdown {
+      transform-origin: top right;
+      transition: all 0.2s ease;
+    }
+
+    #userDropdown.show {
+      display: block;
+      animation: dropdownFadeIn 0.2s ease;
+    }
+
+    @keyframes dropdownFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .nav-link.login-link {
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.2), rgba(42, 72, 88, 0.2));
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      border-radius: 1.5rem;
+      padding: 0.5rem 1.25rem;
+      margin-left: 1rem;
+      box-shadow: 0 0 10px rgba(72, 209, 204, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .nav-link.login-link:hover {
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.3), rgba(42, 72, 88, 0.3));
+      box-shadow: 0 0 15px rgba(72, 209, 204, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-link.login-link::after {
+      display: none;
+    }
   </style>
 </head>
 <body class="font-sans text-white">
@@ -980,6 +1031,27 @@
                   <i class="fas fa-envelope"></i>
                   <span>Contact</span>
                 </a>
+              </li>
+              <li id="authLinks">
+                <a href="/login/" class="nav-link login-link" id="loginLink">
+                  <i class="fas fa-sign-in-alt"></i>
+                  <span>Login</span>
+                </a>
+                <div class="relative" id="userMenu">
+                  <button class="nav-link hidden items-center gap-3" id="userButton">
+                    <img id="userAvatar" class="w-8 h-8 rounded-full" alt="User avatar">
+                    <span id="userDisplayName"></span>
+                    <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+                  </button>
+                  <div id="userDropdown" class="absolute right-0 mt-2 w-48 glass-card hidden">
+                    <div class="py-2">
+                      <button class="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </li>
             </ul>
 
@@ -1823,6 +1895,55 @@
       // ... existing showError code ...
       announceError(message);
     }
+
+    // Add this at the beginning of your script section
+    // Check login status
+    function checkLoginStatus() {
+      const currentUserData = localStorage.getItem('currentUser');
+      const loginLink = document.getElementById('loginLink');
+      const userButton = document.getElementById('userButton');
+      const userDropdown = document.getElementById('userDropdown');
+      
+      if (currentUserData) {
+        const user = JSON.parse(currentUserData);
+        loginLink.classList.add('hidden');
+        userButton.classList.remove('hidden');
+        userButton.classList.add('flex');
+        
+        // Set user info
+        document.getElementById('userDisplayName').textContent = user.displayName;
+        document.getElementById('userAvatar').src = user.avatar;
+        
+        // Handle dropdown
+        userButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          userButton.classList.toggle('active');
+          userDropdown.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!userButton.contains(e.target)) {
+            userButton.classList.remove('active');
+            userDropdown.classList.remove('show');
+          }
+        });
+      } else {
+        loginLink.classList.remove('hidden');
+        userButton.classList.add('hidden');
+        userButton.classList.remove('flex');
+      }
+    }
+
+    // Handle logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      checkLoginStatus();
+      window.location.reload();
+    });
+
+    // Check login status on page load
+    window.addEventListener('load', checkLoginStatus);
   </script>
 </body>
 </html>
