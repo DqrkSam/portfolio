@@ -888,6 +888,134 @@
     .form-group.error .input-wrapper {
       animation: shake 0.3s ease-in-out;
     }
+
+    /* Remove all chat widget styles */
+    .chat-widget,
+    .chat-button,
+    .chat-container,
+    .chat-header,
+    .chat-header-avatar,
+    .chat-header-info,
+    .chat-messages,
+    .chat-input-container,
+    .chat-form,
+    .chat-input,
+    .chat-submit {
+      display: none;
+    }
+
+    /* Add signature pad styles before the last style tag */
+    .signature-section {
+      padding: 4rem 0;
+      background: rgba(42, 72, 88, 0.1);
+    }
+
+    .signature-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .signature-pad {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(72, 209, 204, 0.3);
+      border-radius: 1rem;
+      cursor: crosshair;
+      margin-bottom: 1rem;
+      touch-action: none;
+    }
+
+    .signature-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .signature-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      background: rgba(72, 209, 204, 0.1);
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .signature-btn:hover {
+      background: rgba(72, 209, 204, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .signature-btn i {
+      font-size: 1.1rem;
+    }
+
+    .signature-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .signature-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .signature-item:hover {
+      transform: scale(1.05);
+    }
+
+    .signature-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .color-picker {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .color-option.active {
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* Add these styles before the closing style tag */
+    .color-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .color-btn.active {
+      border-color: #48D1CC;
+      transform: scale(1.1);
+    }
+
+    #signatureCanvas {
+      touch-action: none;
+      cursor: crosshair;
+    }
   </style>
 </head>
 <body class="font-sans text-white">
@@ -1259,6 +1387,44 @@
 
   <a href="#main" class="skip-to-main">Skip to main content</a>
 
+  <!-- Add signature pad section before the closing main tag -->
+  <section id="guestbook" class="min-h-screen flex items-center py-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-8" data-aos="fade-up">Digital Guestbook</h2>
+      <p class="text-center mb-12 text-gray-300">Leave your mark! Sign our digital guestbook.</p>
+      
+      <div class="glass-card p-8 rounded-xl">
+        <div class="flex flex-wrap gap-4 mb-6 justify-center">
+          <button class="color-btn active" data-color="#48D1CC" style="background-color: #48D1CC;"></button>
+          <button class="color-btn" data-color="#FFFFFF" style="background-color: #FFFFFF;"></button>
+          <button class="color-btn" data-color="#FF69B4" style="background-color: #FF69B4;"></button>
+          <button class="color-btn" data-color="#FFD700" style="background-color: #FFD700;"></button>
+        </div>
+
+        <canvas id="signatureCanvas" width="800" height="300" class="w-full bg-opacity-10 bg-white rounded-lg border-2 border-[#48D1CC] border-opacity-30"></canvas>
+        
+        <div class="flex flex-wrap gap-4 mt-6 justify-center">
+          <button id="clearBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-eraser"></i>
+            Clear
+          </button>
+          <button id="saveBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-save"></i>
+            Save
+          </button>
+          <button id="downloadBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-download"></i>
+            Download
+          </button>
+        </div>
+      </div>
+
+      <div id="signatureGallery" class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Signatures will be loaded here -->
+      </div>
+    </div>
+  </section>
+
   <script>
     // Initialize AOS
     AOS.init({
@@ -1521,13 +1687,13 @@
     }
 
     // Digital Rain Effect
-    const canvas = document.getElementById('digitalRain');
-    const ctx = canvas.getContext('2d');
+    const rainCanvas = document.getElementById('digitalRain');
+    const rainCtx = rainCanvas.getContext('2d');
 
     // Set canvas size
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      rainCanvas.width = window.innerWidth;
+      rainCanvas.height = window.innerHeight;
     }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -1556,7 +1722,7 @@
         this.y += this.speed;
         this.lifetime++;
 
-        if (this.y > canvas.height || this.lifetime > this.maxLifetime) {
+        if (this.y > rainCanvas.height || this.lifetime > this.maxLifetime) {
           this.y = -20;
           this.lifetime = 0;
           this.text = String.fromCharCode(0x30A0 + Math.random() * 96);
@@ -1565,9 +1731,9 @@
 
       draw() {
         const alpha = Math.max(0, 1 - this.lifetime / this.maxLifetime);
-        ctx.fillStyle = hexToRgba(this.color, alpha);
-        ctx.font = '14px monospace';
-        ctx.fillText(this.text, this.x, this.y);
+        rainCtx.fillStyle = hexToRgba(this.color, alpha);
+        rainCtx.font = '14px monospace';
+        rainCtx.fillText(this.text, this.x, this.y);
       }
     }
 
@@ -1577,11 +1743,11 @@
     const secondaryColor = '#2A4858'; // Your dark blue color
 
     function createRainDrops() {
-      const numberOfDrops = Math.floor(canvas.width / 20); // Adjust density here
+      const numberOfDrops = Math.floor(rainCanvas.width / 20); // Adjust density here
       
       for (let i = 0; i < numberOfDrops; i++) {
         const x = i * 20;
-        const y = Math.random() * canvas.height;
+        const y = Math.random() * rainCanvas.height;
         const speed = Math.random() * 2 + 1;
         const color = Math.random() > 0.5 ? primaryColor : secondaryColor;
         
@@ -1593,7 +1759,7 @@
     let mouseX = 0;
     let mouseY = 0;
     
-    canvas.addEventListener('mousemove', (e) => {
+    rainCanvas.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       
@@ -1610,8 +1776,8 @@
 
     // Animation loop
     function animate() {
-      ctx.fillStyle = 'rgba(42, 72, 88, 0.1)'; // Matching your primary color
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      rainCtx.fillStyle = 'rgba(42, 72, 88, 0.1)'; // Matching your primary color
+      rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
 
       rainDrops.forEach(drop => {
         drop.update();
@@ -1625,9 +1791,8 @@
     createRainDrops();
     animate();
 
-    // Scroll animations for sections
-    const contentSections = document.querySelectorAll('section');
-    contentSections.forEach(section => {
+    // Remove scroll animations for sections
+    sections.forEach(section => {
       gsap.from(section.children, {
         opacity: 0,
         y: 50,
@@ -1642,8 +1807,8 @@
       });
     });
 
-    // Parallax effect for section backgrounds
-    contentSections.forEach(section => {
+    // Remove parallax effect
+    sections.forEach(section => {
       gsap.to(section, {
         backgroundPosition: `50% ${innerHeight / 2}px`,
         ease: "none",
@@ -1656,7 +1821,7 @@
       });
     });
 
-    // Animate skill bars on scroll
+    // Remove skill bars animation
     const skillBars = document.querySelectorAll('.skill-progress .progress-bar');
     skillBars.forEach(bar => {
       const percentage = bar.style.width;
@@ -1672,6 +1837,127 @@
           toggleActions: "play none none reverse"
         }
       });
+    });
+
+    // Signature Pad Implementation
+    window.addEventListener('load', function() {
+      const canvas = document.getElementById('signatureCanvas');
+      const ctx = canvas.getContext('2d');
+      let isDrawing = false;
+      let currentColor = '#48D1CC';
+
+      // Initialize canvas
+      function initCanvas() {
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+
+      function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      }
+
+      function getTouchPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top
+        };
+      }
+
+      function startDrawing(e) {
+        isDrawing = true;
+        const pos = e.touches ? getTouchPos(e) : getMousePos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        const pos = e.touches ? getTouchPos(e) : getMousePos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        e.preventDefault();
+      }
+
+      function stopDrawing() {
+        isDrawing = false;
+      }
+
+      // Mouse Events
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      // Touch Events
+      canvas.addEventListener('touchstart', startDrawing);
+      canvas.addEventListener('touchmove', draw);
+      canvas.addEventListener('touchend', stopDrawing);
+
+      // Color Buttons
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.color-btn.active').classList.remove('active');
+          btn.classList.add('active');
+          currentColor = btn.dataset.color;
+          ctx.strokeStyle = currentColor;
+        });
+      });
+
+      // Clear Button
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      // Save Button
+      document.getElementById('saveBtn').addEventListener('click', () => {
+        const signature = canvas.toDataURL();
+        const signatures = JSON.parse(localStorage.getItem('signatures') || '[]');
+        signatures.push({
+          date: new Date().toISOString(),
+          data: signature
+        });
+        localStorage.setItem('signatures', JSON.stringify(signatures));
+        updateGallery();
+      });
+
+      // Download Button
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = `signature-${new Date().toISOString().slice(0,10)}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+
+      function updateGallery() {
+        const gallery = document.getElementById('signatureGallery');
+        const signatures = JSON.parse(localStorage.getItem('signatures') || '[]');
+        
+        if (signatures.length === 0) {
+          gallery.innerHTML = '<p class="text-center text-gray-400">No signatures yet. Be the first to sign!</p>';
+          return;
+        }
+        
+        gallery.innerHTML = signatures.reverse().map(sig => `
+          <div class="glass-card p-4 rounded-xl">
+            <img src="${sig.data}" alt="Signature" class="w-full">
+            <p class="text-center text-sm text-gray-400 mt-2">
+              ${new Date(sig.date).toLocaleDateString()}
+            </p>
+          </div>
+        `).join('');
+      }
+
+      // Initialize
+      initCanvas();
+      updateGallery();
     });
   </script>
 </body>
