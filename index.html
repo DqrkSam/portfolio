@@ -1251,12 +1251,11 @@
 
             <!-- Contact Form -->
             <div class="contact-form" data-aos="fade-left">
-              <form class="space-y-6" id="contactForm" action="https://formsubmit.co/samyamrajb@gmail.com" method="POST" novalidate>
-                <!-- Honeypot -->
-                <input type="text" name="_honey" style="display: none">
-                <!-- Disable Captcha -->
+              <form class="space-y-6" id="contactForm" action="https://formsubmit.co/samyamrajb@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
-                <!-- Success Page -->
                 <input type="hidden" name="_next" value="https://samyam.me/thanks.html">
                 
                 <div class="form-group">
@@ -1672,16 +1671,6 @@
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        validateField(input);
-      });
-
-      input.addEventListener('blur', () => {
-        validateField(input);
-      });
-    });
-
     function validateField(input) {
       if (input.value.trim() === '') {
         showError(input, `${input.name.charAt(0).toUpperCase() + input.name.slice(1)} is required`);
@@ -1702,6 +1691,16 @@
       return true;
     }
 
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        validateField(input);
+      });
+
+      input.addEventListener('blur', () => {
+        validateField(input);
+      });
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let isValid = true;
@@ -1716,35 +1715,58 @@
         const submitBtn = form.querySelector('.contact-submit-btn');
         submitBtn.classList.add('loading');
 
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('https://formsubmit.co/samyamrajb@gmail.com', {
+            method: 'POST',
+            body: formData
+          });
 
-        // Show success message
-        const successMessage = document.createElement('div');
-        successMessage.className = 'form-success-message';
-        successMessage.innerHTML = `
-          <div class="flex items-center gap-2">
-            <i class="fas fa-check-circle"></i>
-            <span>Message sent successfully!</span>
-          </div>
-        `;
-        document.body.appendChild(successMessage);
+          if (response.ok) {
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'form-success-message';
+            successMessage.innerHTML = `
+              <div class="flex items-center gap-2">
+                <i class="fas fa-check-circle"></i>
+                <span>Message sent successfully!</span>
+              </div>
+            `;
+            document.body.appendChild(successMessage);
 
-        // Reset form
-        form.reset();
-        inputs.forEach(input => {
-          input.parentElement.classList.remove('success');
-        });
-        submitBtn.classList.remove('loading');
+            // Reset form
+            form.reset();
+            inputs.forEach(input => {
+              input.parentElement.classList.remove('success');
+            });
 
-        // Remove success message after 3 seconds
-        setTimeout(() => {
-          successMessage.classList.add('show');
+            // Redirect to thank you page
+            window.location.href = 'thanks.html';
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'form-success-message';
+          errorMessage.style.background = 'rgba(244, 67, 54, 0.9)';
+          errorMessage.innerHTML = `
+            <div class="flex items-center gap-2">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>Failed to send message. Please try again.</span>
+            </div>
+          `;
+          document.body.appendChild(errorMessage);
           setTimeout(() => {
-            successMessage.classList.remove('show');
-            setTimeout(() => successMessage.remove(), 3000);
-          }, 3000);
-        }, 100);
+            errorMessage.classList.add('show');
+            setTimeout(() => {
+              errorMessage.classList.remove('show');
+              setTimeout(() => errorMessage.remove(), 300);
+            }, 3000);
+          }, 100);
+        } finally {
+          submitBtn.classList.remove('loading');
+        }
       }
     });
 
