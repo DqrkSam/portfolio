@@ -1452,37 +1452,18 @@
     const contactForm = document.getElementById('contactForm');
     const submitBtn = contactForm.querySelector('.contact-submit-btn');
 
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    contactForm.addEventListener('submit', (e) => {
+      // Don't prevent default - let the form submit naturally to FormSubmit
       
       // Show loading state
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
 
-      try {
-        const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          // Show success message
-          alert('Message sent successfully! Thank you for contacting me.');
-          contactForm.reset();
-        } else {
-          throw new Error('Failed to send message');
-        }
-      } catch (error) {
-        alert('Failed to send message. Please try again later.');
-      } finally {
-        // Reset button state
+      // Reset button state after a short delay
+      setTimeout(() => {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
-      }
+      }, 2000);
     });
 
     // Keyboard Navigation
