@@ -23,17 +23,9 @@
     }
 
     body {
-      background-image: var(--bg-gradient-dark), url('./images/background.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-      padding-top: 76px;
-      margin: 0;
-      padding: 0;
-      cursor: none;
-      transition: all 0.3s ease;
+      background: var(--primary);
       color: var(--text-primary);
+      min-height: 100vh;
     }
 
     body.light-theme {
@@ -259,17 +251,6 @@
 
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(72, 209, 204, 0.3);
-    }
-
-    /* Particle Container */
-    #particles-js {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
     }
 
     /* Logo styles */
@@ -598,147 +579,6 @@
       justify-content: center;
     }
 
-    /* Custom Cursor */
-    .custom-cursor {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: width 0.3s ease, height 0.3s ease, transform 0.1s ease;
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.6;
-    }
-
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .custom-cursor.hover {
-      width: 20px;
-      height: 20px;
-      background-color: var(--accent);
-      border: none;
-      opacity: 0.3;
-      transform: translate(-50%, -50%) scale(2);
-    }
-
-    .cursor-dot.hover {
-      transform: translate(-50%, -50%) scale(0);
-    }
-
-    /* Hide default cursor */
-    body {
-      cursor: none !important;
-    }
-
-    /* Hide default cursor on interactive elements */
-    a, button, input, textarea, [role="button"] {
-      cursor: none !important;
-    }
-
-    /* Audio Controls Styling */
-    #audio-controls {
-      position: fixed;
-      bottom: 4rem;
-      right: 4rem;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    /* Volume Slider Styling */
-    #volumeSlider {
-      -webkit-appearance: none;
-      appearance: none;
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.2);
-      outline: none;
-    }
-
-    #volumeSlider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #volumeSlider::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      border: none;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #volumeSlider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
-
-    #volumeSlider::-moz-range-thumb:hover {
-      transform: scale(1.2);
-    }
-
-    /* Audio Controls Layout */
-    .audio-controls-inner {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.75rem 1rem;
-    }
-
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    #musicToggle {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-    }
-
-    #musicToggle:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .volume-icon {
-      width: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media (max-width: 768px) {
-      #audio-controls {
-        bottom: 1rem;
-        right: 1rem;
-      }
-    }
-
     /* Scroll Progress Bar */
     .scroll-progress-bar {
       position: absolute;
@@ -958,6 +798,96 @@
     .nav-link.login-link::after {
       display: none;
     }
+
+    /* Remove previous background styles */
+    .gradient-background, .gradient-orb, .noise-overlay {
+      display: none;
+    }
+
+    /* Digital Rain Canvas */
+    #digitalRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Enhanced Contact Form Styles */
+    .contact-input {
+      background: rgba(42, 72, 88, 0.4);
+      border: 1px solid rgba(72, 209, 204, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .contact-input:focus {
+      border-color: var(--accent);
+      background: rgba(42, 72, 88, 0.5);
+      box-shadow: 0 0 15px rgba(72, 209, 204, 0.1);
+    }
+
+    .form-label {
+      transform: translateY(-50%);
+      background: linear-gradient(180deg, transparent 0%, rgba(42, 72, 88, 0.4) 50%);
+      padding: 0 0.5rem;
+    }
+
+    .contact-submit-btn {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      border-radius: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .contact-submit-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .contact-submit-btn:hover .btn-background {
+      transform: scale-x-100;
+    }
+
+    .strength-bar {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group.valid .validation-icon .fa-check-circle,
+    .form-group.error .validation-icon .fa-exclamation-circle {
+      display: block;
+    }
+
+    .form-group.valid .validation-icon .fa-exclamation-circle,
+    .form-group.error .validation-icon .fa-check-circle {
+      display: none;
+    }
+
+    .form-group.typing .validation-icon,
+    .form-group.typing .strength-bar,
+    .form-group.typing .character-count {
+      opacity: 1;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .form-group.error .input-wrapper {
+      animation: shake 0.3s ease-in-out;
+    }
   </style>
 </head>
 <body class="font-sans text-white">
@@ -966,28 +896,8 @@
     <div class="loading-spinner"></div>
   </div>
 
-  <!-- Particles Container -->
-  <div id="particles-js"></div>
-
-  <!-- Audio Player -->
-  <div id="audio-controls" class="glass-card rounded-lg">
-    <audio id="bgMusic" loop>
-      <source src="assests/audio/background-song.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="audio-controls-inner">
-      <button id="musicToggle" class="text-white hover:text-[#48D1CC] transition-colors">
-        <i class="fas fa-play text-xl"></i>
-      </button>
-      <div class="volume-control">
-        <div class="volume-icon">
-          <i class="fas fa-volume-up text-[#48D1CC] text-lg"></i>
-        </div>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5" 
-          class="w-20">
-      </div>
-    </div>
-  </div>
+  <!-- Add Digital Rain Canvas -->
+  <canvas id="digitalRain"></canvas>
 
   <div class="content-wrapper">
     <main id="main" tabindex="-1">
@@ -1031,27 +941,6 @@
                   <i class="fas fa-envelope"></i>
                   <span>Contact</span>
                 </a>
-              </li>
-              <li id="authLinks">
-                <a href="/login/" class="nav-link login-link" id="loginLink">
-                  <i class="fas fa-sign-in-alt"></i>
-                  <span>Login</span>
-                </a>
-                <div class="relative" id="userMenu">
-                  <button class="nav-link hidden items-center gap-3" id="userButton">
-                    <img id="userAvatar" class="w-8 h-8 rounded-full" alt="User avatar">
-                    <span id="userDisplayName"></span>
-                    <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
-                  </button>
-                  <div id="userDropdown" class="absolute right-0 mt-2 w-48 glass-card hidden">
-                    <div class="py-2">
-                      <button class="w-full px-4 py-2 text-left hover:bg-white/10 transition-colors" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt mr-2"></i>
-                        <span>Logout</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </li>
             </ul>
 
@@ -1328,7 +1217,8 @@
                 <input type="hidden" name="_subject" value="New Portfolio Contact Message">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://www.samyam.info.np/submitted">
+                <input type="hidden" name="_next" value="https://samyam.info.np/thanks">
+                <input type="hidden" name="_autoresponse" value="Thank you for your message! I will get back to you soon.">
                 
                 <div class="form-group">
                   <input type="text" id="name" name="name" class="contact-input" placeholder=" " required minlength="2">
@@ -1361,8 +1251,6 @@
   </div>
 
   <!-- Add after particles-js div -->
-  <div class="custom-cursor"></div>
-  <div class="cursor-dot"></div>
   <div class="mouse-gradient"></div>
   
   <button class="theme-switch" aria-label="Toggle theme">
@@ -1378,94 +1266,6 @@
       once: true,
       offset: 100
     });
-
-    // Initialize particles.js with enhanced interactivity
-    particlesJS('particles-js',
-      {
-        "particles": {
-          "number": {
-            "value": 80,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": "#48D1CC"
-          },
-          "shape": {
-            "type": "circle"
-          },
-          "opacity": {
-            "value": 0.5,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 1,
-              "opacity_min": 0.1,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 3,
-            "random": true,
-            "anim": {
-              "enable": true,
-              "speed": 2,
-              "size_min": 0.1,
-              "sync": false
-            }
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": "#48D1CC",
-            "opacity": 0.4,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 2,
-            "direction": "none",
-            "random": false,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false,
-            "attract": {
-              "enable": true,
-              "rotateX": 600,
-              "rotateY": 1200
-            }
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "grab"
-            },
-            "onclick": {
-              "enable": true,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 200,
-              "line_linked": {
-                "opacity": 0.8
-              }
-            },
-            "push": {
-              "particles_nb": 4
-            }
-          }
-        },
-        "retina_detect": true
-      }
-    );
 
     // Loading overlay
     window.addEventListener('load', () => {
@@ -1574,79 +1374,6 @@
     window.addEventListener('scroll', updateActiveSection);
     window.addEventListener('load', updateActiveSection);
 
-    // Background Music Controls
-    const bgMusic = document.getElementById('bgMusic');
-    const musicToggle = document.getElementById('musicToggle');
-    const volumeSlider = document.getElementById('volumeSlider');
-    let isPlaying = false;
-
-    // Function to handle music toggle
-    function toggleMusic() {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicToggle.innerHTML = '<i class="fas fa-play text-2xl"></i>';
-      } else {
-        bgMusic.play();
-        musicToggle.innerHTML = '<i class="fas fa-pause text-2xl"></i>';
-      }
-      isPlaying = !isPlaying;
-    }
-
-    // Add click event listener to music toggle button
-    musicToggle.addEventListener('click', toggleMusic);
-
-    // Handle volume change
-    volumeSlider.addEventListener('input', (e) => {
-      bgMusic.volume = e.target.value;
-    });
-
-    // Try to autoplay immediately when page loads
-    window.addEventListener('load', async () => {
-      try {
-        await bgMusic.play();
-        isPlaying = true;
-        musicToggle.innerHTML = '<i class="fas fa-pause text-2xl"></i>';
-      } catch (err) {
-        // If autoplay fails (common in most browsers), wait for user interaction
-        document.addEventListener('click', function initAudio() {
-          if (!isPlaying) {
-            toggleMusic();
-          }
-          document.removeEventListener('click', initAudio);
-        }, { once: true });
-      }
-    });
-
-    // Simplified cursor effect
-    const cursorDot = document.querySelector('.cursor-dot');
-    
-    document.addEventListener('mousemove', (e) => {
-      requestAnimationFrame(() => {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
-      });
-    });
-
-    // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, input, textarea, [role="button"]');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorDot.classList.add('hover');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorDot.classList.remove('hover');
-      });
-    });
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-      cursorDot.style.opacity = '0';
-    });
-
-    document.addEventListener('mouseenter', () => {
-      cursorDot.style.opacity = '1';
-    });
-
     // Scroll Progress Indicator
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -1722,123 +1449,39 @@
     });
 
     // Form Validation
-    const form = document.getElementById('contactForm');
-    const inputs = form.querySelectorAll('input, textarea');
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('.contact-submit-btn');
 
-    function showError(input, message) {
-      const formGroup = input.parentElement;
-      formGroup.classList.remove('success');
-      formGroup.classList.add('error');
-      const error = formGroup.querySelector('.error-message');
-      error.textContent = message;
-    }
-
-    function showSuccess(input) {
-      const formGroup = input.parentElement;
-      formGroup.classList.remove('error');
-      formGroup.classList.add('success');
-    }
-
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function validateField(input) {
-      if (input.value.trim() === '') {
-        showError(input, `${input.name.charAt(0).toUpperCase() + input.name.slice(1)} is required`);
-        return false;
-      }
-
-      if (input.type === 'email' && !validateEmail(input.value)) {
-        showError(input, 'Please enter a valid email address');
-        return false;
-      }
-
-      if (input.minLength && input.value.length < input.minLength) {
-        showError(input, `${input.name.charAt(0).toUpperCase() + input.name.slice(1)} must be at least ${input.minLength} characters`);
-        return false;
-      }
-
-      showSuccess(input);
-      return true;
-    }
-
-    inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        validateField(input);
-      });
-
-      input.addEventListener('blur', () => {
-        validateField(input);
-      });
-    });
-
-    form.addEventListener('submit', async (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      let isValid = true;
+      
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
 
-      inputs.forEach(input => {
-        if (!validateField(input)) {
-          isValid = false;
-        }
-      });
-
-      if (isValid) {
-        const submitBtn = form.querySelector('.contact-submit-btn');
-        submitBtn.classList.add('loading');
-
-        try {
-          const formData = new FormData(form);
-          const response = await fetch('https://formsubmit.co/samyamrajb@gmail.com', {
-            method: 'POST',
-            body: formData
-          });
-
-          if (response.ok) {
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'form-success-message';
-            successMessage.innerHTML = `
-              <div class="flex items-center gap-2">
-                <i class="fas fa-check-circle"></i>
-                <span>Message sent successfully!</span>
-              </div>
-            `;
-            document.body.appendChild(successMessage);
-
-            // Reset form
-            form.reset();
-            inputs.forEach(input => {
-              input.parentElement.classList.remove('success');
-            });
-
-            // Redirect to thank you page
-            window.location.href = '/submitted/';
-          } else {
-            throw new Error('Form submission failed');
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
           }
-        } catch (error) {
-          console.error('Error:', error);
-          const errorMessage = document.createElement('div');
-          errorMessage.className = 'form-success-message';
-          errorMessage.style.background = 'rgba(244, 67, 54, 0.9)';
-          errorMessage.innerHTML = `
-            <div class="flex items-center gap-2">
-              <i class="fas fa-exclamation-circle"></i>
-              <span>Failed to send message. Please try again.</span>
-            </div>
-          `;
-          document.body.appendChild(errorMessage);
-          setTimeout(() => {
-            errorMessage.classList.add('show');
-            setTimeout(() => {
-              errorMessage.classList.remove('show');
-              setTimeout(() => errorMessage.remove(), 300);
-            }, 3000);
-          }, 100);
-        } finally {
-          submitBtn.classList.remove('loading');
+        });
+
+        if (response.ok) {
+          // Show success message
+          alert('Message sent successfully! Thank you for contacting me.');
+          contactForm.reset();
+        } else {
+          throw new Error('Failed to send message');
         }
+      } catch (error) {
+        alert('Failed to send message. Please try again later.');
+      } finally {
+        // Reset button state
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
       }
     });
 
@@ -1896,54 +1539,159 @@
       announceError(message);
     }
 
-    // Add this at the beginning of your script section
-    // Check login status
-    function checkLoginStatus() {
-      const currentUserData = localStorage.getItem('currentUser');
-      const loginLink = document.getElementById('loginLink');
-      const userButton = document.getElementById('userButton');
-      const userDropdown = document.getElementById('userDropdown');
-      
-      if (currentUserData) {
-        const user = JSON.parse(currentUserData);
-        loginLink.classList.add('hidden');
-        userButton.classList.remove('hidden');
-        userButton.classList.add('flex');
-        
-        // Set user info
-        document.getElementById('userDisplayName').textContent = user.displayName;
-        document.getElementById('userAvatar').src = user.avatar;
-        
-        // Handle dropdown
-        userButton.addEventListener('click', (e) => {
-          e.stopPropagation();
-          userButton.classList.toggle('active');
-          userDropdown.classList.toggle('show');
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!userButton.contains(e.target)) {
-            userButton.classList.remove('active');
-            userDropdown.classList.remove('show');
-          }
-        });
-      } else {
-        loginLink.classList.remove('hidden');
-        userButton.classList.add('hidden');
-        userButton.classList.remove('flex');
+    // Digital Rain Effect
+    const canvas = document.getElementById('digitalRain');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Convert hex to rgba
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    // Rain drop class
+    class RainDrop {
+      constructor(x, y, speed, color) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.color = color;
+        this.text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        this.lifetime = 0;
+        this.maxLifetime = Math.random() * 50 + 50;
+      }
+
+      update() {
+        this.y += this.speed;
+        this.lifetime++;
+
+        if (this.y > canvas.height || this.lifetime > this.maxLifetime) {
+          this.y = -20;
+          this.lifetime = 0;
+          this.text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        }
+      }
+
+      draw() {
+        const alpha = Math.max(0, 1 - this.lifetime / this.maxLifetime);
+        ctx.fillStyle = hexToRgba(this.color, alpha);
+        ctx.font = '14px monospace';
+        ctx.fillText(this.text, this.x, this.y);
       }
     }
 
-    // Handle logout
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('currentUser');
-      checkLoginStatus();
-      window.location.reload();
+    // Create rain drops
+    const rainDrops = [];
+    const primaryColor = '#48D1CC'; // Your turquoise color
+    const secondaryColor = '#2A4858'; // Your dark blue color
+
+    function createRainDrops() {
+      const numberOfDrops = Math.floor(canvas.width / 20); // Adjust density here
+      
+      for (let i = 0; i < numberOfDrops; i++) {
+        const x = i * 20;
+        const y = Math.random() * canvas.height;
+        const speed = Math.random() * 2 + 1;
+        const color = Math.random() > 0.5 ? primaryColor : secondaryColor;
+        
+        rainDrops.push(new RainDrop(x, y, speed, color));
+      }
+    }
+
+    // Mouse interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    canvas.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // Create additional drops around mouse
+      if (Math.random() > 0.8) {
+        const x = mouseX + (Math.random() - 0.5) * 100;
+        const y = mouseY;
+        const speed = Math.random() * 3 + 2;
+        const color = Math.random() > 0.7 ? primaryColor : secondaryColor;
+        
+        rainDrops.push(new RainDrop(x, y, speed, color));
+      }
     });
 
-    // Check login status on page load
-    window.addEventListener('load', checkLoginStatus);
+    // Animation loop
+    function animate() {
+      ctx.fillStyle = 'rgba(42, 72, 88, 0.1)'; // Matching your primary color
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      rainDrops.forEach(drop => {
+        drop.update();
+        drop.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize
+    createRainDrops();
+    animate();
+
+    // Scroll animations for sections
+    const contentSections = document.querySelectorAll('section');
+    contentSections.forEach(section => {
+      gsap.from(section.children, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Parallax effect for section backgrounds
+    contentSections.forEach(section => {
+      gsap.to(section, {
+        backgroundPosition: `50% ${innerHeight / 2}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    // Animate skill bars on scroll
+    const skillBars = document.querySelectorAll('.skill-progress .progress-bar');
+    skillBars.forEach(bar => {
+      const percentage = bar.style.width;
+      bar.style.width = '0%';
+      
+      gsap.to(bar, {
+        width: percentage,
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: bar,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
   </script>
 </body>
 </html>
