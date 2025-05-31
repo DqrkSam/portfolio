@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App | SamYam</title>
+    <link rel="icon" type="image/x-icon" href="../../images/x-logo.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <a href="/features" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Features</span>
+    </a>
+
+    <div class="weather-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search for a city...">
+            <button class="location-btn" title="Get current location">
+                <i class="fas fa-location-dot"></i>
+            </button>
+        </div>
+
+        <div class="weather-info">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Loading weather data...</span>
+            </div>
+
+            <div class="weather-content">
+                <div class="city">Loading...</div>
+                <div class="date"></div>
+                
+                <div class="temp-container">
+                    <img src="" alt="weather icon" class="weather-icon">
+                    <div class="temperature">--°C</div>
+                    <div class="feels-like">Feels like: --°C</div>
+                </div>
+                
+                <div class="weather-description">--</div>
+                
+                <div class="details">
+                    <div class="detail">
+                        <i class="fas fa-wind"></i>
+                        <div>
+                            <span class="wind">-- km/h</span>
+                            <span>Wind</span>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <i class="fas fa-droplet"></i>
+                        <div>
+                            <span class="humidity">--%</span>
+                            <span>Humidity</span>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <i class="fas fa-gauge-high"></i>
+                        <div>
+                            <span class="pressure">-- hPa</span>
+                            <span>Pressure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forecast">
+            <h3>5-Day Forecast</h3>
+            <div class="forecast-container">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Loading forecast...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html> 

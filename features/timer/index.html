@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer | SamYam</title>
+    <link rel="icon" type="image/x-icon" href="../../images/x-logo.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <a href="/features" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Features</span>
+    </a>
+
+    <div class="timer-container">
+        <h1>Timer</h1>
+        
+        <div class="timer-display">
+            <div class="time">00:00</div>
+            <div class="progress-ring">
+                <svg width="300" height="300">
+                    <circle class="progress-ring-circle" cx="150" cy="150" r="145" stroke-width="10" fill="none"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="timer-controls">
+            <button class="start-btn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="reset-btn">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <div class="settings-panel hidden">
+            <h2>Set Timer</h2>
+            <div class="time-inputs">
+                <div class="input-group">
+                    <label for="minutes">Minutes</label>
+                    <input type="number" id="minutes" min="0" max="59" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="seconds">Seconds</label>
+                    <input type="number" id="seconds" min="0" max="59" value="0">
+                </div>
+            </div>
+            <button class="save-settings-btn">Save</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
