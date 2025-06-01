@@ -1018,7 +1018,11 @@
     }
   </style>
 </head>
-<body class="font-sans text-white">
+<body class="font-sans text-white" 
+      oncontextmenu="return false" 
+      onselectstart="return false" 
+      ondragstart="return false"
+      onkeydown="return false">
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
@@ -1966,6 +1970,166 @@
       initCanvas();
       updateGallery();
     });
+
+    // Web Bluetooth API
+    document.getElementById('bluetoothConnect').addEventListener('click', async () => {
+      try {
+        const device = await navigator.bluetooth.requestDevice({
+          acceptAllDevices: true,
+          optionalServices: ['battery_service']
+        });
+        
+        const status = document.getElementById('bluetoothStatus');
+        const data = document.getElementById('bluetoothData');
+        
+        status.textContent = `Connected: ${device.name}`;
+        status.classList.remove('hidden');
+        data.classList.remove('hidden');
+        
+        // Example: Reading battery level
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService('battery_service');
+        const characteristic = await service.getCharacteristic('battery_level');
+        
+        const value = await characteristic.readValue();
+        data.querySelector('pre').textContent = `Battery Level: ${value.getUint8(0)}%`;
+      } catch (error) {
+        console.error('Bluetooth Error:', error);
+        alert('Could not connect to Bluetooth device. Make sure Bluetooth is enabled.');
+      }
+    });
+
+    // Web USB API
+    document.getElementById('usbConnect').addEventListener('click', async () => {
+      try {
+        const device = await navigator.usb.requestDevice({
+          filters: [] // Accept any USB device
+        });
+        
+        const status = document.getElementById('usbStatus');
+        const data = document.getElementById('usbData');
+        
+        await device.open();
+        await device.selectConfiguration(1);
+        await device.claimInterface(0);
+        
+        status.textContent = `Connected: ${device.productName}`;
+        status.classList.remove('hidden');
+        data.classList.remove('hidden');
+        
+        data.querySelector('pre').textContent = `
+Manufacturer: ${device.manufacturerName}
+Product: ${device.productName}
+Serial: ${device.serialNumber}
+        `.trim();
+      } catch (error) {
+        console.error('USB Error:', error);
+        alert('Could not connect to USB device.');
+      }
+    });
+
+    // Web MIDI API
+    document.getElementById('midiConnect').addEventListener('click', async () => {
+      try {
+        const access = await navigator.requestMIDIAccess();
+        const status = document.getElementById('midiStatus');
+        const piano = document.getElementById('virtualPiano');
+        
+        status.textContent = `MIDI Available: ${access.inputs.size} input(s), ${access.outputs.size} output(s)`;
+        status.classList.remove('hidden');
+        piano.classList.remove('hidden');
+        
+        // Create virtual piano
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const pianoHTML = notes.map(note => `
+          <button class="piano-key ${note.includes('#') ? 'black' : 'white'}" data-note="${note}">
+            ${note}
+          </button>
+        `).join('');
+        
+        piano.querySelector('div').innerHTML = pianoHTML;
+        
+        // Style piano keys
+        const style = document.createElement('style');
+        style.textContent = `
+          .piano-key {
+            width: 40px;
+            height: 120px;
+            border: 1px solid rgba(72, 209, 204, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            position: relative;
+            transition: all 0.1s ease;
+          }
+          .piano-key.black {
+            background: rgba(0, 0, 0, 0.8);
+            height: 80px;
+            width: 30px;
+            margin: 0 -15px;
+            z-index: 1;
+          }
+          .piano-key:hover {
+            background: rgba(72, 209, 204, 0.2);
+          }
+          .piano-key:active {
+            background: rgba(72, 209, 204, 0.4);
+            transform: translateY(2px);
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // Handle MIDI input
+        access.inputs.forEach(input => {
+          input.onmidimessage = (message) => {
+            const [command, note, velocity] = message.data;
+            if (command === 144 && velocity > 0) {
+              // Note On
+              const noteName = notes[note % 12];
+              const key = document.querySelector(`[data-note="${noteName}"]`);
+              if (key) {
+                key.style.background = 'rgba(72, 209, 204, 0.4)';
+                setTimeout(() => {
+                  key.style.background = '';
+                }, 200);
+              }
+            }
+          };
+        });
+      } catch (error) {
+        console.error('MIDI Error:', error);
+        alert('Web MIDI is not supported in your browser.');
+      }
+    });
+
+    // Anti-copy protection
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      alert('Sorry, right-click is disabled for content protection!');
+    });
+
+    document.addEventListener('keydown', function(e) {
+      // Prevent Ctrl+Shift+I (Chrome DevTools)
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+        e.preventDefault();
+      }
+      // Prevent Ctrl+U (View Source)
+      if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+      }
+      // Prevent Ctrl+S (Save)
+      if (e.ctrlKey && e.keyCode === 83) {
+        e.preventDefault();
+      }
+    });
+
+    // Disable text selection
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+    });
+
+    // Console warning
+    console.log('%c⚠️ Stop!', 'color: red; font-size: 30px; font-weight: bold;');
+    console.log('%cThis is a protected website. All actions are being monitored.', 'color: red; font-size: 16px;');
   </script>
 </body>
 </html>

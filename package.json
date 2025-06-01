@@ -23,5 +23,8 @@
     "express": "^5.1.0",
     "openai": "^5.0.1",
     "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1"
   }
 }
