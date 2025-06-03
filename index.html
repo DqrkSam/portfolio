@@ -1021,8 +1021,7 @@
 <body class="font-sans text-white" 
       oncontextmenu="return false" 
       onselectstart="return false" 
-      ondragstart="return false"
-      onkeydown="return false">
+      ondragstart="return false">
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
@@ -2107,29 +2106,31 @@ Serial: ${device.serialNumber}
       alert('Sorry, right-click is disabled for content protection!');
     });
 
+    // Update the keydown protection to be more specific
     document.addEventListener('keydown', function(e) {
-      // Prevent Ctrl+Shift+I (Chrome DevTools)
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-        e.preventDefault();
-      }
-      // Prevent Ctrl+U (View Source)
-      if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-      }
-      // Prevent Ctrl+S (Save)
-      if (e.ctrlKey && e.keyCode === 83) {
-        e.preventDefault();
+      // Only prevent specific key combinations
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        // Prevent Ctrl+Shift+I (Chrome DevTools)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+          e.preventDefault();
+        }
+        // Prevent Ctrl+U (View Source)
+        if (e.ctrlKey && e.keyCode === 85) {
+          e.preventDefault();
+        }
+        // Prevent Ctrl+S (Save)
+        if (e.ctrlKey && e.keyCode === 83) {
+          e.preventDefault();
+        }
       }
     });
 
-    // Disable text selection
+    // Update text selection protection to exclude form inputs
     document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
     });
-
-    // Console warning
-    console.log('%c⚠️ Stop!', 'color: red; font-size: 30px; font-weight: bold;');
-    console.log('%cThis is a protected website. All actions are being monitored.', 'color: red; font-size: 16px;');
   </script>
 </body>
 </html>
