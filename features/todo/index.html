@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List | SamYam</title>
+    <link rel="icon" type="image/x-icon" href="../../images/x-logo.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <a href="/features" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Features</span>
+    </a>
+
+    <div class="todo-container">
+        <h1>Todo List</h1>
+        
+        <div class="add-todo">
+            <input type="text" placeholder="Add a new task...">
+            <button class="add-btn">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+            <button class="clear-completed">Clear Completed</button>
+        </div>
+
+        <div class="todo-list">
+            <!-- Tasks will be added here -->
+        </div>
+
+        <div class="todo-stats">
+            <span class="items-left">0 items left</span>
+            <div class="sort-options">
+                <button class="sort-btn" data-sort="date">
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
+                <button class="sort-btn" data-sort="priority">
+                    <i class="fas fa-flag"></i>
+                </button>
+                <button class="sort-btn" data-sort="alphabetical">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Template -->
+    <template id="task-template">
+        <div class="todo-item" draggable="true">
+            <div class="todo-content">
+                <input type="checkbox" class="todo-checkbox">
+                <input type="text" class="todo-text" readonly>
+            </div>
+            <div class="todo-actions">
+                <button class="priority-btn" title="Set Priority">
+                    <i class="fas fa-flag"></i>
+                </button>
+                <button class="edit-btn" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-btn" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html> 

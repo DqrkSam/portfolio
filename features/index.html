@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Features | SamYam</title>
+    <link rel="icon" type="image/x-icon" href="../images/x-logo.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        :root {
+            --primary: #2A4858;
+            --accent: #48D1CC;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(72, 209, 204, 0.2);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+
+        .back-button:hover {
+            background: rgba(72, 209, 204, 0.1);
+            border-color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        /* Enhanced Mobile Styles */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .feature-card {
+                margin: 0 1rem;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-3px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .back-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .feature-card {
+                margin: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+    <a href="/" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+
+    <div class="max-w-6xl mx-auto mt-16 sm:mt-20">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12" data-aos="fade-up">Interactive Features</h1>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            <!-- Google Clone -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fab fa-google text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Google Clone</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">A pixel-perfect recreation of Google's search interface</p>
+                </div>
+                <a href="/features/google" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Try it out
+                </a>
+            </div>
+
+            <!-- Calculator -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-calculator text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Calculator</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">A sleek and functional calculator with advanced features</p>
+                </div>
+                <a href="/features/calculator" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Calculate
+                </a>
+            </div>
+
+            <!-- Chrome Dino Game -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-dragon text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Chrome Dino Game</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">The classic Chrome dinosaur game with a modern twist</p>
+                </div>
+                <a href="/features/dino" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Play Now
+                </a>
+            </div>
+
+            <!-- Tic Tac Toe -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-gamepad text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Tic Tac Toe</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">Classic game with AI opponent and multiplayer mode</p>
+                </div>
+                <a href="/features/tictactoe" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Play Game
+                </a>
+            </div>
+
+            <!-- Weather App -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-cloud-sun text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Weather App</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">Real-time weather information with beautiful visualizations</p>
+                </div>
+                <a href="/features/weather" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Check Weather
+                </a>
+            </div>
+
+            <!-- Todo List -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-tasks text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Todo List</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">A feature-rich todo list with local storage</p>
+                </div>
+                <a href="/features/todo" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Get Organized
+                </a>
+            </div>
+
+            <!-- Quiz Game -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-question-circle text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Quiz Game</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">Test your knowledge across multiple categories</p>
+                </div>
+                <a href="/features/quiz" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Start Quiz
+                </a>
+            </div>
+
+            <!-- Timer -->
+            <div class="feature-card rounded-xl p-4 sm:p-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center mb-4 sm:mb-6">
+                    <i class="fas fa-clock text-3xl sm:text-4xl text-[#48D1CC]"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Timer</h3>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base">Simple and elegant countdown timer with sound notifications</p>
+                </div>
+                <a href="/features/timer" class="block text-center bg-[#48D1CC] text-white py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm sm:text-base">
+                    Start Timer
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize AOS with responsive duration
+        AOS.init({
+            duration: window.innerWidth < 768 ? 600 : 800,
+            once: true,
+            offset: window.innerWidth < 768 ? 50 : 100
+        });
+    </script>
+</body>
+</html>

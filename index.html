@@ -1,28 +1,2136 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0511" />
-    <title>Modern Portfolio - Futuristic Design</title>
-    <meta name="description" content="Advanced portfolio website with 3D animations and immersive experience" />
-    <meta name="author" content="Portfolio Owner" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SamYam</title>
+  <link rel="icon" type="image/x-icon" href="./images/x-logo.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <style>
+    :root {
+      --primary: #2A4858;
+      --accent: #48D1CC;
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --bg-gradient-dark: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+      --bg-gradient-light: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
+    }
 
-    <meta property="og:title" content="Modern Portfolio - Futuristic Design" />
-    <meta property="og:description" content="Advanced portfolio website with 3D animations and immersive experience" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    body {
+      background: var(--primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    body.light-theme {
+      --primary: #48D1CC;
+      --accent: #2A4858;
+      --text-primary: #2A4858;
+      --text-secondary: rgba(42, 72, 88, 0.6);
+      color: var(--text-primary);
+    }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    body.light-theme .nav-link {
+      color: #2A4858;
+    }
+
+    body.light-theme .nav-link:hover,
+    body.light-theme .nav-link.active {
+      color: var(--accent);
+    }
+
+    body.light-theme .glass-card {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(72, 209, 204, 0.1), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(42, 72, 88, 0.1), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      min-height: 100vh;
+      padding-top: 0;
+    }
+
+    .nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+
+    .nav-link i {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover i {
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: width 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: calc(100% - 1rem);
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(72, 209, 204, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .glass-card:hover::before {
+      left: 100%;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(72, 209, 204, 0.2);
+      border-color: rgba(72, 209, 204, 0.4);
+    }
+
+    .custom-button {
+      position: relative;
+      background: rgba(72, 209, 204, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .custom-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: radial-gradient(circle, rgba(72, 209, 204, 0.3) 0%, transparent 70%);
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.6s ease-out;
+    }
+
+    .custom-button:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .custom-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(72, 209, 204, 0.2);
+      border-color: rgba(72, 209, 204, 0.5);
+    }
+
+    /* Custom Typed.js cursor styling */
+    .typed-cursor {
+      font-size: 2.5rem !important;
+      line-height: 1 !important;
+      margin-left: 0.2rem !important;
+      opacity: 0.7 !important;
+      animation: blink 1s infinite !important;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-link {
+        display: inline-flex;
+        padding: 0.5rem;
+      }
+      
+      .nav-link::after {
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+      }
+      
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: calc(100% - 1rem);
+        transform: translateX(-50%) scaleX(1);
+      }
+      
+      .typed-cursor {
+        font-size: 1.875rem !important;
+      }
+    }
+
+    /* Header and Navigation styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    header:not(.scrolled) {
+      background: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(72, 209, 204, 0.2);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(72, 209, 204, 0.3);
+    }
+
+    /* Logo styles */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-image {
+      width: 2rem;
+      height: 2rem;
+      object-fit: contain;
+    }
+
+    /* Skills Section Progress Bar */
+    .skill-progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skill-progress .progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(72, 209, 204, 0.8), #48D1CC);
+      border-radius: 999px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-progress .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Enhanced Section Transitions */
+    .section-fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .section-fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Project Card Enhancements */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card .project-links a {
+      cursor: pointer;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .project-links a {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .project-card .project-links a:nth-child(2) {
+      transition-delay: 0.1s;
+    }
+
+    /* Contact Section Enhancements */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr 2fr;
+        gap: 4rem;
+      }
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      background: rgba(42, 72, 88, 0.4);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(72, 209, 204, 0.1);
+    }
+
+    .social-link:hover {
+      background: rgba(72, 209, 204, 0.1);
+      transform: translateX(5px);
+      border-color: rgba(72, 209, 204, 0.2);
+    }
+
+    .social-link i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      width: 2rem;
+      text-align: center;
+    }
+
+    .social-link .social-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .social-link .social-title {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .social-link .social-username {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: transparent;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .contact-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: var(--text-primary);
+      background: rgba(42, 72, 88, 0.4);
+      border: 1px solid rgba(72, 209, 204, 0.1);
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-input:focus {
+      background: rgba(42, 72, 88, 0.5);
+      border-color: rgba(72, 209, 204, 0.3);
+      outline: none;
+    }
+
+    .contact-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 1.25rem;
+      top: 1rem;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-group .contact-input:focus + label,
+    .form-group .contact-input:not(:placeholder-shown) + label {
+      transform: translateY(-2.25rem);
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .contact-submit-btn {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: white;
+      background: rgba(72, 209, 204, 0.1);
+      border: 1px solid rgba(72, 209, 204, 0.2);
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-submit-btn:hover {
+      background: rgba(72, 209, 204, 0.2);
+      border-color: rgba(72, 209, 204, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Loading Animation */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(72, 209, 204, 0.3);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Menu Styles */
+    .mobile-menu {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: rgba(26, 32, 44, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 40;
+      border-bottom: 1px solid rgba(72, 209, 204, 0.1);
+    }
+
+    .mobile-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu .nav-link i {
+      color: var(--accent);
+      width: 2rem;
+      text-align: center;
+    }
+
+    .mobile-menu .nav-link:hover {
+      color: var(--accent);
+      background: rgba(72, 209, 204, 0.1);
+      border-radius: 0.5rem;
+    }
+
+    .mobile-menu .nav-link.active {
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      background: transparent;
+      border: none;
+    }
+
+    .menu-toggle:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+    }
+
+    #home {
+      padding-top: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), #48D1CC);
+      width: 0;
+      transition: width 0.1s ease;
+    }
+
+    .mouse-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+      background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(72, 209, 204, 0.15),
+        transparent 40%
+      );
+    }
+
+    /* Theme Switcher */
+    .theme-switch {
+      position: fixed;
+      bottom: 4rem;
+      left: 4rem;
+      z-index: 50;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-switch:hover {
+      transform: scale(1.1);
+    }
+
+    .theme-switch i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    /* Form Validation Styles */
+    .form-group.success input,
+    .form-group.success textarea {
+      border-color: #4CAF50;
+    }
+
+    .form-group.error input,
+    .form-group.error textarea {
+      border-color: #f44336;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .form-group.error .error-message {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .form-success-message {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: rgba(76, 175, 80, 0.9);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .form-success-message.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* Form Animation */
+    .contact-input:focus ~ label,
+    .contact-input:not(:placeholder-shown) ~ label {
+      transform: translateY(-2.25rem) scale(0.9);
+      color: var(--accent);
+    }
+
+    .contact-submit-btn .submit-text {
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .contact-submit-btn .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .contact-submit-btn.loading .submit-text {
+      display: none;
+    }
+
+    .contact-submit-btn.loading .loading-spinner {
+      display: block;
+    }
+
+    /* High Contrast Mode */
+    @media (prefers-contrast: more) {
+      :root {
+        --primary: #000000;
+        --accent: #0000FF;
+      }
+      
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      
+      .glass-card {
+        background: #FFFFFF;
+        border: 2px solid #000000;
+      }
+    }
+
+    /* Focus Styles */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-to-main {
+      position: fixed;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      z-index: 9999;
+      transition: top 0.3s ease;
+    }
+
+    .skip-to-main:focus {
+      top: 0;
+    }
+
+    /* Add these styles to your existing styles */
+    #userButton.active i {
+      transform: rotate(180deg);
+    }
+
+    #userDropdown {
+      transform-origin: top right;
+      transition: all 0.2s ease;
+    }
+
+    #userDropdown.show {
+      display: block;
+      animation: dropdownFadeIn 0.2s ease;
+    }
+
+    @keyframes dropdownFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .nav-link.login-link {
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.2), rgba(42, 72, 88, 0.2));
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      border-radius: 1.5rem;
+      padding: 0.5rem 1.25rem;
+      margin-left: 1rem;
+      box-shadow: 0 0 10px rgba(72, 209, 204, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .nav-link.login-link:hover {
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.3), rgba(42, 72, 88, 0.3));
+      box-shadow: 0 0 15px rgba(72, 209, 204, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-link.login-link::after {
+      display: none;
+    }
+
+    /* Remove previous background styles */
+    .gradient-background, .gradient-orb, .noise-overlay {
+      display: none;
+    }
+
+    /* Digital Rain Canvas */
+    #digitalRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Enhanced Contact Form Styles */
+    .contact-input {
+      background: rgba(42, 72, 88, 0.4);
+      border: 1px solid rgba(72, 209, 204, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .contact-input:focus {
+      border-color: var(--accent);
+      background: rgba(42, 72, 88, 0.5);
+      box-shadow: 0 0 15px rgba(72, 209, 204, 0.1);
+    }
+
+    .form-label {
+      transform: translateY(-50%);
+      background: linear-gradient(180deg, transparent 0%, rgba(42, 72, 88, 0.4) 50%);
+      padding: 0 0.5rem;
+    }
+
+    .contact-submit-btn {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      border-radius: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .contact-submit-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .contact-submit-btn:hover .btn-background {
+      transform: scale-x-100;
+    }
+
+    .strength-bar {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group.valid .validation-icon .fa-check-circle,
+    .form-group.error .validation-icon .fa-exclamation-circle {
+      display: block;
+    }
+
+    .form-group.valid .validation-icon .fa-exclamation-circle,
+    .form-group.error .validation-icon .fa-check-circle {
+      display: none;
+    }
+
+    .form-group.typing .validation-icon,
+    .form-group.typing .strength-bar,
+    .form-group.typing .character-count {
+      opacity: 1;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .form-group.error .input-wrapper {
+      animation: shake 0.3s ease-in-out;
+    }
+
+    /* Remove all chat widget styles */
+    .chat-widget,
+    .chat-button,
+    .chat-container,
+    .chat-header,
+    .chat-header-avatar,
+    .chat-header-info,
+    .chat-messages,
+    .chat-input-container,
+    .chat-form,
+    .chat-input,
+    .chat-submit {
+      display: none;
+    }
+
+    /* Add signature pad styles before the last style tag */
+    .signature-section {
+      padding: 4rem 0;
+      background: rgba(42, 72, 88, 0.1);
+    }
+
+    .signature-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .signature-pad {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(72, 209, 204, 0.3);
+      border-radius: 1rem;
+      cursor: crosshair;
+      margin-bottom: 1rem;
+      touch-action: none;
+    }
+
+    .signature-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .signature-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      background: rgba(72, 209, 204, 0.1);
+      border: 1px solid rgba(72, 209, 204, 0.3);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .signature-btn:hover {
+      background: rgba(72, 209, 204, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .signature-btn i {
+      font-size: 1.1rem;
+    }
+
+    .signature-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .signature-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .signature-item:hover {
+      transform: scale(1.05);
+    }
+
+    .signature-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .color-picker {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .color-option.active {
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* Add these styles before the closing style tag */
+    .color-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .color-btn.active {
+      border-color: #48D1CC;
+      transform: scale(1.1);
+    }
+
+    #signatureCanvas {
+      touch-action: none;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body class="font-sans text-white" 
+      oncontextmenu="return false" 
+      onselectstart="return false" 
+      ondragstart="return false">
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Add Digital Rain Canvas -->
+  <canvas id="digitalRain"></canvas>
+
+  <div class="content-wrapper">
+    <main id="main" tabindex="-1">
+      <!-- Navbar -->
+      <header class="fixed w-full z-50">
+        <div class="scroll-progress-bar"></div>
+        <nav class="max-w-7xl mx-auto px-4 py-3">
+          <div class="flex justify-between items-center">
+            <a href="#home" class="text-3xl font-bold">
+              Samyam
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex items-center space-x-6">
+              <li>
+                <a href="#home" class="nav-link">
+                  <i class="fas fa-home"></i>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="#about" class="nav-link">
+                  <i class="fas fa-user"></i>
+                  <span>About</span>
+                </a>
+              </li>
+              <li>
+                <a href="#skills" class="nav-link">
+                  <i class="fas fa-code"></i>
+                  <span>Skills</span>
+                </a>
+              </li>
+              <li>
+                <a href="#projects" class="nav-link">
+                  <i class="fas fa-project-diagram"></i>
+                  <span>Projects</span>
+                </a>
+              </li>
+              <li>
+                <a href="#contact" class="nav-link">
+                  <i class="fas fa-envelope"></i>
+                  <span>Contact</span>
+                </a>
+              </li>
+              <li>
+                <a href="/features/" class="nav-link">
+                  <i class="fas fa-star"></i>
+                  <span>Website Features</span>
+                </a>
+              </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white" id="menu-toggle">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+
+          <!-- Mobile Navigation -->
+          <div class="md:hidden hidden pt-4 pb-3" id="mobile-menu">
+            <ul class="space-y-2">
+              <li><a href="#home" class="nav-link block"><i class="fas fa-home"></i> Home</a></li>
+              <li><a href="#about" class="nav-link block"><i class="fas fa-user"></i> About</a></li>
+              <li><a href="#skills" class="nav-link block"><i class="fas fa-code"></i> Skills</a></li>
+              <li><a href="#projects" class="nav-link block"><i class="fas fa-project-diagram"></i> Projects</a></li>
+              <li><a href="#contact" class="nav-link block"><i class="fas fa-envelope"></i> Contact</a></li>
+              <li><a href="/features/" class="nav-link block"><i class="fas fa-star"></i> Website Features</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <section id="home" class="min-h-screen flex items-center justify-center">
+        <div class="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
+          <h1 class="text-5xl md:text-7xl font-bold mb-4">Hi, I'm Samyam</h1>
+          <div class="h-16">
+            <span class="text-2xl md:text-3xl" id="typed"></span>
+          </div>
+          <div class="flex flex-wrap justify-center gap-6 mt-8">
+            <a href="#projects" class="custom-button px-8 py-4 rounded-lg">
+              <span class="relative z-10 flex items-center gap-2">
+                <span>View Projects</span>
+                <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </span>
+            </a>
+            <a href="#contact" class="custom-button px-8 py-4 rounded-lg">
+              <span class="relative z-10 flex items-center gap-2">
+                <span>Let's Connect</span>
+                <i class="fas fa-envelope transition-transform group-hover:translate-y-[-2px]"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="min-h-screen flex items-center">
+        <div class="max-w-4xl mx-auto px-4 py-20">
+          <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">About Me</h2>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="glass-card p-8 rounded-xl" data-aos="fade-right">
+              <p class="text-lg leading-relaxed">
+                Hello! I'm a passionate web developer from Nepal, currently pursuing my education at Macquarie University. With a keen eye for design and a love for clean code, I create web experiences that are both beautiful and functional.
+              </p>
+            </div>
+            <div class="glass-card p-8 rounded-xl" data-aos="fade-left">
+              <h3 class="text-xl font-semibold mb-6">Quick Facts</h3>
+              <ul class="space-y-4">
+                <li class="flex items-center gap-4 group">
+                  <i class="fas fa-map-marker-alt text-[#48D1CC] text-xl transition-transform group-hover:scale-110"></i>
+                  <span>Based in Sydney, Australia</span>
+                </li>
+                <li class="flex items-center gap-4 group">
+                  <i class="fas fa-graduation-cap text-[#48D1CC] text-xl transition-transform group-hover:scale-110"></i>
+                  <span>Studying at Macquarie University</span>
+                </li>
+                <li class="flex items-center gap-4 group">
+                  <i class="fas fa-code text-[#48D1CC] text-xl transition-transform group-hover:scale-110"></i>
+                  <span>Full Stack Development</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto px-4 py-20">
+          <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Skills & Technologies</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Frontend Skills -->
+            <div class="glass-card p-8 rounded-xl">
+              <div class="text-center mb-8">
+                <i class="fab fa-react text-4xl text-[#48D1CC] mb-4"></i>
+                <h3 class="text-xl font-semibold">Frontend Development</h3>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">React</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">90%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">TypeScript</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">85%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 85%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Tailwind CSS</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">95%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 95%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Backend Skills -->
+            <div class="glass-card p-8 rounded-xl">
+              <div class="text-center mb-8">
+                <i class="fas fa-server text-4xl text-[#48D1CC] mb-4"></i>
+                <h3 class="text-xl font-semibold">Backend Development</h3>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Node.js</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">88%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 88%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Python</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">85%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 85%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">MongoDB</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">92%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 92%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tools & Others -->
+            <div class="glass-card p-8 rounded-xl">
+              <div class="text-center mb-8">
+                <i class="fas fa-tools text-4xl text-[#48D1CC] mb-4"></i>
+                <h3 class="text-xl font-semibold">Tools & Others</h3>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Git</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">90%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Docker</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">82%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 82%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">AWS</span>
+                    <span class="text-sm font-medium text-[#48D1CC]">85%</span>
+                  </div>
+                  <div class="skill-progress">
+                    <div class="progress-bar" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="min-h-screen py-20">
+        <div class="max-w-6xl mx-auto px-4">
+          <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Featured Projects</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="project-card glass-card rounded-xl overflow-hidden group" data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-perspective="1000">
+              <div class="relative">
+                <img src="images/background.jpg" alt="Project" class="w-full h-48 object-cover transition-transform group-hover:scale-105 cursor-pointer project-image">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                  <div class="project-links flex gap-4">
+                    <a href="#" class="text-white hover:text-[#48D1CC] transition-colors" aria-label="View source code on GitHub">
+                      <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#48D1CC] transition-colors" aria-label="Visit live project">
+                      <i class="fas fa-external-link-alt text-2xl"></i>
+                    </a>
+                    <button class="text-white hover:text-[#48D1CC] transition-colors gallery-btn" aria-label="View project gallery">
+                      <i class="fas fa-images text-2xl"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Project Title</h3>
+                <p class="text-gray-300 mb-4">Project description goes here...</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition-colors">React</span>
+                  <span class="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20 transition-colors">Node.js</span>
+                </div>
+              </div>
+            </div>
+            <!-- Add more project cards with similar structure -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto px-4 py-20">
+          <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">Let's Connect</h2>
+          <div class="contact-wrapper">
+            <!-- Social Links -->
+            <div class="social-links" data-aos="fade-right">
+              <a href="https://github.com/" class="social-link">
+                <i class="fab fa-github"></i>
+                <div class="social-text">
+                  <span class="social-title">GitHub</span>
+                  <span class="social-username">@tobeadded</span>
+                </div>
+              </a>
+              <a href="https://linkedin.com/" class="social-link">
+                <i class="fab fa-linkedin"></i>
+                <div class="social-text">
+                  <span class="social-title">LinkedIn</span>
+                  <span class="social-username">@tobeadded</span>
+                </div>
+              </a>
+              <a href="mailto:samyamrajb@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+                <div class="social-text">
+                  <span class="social-title">Email</span>
+                  <span class="social-username">samyamrajb@gmail.com</span>
+                </div>
+              </a>
+              <a href="https://twitter.com/" class="social-link">
+                <i class="fab fa-twitter"></i>
+                <div class="social-text">
+                  <span class="social-title">Twitter</span>
+                  <span class="social-username">@tobeadded</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form" data-aos="fade-left">
+              <form class="space-y-6" id="contactForm" action="https://formsubmit.co/samyamrajb@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://samyam.info.np/submitted">
+                <input type="hidden" name="_autoresponse" value="Thank you for your message! I will get back to you soon.">
+                
+                <div class="form-group">
+                  <input type="text" id="name" name="name" class="contact-input" placeholder=" " required minlength="2">
+                  <label for="name">Your Name</label>
+                  <div class="error-message">Please enter a valid name (minimum 2 characters)</div>
+                </div>
+                <div class="form-group">
+                  <input type="email" id="email" name="email" class="contact-input" placeholder=" " required>
+                  <label for="email">Your Email</label>
+                  <div class="error-message">Please enter a valid email address</div>
+                </div>
+                <div class="form-group">
+                  <textarea id="message" name="message" class="contact-input contact-textarea" placeholder=" " required minlength="10"></textarea>
+                  <label for="message">Your Message</label>
+                  <div class="error-message">Please enter a message (minimum 10 characters)</div>
+                </div>
+                <button type="submit" class="contact-submit-btn group">
+                  <span class="submit-text relative z-10 flex items-center justify-center gap-2">
+                    <span>Send Message</span>
+                    <i class="fas fa-paper-plane transition-all group-hover:translate-x-1"></i>
+                  </span>
+                  <div class="loading-spinner"></div>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add after particles-js div -->
+  <div class="mouse-gradient"></div>
+  
+  <button class="theme-switch" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <a href="#main" class="skip-to-main">Skip to main content</a>
+
+  <!-- Add signature pad section before the closing main tag -->
+  <section id="guestbook" class="min-h-screen flex items-center py-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-8" data-aos="fade-up">Digital Guestbook</h2>
+      <p class="text-center mb-12 text-gray-300">Leave your mark! Sign our digital guestbook.</p>
+      
+      <div class="glass-card p-8 rounded-xl">
+        <div class="flex flex-wrap gap-4 mb-6 justify-center">
+          <button class="color-btn active" data-color="#48D1CC" style="background-color: #48D1CC;"></button>
+          <button class="color-btn" data-color="#FFFFFF" style="background-color: #FFFFFF;"></button>
+          <button class="color-btn" data-color="#FF69B4" style="background-color: #FF69B4;"></button>
+          <button class="color-btn" data-color="#FFD700" style="background-color: #FFD700;"></button>
+        </div>
+
+        <canvas id="signatureCanvas" width="800" height="300" class="w-full bg-opacity-10 bg-white rounded-lg border-2 border-[#48D1CC] border-opacity-30"></canvas>
+        
+        <div class="flex flex-wrap gap-4 mt-6 justify-center">
+          <button id="clearBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-eraser"></i>
+            Clear
+          </button>
+          <button id="saveBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-save"></i>
+            Save
+          </button>
+          <button id="downloadBtn" class="px-6 py-3 bg-opacity-10 bg-white rounded-lg hover:bg-opacity-20 transition-all flex items-center gap-2">
+            <i class="fas fa-download"></i>
+            Download
+          </button>
+        </div>
+      </div>
+
+      <div id="signatureGallery" class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Signatures will be loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
+    // Loading overlay
+    window.addEventListener('load', () => {
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.style.opacity = '0';
+      setTimeout(() => {
+        loadingOverlay.style.display = 'none';
+      }, 500);
+    });
+
+    // Typed.js initialization
+    var typed = new Typed('#typed', {
+      strings: ['Web Developer', 'UI Designer', 'Problem Solver'],
+      typeSpeed: 70,
+      backSpeed: 50,
+      loop: true,
+      showCursor: true,
+      cursorChar: '|',
+      autoInsertCss: true
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Smooth scroll with offset for header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        
+        if (target) {
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = targetPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Header scroll effect and active section detection
+    const header = document.querySelector('header');
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Update active link on click
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // Scroll based active section update
+    function updateActiveSection() {
+      const scrollPosition = window.scrollY + header.offsetHeight + 100;
+
+      // Header background effect
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+
+      // Only update active section if user is not currently clicking
+      if (!isClicking) {
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            const currentId = section.getAttribute('id');
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${currentId}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+    }
+
+    let isClicking = false;
+    document.addEventListener('mousedown', () => isClicking = true);
+    document.addEventListener('mouseup', () => {
+      isClicking = false;
+      setTimeout(() => isClicking = false, 100);
+    });
+
+    window.addEventListener('scroll', updateActiveSection);
+    window.addEventListener('load', updateActiveSection);
+
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+    });
+
+    // Initialize Tilt
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+      max: 5,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.2,
+    });
+
+    // Project Image Lightbox
+    document.querySelectorAll('.project-image').forEach(image => {
+      image.addEventListener('click', function() {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-50';
+        lightbox.innerHTML = `
+          <div class="relative max-w-4xl mx-auto p-4">
+            <img src="${this.src}" alt="Project Preview" class="max-h-[80vh] w-auto">
+            <button class="absolute top-4 right-4 text-white hover:text-[#48D1CC] text-2xl" aria-label="Close lightbox">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(lightbox);
+        document.body.style.overflow = 'hidden';
+        
+        lightbox.querySelector('button').addEventListener('click', () => {
+          lightbox.remove();
+          document.body.style.overflow = '';
+        });
+        
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            lightbox.remove();
+            document.body.style.overflow = '';
+          }
+        });
+      });
+    });
+
+    // Theme Switcher
+    const themeSwitch = document.querySelector('.theme-switch');
+    const themeIcon = themeSwitch.querySelector('i');
+    let isLightTheme = false;
+
+    themeSwitch.addEventListener('click', () => {
+      isLightTheme = !isLightTheme;
+      document.body.classList.toggle('light-theme');
+      
+      if (isLightTheme) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        document.body.style.backgroundImage = `var(--bg-gradient-light), url('./images/background.jpg')`;
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        document.body.style.backgroundImage = `var(--bg-gradient-dark), url('./images/background.jpg')`;
+      }
+    });
+
+    // Mouse gradient effect
+    const mouseGradient = document.querySelector('.mouse-gradient');
+    document.addEventListener('mousemove', (e) => {
+      mouseGradient.style.setProperty('--mouse-x', `${e.clientX}px`);
+      mouseGradient.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    // Form Validation
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('.contact-submit-btn');
+
+    contactForm.addEventListener('submit', (e) => {
+      // Don't prevent default - let the form submit naturally to FormSubmit
+      
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      // Reset button state after a short delay
+      setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+
+    // Keyboard Navigation
+    function handleKeyboardNav(e) {
+      // Handle Escape key
+      if (e.key === 'Escape') {
+        const lightbox = document.querySelector('.fixed.inset-0.bg-black\\/90');
+        if (lightbox) {
+          lightbox.remove();
+          document.body.style.overflow = '';
+        }
+      }
+
+      // Handle Tab key
+      if (e.key === 'Tab') {
+        document.body.classList.add('keyboard-nav');
+      }
+    }
+
+    // Handle mouse click to remove keyboard navigation styles
+    document.addEventListener('mousedown', () => {
+      document.body.classList.remove('keyboard-nav');
+    });
+
+    document.addEventListener('keydown', handleKeyboardNav);
+
+    // Add aria-labels and roles
+    document.querySelectorAll('section').forEach(section => {
+      section.setAttribute('role', 'region');
+      section.setAttribute('aria-labelledby', section.querySelector('h2')?.id || '');
+    });
+
+    // Update mobile menu button accessibility
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+    });
+
+    // Announce form validation errors to screen readers
+    function announceError(message) {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'alert');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      document.body.appendChild(announcement);
+      setTimeout(() => announcement.remove(), 3000);
+    }
+
+    // Update form validation to include announcements
+    function showError(input, message) {
+      // ... existing showError code ...
+      announceError(message);
+    }
+
+    // Digital Rain Effect
+    const rainCanvas = document.getElementById('digitalRain');
+    const rainCtx = rainCanvas.getContext('2d');
+
+    // Set canvas size
+    function resizeCanvas() {
+      rainCanvas.width = window.innerWidth;
+      rainCanvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Convert hex to rgba
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    // Rain drop class
+    class RainDrop {
+      constructor(x, y, speed, color) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.color = color;
+        this.text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        this.lifetime = 0;
+        this.maxLifetime = Math.random() * 50 + 50;
+      }
+
+      update() {
+        this.y += this.speed;
+        this.lifetime++;
+
+        if (this.y > rainCanvas.height || this.lifetime > this.maxLifetime) {
+          this.y = -20;
+          this.lifetime = 0;
+          this.text = String.fromCharCode(0x30A0 + Math.random() * 96);
+        }
+      }
+
+      draw() {
+        const alpha = Math.max(0, 1 - this.lifetime / this.maxLifetime);
+        rainCtx.fillStyle = hexToRgba(this.color, alpha);
+        rainCtx.font = '14px monospace';
+        rainCtx.fillText(this.text, this.x, this.y);
+      }
+    }
+
+    // Create rain drops
+    const rainDrops = [];
+    const primaryColor = '#48D1CC'; // Your turquoise color
+    const secondaryColor = '#2A4858'; // Your dark blue color
+
+    function createRainDrops() {
+      const numberOfDrops = Math.floor(rainCanvas.width / 20); // Adjust density here
+      
+      for (let i = 0; i < numberOfDrops; i++) {
+        const x = i * 20;
+        const y = Math.random() * rainCanvas.height;
+        const speed = Math.random() * 2 + 1;
+        const color = Math.random() > 0.5 ? primaryColor : secondaryColor;
+        
+        rainDrops.push(new RainDrop(x, y, speed, color));
+      }
+    }
+
+    // Mouse interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    rainCanvas.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // Create additional drops around mouse
+      if (Math.random() > 0.8) {
+        const x = mouseX + (Math.random() - 0.5) * 100;
+        const y = mouseY;
+        const speed = Math.random() * 3 + 2;
+        const color = Math.random() > 0.7 ? primaryColor : secondaryColor;
+        
+        rainDrops.push(new RainDrop(x, y, speed, color));
+      }
+    });
+
+    // Animation loop
+    function animate() {
+      rainCtx.fillStyle = 'rgba(42, 72, 88, 0.1)'; // Matching your primary color
+      rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+
+      rainDrops.forEach(drop => {
+        drop.update();
+        drop.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize
+    createRainDrops();
+    animate();
+
+    // Remove scroll animations for sections
+    sections.forEach(section => {
+      gsap.from(section.children, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Remove parallax effect
+    sections.forEach(section => {
+      gsap.to(section, {
+        backgroundPosition: `50% ${innerHeight / 2}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    // Remove skill bars animation
+    const skillBars = document.querySelectorAll('.skill-progress .progress-bar');
+    skillBars.forEach(bar => {
+      const percentage = bar.style.width;
+      bar.style.width = '0%';
+      
+      gsap.to(bar, {
+        width: percentage,
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: bar,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Signature Pad Implementation
+    window.addEventListener('load', function() {
+      const canvas = document.getElementById('signatureCanvas');
+      const ctx = canvas.getContext('2d');
+      let isDrawing = false;
+      let currentColor = '#48D1CC';
+
+      // Initialize canvas
+      function initCanvas() {
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+
+      function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      }
+
+      function getTouchPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top
+        };
+      }
+
+      function startDrawing(e) {
+        isDrawing = true;
+        const pos = e.touches ? getTouchPos(e) : getMousePos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        const pos = e.touches ? getTouchPos(e) : getMousePos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        e.preventDefault();
+      }
+
+      function stopDrawing() {
+        isDrawing = false;
+      }
+
+      // Mouse Events
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      // Touch Events
+      canvas.addEventListener('touchstart', startDrawing);
+      canvas.addEventListener('touchmove', draw);
+      canvas.addEventListener('touchend', stopDrawing);
+
+      // Color Buttons
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.color-btn.active').classList.remove('active');
+          btn.classList.add('active');
+          currentColor = btn.dataset.color;
+          ctx.strokeStyle = currentColor;
+        });
+      });
+
+      // Clear Button
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      // Save Button
+      document.getElementById('saveBtn').addEventListener('click', () => {
+        const signature = canvas.toDataURL();
+        const signatures = JSON.parse(localStorage.getItem('signatures') || '[]');
+        signatures.push({
+          date: new Date().toISOString(),
+          data: signature
+        });
+        localStorage.setItem('signatures', JSON.stringify(signatures));
+        updateGallery();
+      });
+
+      // Download Button
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = `signature-${new Date().toISOString().slice(0,10)}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+
+      function updateGallery() {
+        const gallery = document.getElementById('signatureGallery');
+        const signatures = JSON.parse(localStorage.getItem('signatures') || '[]');
+        
+        if (signatures.length === 0) {
+          gallery.innerHTML = '<p class="text-center text-gray-400">No signatures yet. Be the first to sign!</p>';
+          return;
+        }
+        
+        gallery.innerHTML = signatures.reverse().map(sig => `
+          <div class="glass-card p-4 rounded-xl">
+            <img src="${sig.data}" alt="Signature" class="w-full">
+            <p class="text-center text-sm text-gray-400 mt-2">
+              ${new Date(sig.date).toLocaleDateString()}
+            </p>
+          </div>
+        `).join('');
+      }
+
+      // Initialize
+      initCanvas();
+      updateGallery();
+    });
+
+    // Web Bluetooth API
+    document.getElementById('bluetoothConnect').addEventListener('click', async () => {
+      try {
+        const device = await navigator.bluetooth.requestDevice({
+          acceptAllDevices: true,
+          optionalServices: ['battery_service']
+        });
+        
+        const status = document.getElementById('bluetoothStatus');
+        const data = document.getElementById('bluetoothData');
+        
+        status.textContent = `Connected: ${device.name}`;
+        status.classList.remove('hidden');
+        data.classList.remove('hidden');
+        
+        // Example: Reading battery level
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService('battery_service');
+        const characteristic = await service.getCharacteristic('battery_level');
+        
+        const value = await characteristic.readValue();
+        data.querySelector('pre').textContent = `Battery Level: ${value.getUint8(0)}%`;
+      } catch (error) {
+        console.error('Bluetooth Error:', error);
+        alert('Could not connect to Bluetooth device. Make sure Bluetooth is enabled.');
+      }
+    });
+
+    // Web USB API
+    document.getElementById('usbConnect').addEventListener('click', async () => {
+      try {
+        const device = await navigator.usb.requestDevice({
+          filters: [] // Accept any USB device
+        });
+        
+        const status = document.getElementById('usbStatus');
+        const data = document.getElementById('usbData');
+        
+        await device.open();
+        await device.selectConfiguration(1);
+        await device.claimInterface(0);
+        
+        status.textContent = `Connected: ${device.productName}`;
+        status.classList.remove('hidden');
+        data.classList.remove('hidden');
+        
+        data.querySelector('pre').textContent = `
+Manufacturer: ${device.manufacturerName}
+Product: ${device.productName}
+Serial: ${device.serialNumber}
+        `.trim();
+      } catch (error) {
+        console.error('USB Error:', error);
+        alert('Could not connect to USB device.');
+      }
+    });
+
+    // Web MIDI API
+    document.getElementById('midiConnect').addEventListener('click', async () => {
+      try {
+        const access = await navigator.requestMIDIAccess();
+        const status = document.getElementById('midiStatus');
+        const piano = document.getElementById('virtualPiano');
+        
+        status.textContent = `MIDI Available: ${access.inputs.size} input(s), ${access.outputs.size} output(s)`;
+        status.classList.remove('hidden');
+        piano.classList.remove('hidden');
+        
+        // Create virtual piano
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const pianoHTML = notes.map(note => `
+          <button class="piano-key ${note.includes('#') ? 'black' : 'white'}" data-note="${note}">
+            ${note}
+          </button>
+        `).join('');
+        
+        piano.querySelector('div').innerHTML = pianoHTML;
+        
+        // Style piano keys
+        const style = document.createElement('style');
+        style.textContent = `
+          .piano-key {
+            width: 40px;
+            height: 120px;
+            border: 1px solid rgba(72, 209, 204, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            position: relative;
+            transition: all 0.1s ease;
+          }
+          .piano-key.black {
+            background: rgba(0, 0, 0, 0.8);
+            height: 80px;
+            width: 30px;
+            margin: 0 -15px;
+            z-index: 1;
+          }
+          .piano-key:hover {
+            background: rgba(72, 209, 204, 0.2);
+          }
+          .piano-key:active {
+            background: rgba(72, 209, 204, 0.4);
+            transform: translateY(2px);
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // Handle MIDI input
+        access.inputs.forEach(input => {
+          input.onmidimessage = (message) => {
+            const [command, note, velocity] = message.data;
+            if (command === 144 && velocity > 0) {
+              // Note On
+              const noteName = notes[note % 12];
+              const key = document.querySelector(`[data-note="${noteName}"]`);
+              if (key) {
+                key.style.background = 'rgba(72, 209, 204, 0.4)';
+                setTimeout(() => {
+                  key.style.background = '';
+                }, 200);
+              }
+            }
+          };
+        });
+      } catch (error) {
+        console.error('MIDI Error:', error);
+        alert('Web MIDI is not supported in your browser.');
+      }
+    });
+
+    // Anti-copy protection
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      alert('Sorry, right-click is disabled for content protection!');
+    });
+
+    // Update the keydown protection to be more specific
+    document.addEventListener('keydown', function(e) {
+      // Only prevent specific key combinations
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        // Prevent Ctrl+Shift+I (Chrome DevTools)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+          e.preventDefault();
+        }
+        // Prevent Ctrl+U (View Source)
+        if (e.ctrlKey && e.keyCode === 85) {
+          e.preventDefault();
+        }
+        // Prevent Ctrl+S (Save)
+        if (e.ctrlKey && e.keyCode === 83) {
+          e.preventDefault();
+        }
+      }
+    });
+
+    // Update text selection protection to exclude form inputs
+    document.addEventListener('selectstart', function(e) {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
 </html>
