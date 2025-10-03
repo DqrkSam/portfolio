@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 265 85% 3%;
+    --foreground: 265 20% 95%;
+
+    --card: 265 50% 8%;
+    --card-foreground: 265 20% 95%;
+
+    --popover: 265 50% 8%;
+    --popover-foreground: 265 20% 95%;
+
+    --primary: 270 91% 65%;
+    --primary-foreground: 265 20% 95%;
+
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 265 20% 95%;
+
+    --muted: 265 30% 20%;
+    --muted-foreground: 265 15% 65%;
+
+    --accent: 189 94% 43%;
+    --accent-foreground: 265 20% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 265 20% 95%;
+
+    --border: 265 30% 25%;
+    --input: 265 30% 15%;
+    --ring: 270 91% 65%;
+
+    --radius: 1rem;
+    
+    /* Custom design tokens */
+    --neon-glow: 270 91% 65%;
+    --neon-cyan: 189 94% 43%;
+    --glass-bg: 265 50% 8% / 0.3;
+    --gradient-purple: linear-gradient(135deg, hsl(270 91% 65% / 0.3), hsl(265 85% 45% / 0.3));
+    --gradient-blue: linear-gradient(135deg, hsl(217 91% 60% / 0.3), hsl(189 94% 43% / 0.3));
+    --shadow-glow: 0 0 40px hsl(var(--neon-glow) / 0.3);
+    --shadow-glow-strong: 0 0 60px hsl(var(--neon-glow) / 0.5);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Same as light for this dark-first theme */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-['Inter'] overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['Space_Grotesk'];
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl bg-card/30 border border-border/50;
+    box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.1);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px hsl(var(--neon-glow)), 
+                 0 0 20px hsl(var(--neon-glow)),
+                 0 0 30px hsl(var(--neon-glow));
+  }
+
+  .glow-border {
+    box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.4),
+                inset 0 0 20px hsl(var(--neon-glow) / 0.1);
+  }
+
+  .smooth-transition {
+    transition: var(--transition-smooth);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
