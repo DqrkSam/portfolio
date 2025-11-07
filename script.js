@@ -238,26 +238,119 @@ function initSmoothScroll() {
   });
 }
 
-// Contact form handler
+// Contact form handler with validation
 function initContactForm() {
   const sendBtn = document.getElementById('sendBtn');
   const form = document.getElementById('contactForm');
+  const successMessage = document.getElementById('successMessage');
+  const closeSuccessBtn = document.getElementById('closeSuccess');
   
   if (!sendBtn || !form) return;
 
-  form.addEventListener('submit', (ev) => {
+  // Close success message and show form again
+  if (closeSuccessBtn && successMessage) {
+    closeSuccessBtn.addEventListener('click', () => {
+      successMessage.classList.add('hidden');
+      form.classList.remove('hidden');
+      form.reset();
+    });
+  }
+
+  // Clear error messages on input
+  const inputs = form.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      const errorMsg = input.parentElement.querySelector('.error-message');
+      if (errorMsg) {
+        errorMsg.classList.add('hidden');
+        input.classList.remove('border-red-500');
+      }
+    });
+  });
+
+  form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
+    
+    // Clear previous errors
+    const errorMessages = form.querySelectorAll('.error-message');
+    errorMessages.forEach(msg => msg.classList.add('hidden'));
+    inputs.forEach(input => input.classList.remove('border-red-500'));
+
+    // Get form values
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
+    const message = form.querySelector('textarea[name="message"]').value.trim();
+
+    // Validation
+    let isValid = true;
+
+    if (!name || name.length < 2) {
+      showError(form.querySelector('input[name="name"]'), 'Name must be at least 2 characters');
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      showError(form.querySelector('input[name="email"]'), 'Please enter a valid email address');
+      isValid = false;
+    }
+
+    if (!message || message.length < 10) {
+      showError(form.querySelector('textarea[name="message"]'), 'Message must be at least 10 characters');
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    // If validation passes, submit the form
     sendBtn.disabled = true;
     const originalText = sendBtn.querySelector('span').textContent;
     sendBtn.querySelector('span').textContent = 'Sending...';
     
-    setTimeout(() => {
-      alert("Demo: no backend configured. Add a server or API to send messages.");
+    try {
+      // Submit to FormSubmit using fetch
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('message', message);
+      formData.append('_captcha', 'false');
+      formData.append('_subject', 'New Contact Form Submission from Portfolio');
+      formData.append('_to', 'samyamrajb@gmail.com');
+
+      const response = await fetch('https://formsubmit.co/ajax/samyamrajb@gmail.com', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        // Show success message
+        form.classList.add('hidden');
+        if (successMessage) {
+          successMessage.classList.remove('hidden');
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      // Show error message
+      alert('Sorry, there was an error sending your message. Please try again later.');
       sendBtn.disabled = false;
       sendBtn.querySelector('span').textContent = originalText;
-      form.reset();
-    }, 1500);
+    }
   });
+
+  function showError(input, message) {
+    const errorMsg = input.parentElement.querySelector('.error-message');
+    if (errorMsg) {
+      errorMsg.textContent = message;
+      errorMsg.classList.remove('hidden');
+      input.classList.add('border-red-500');
+    }
+  }
 }
 
 // Navbar scroll effect and active link highlighting
