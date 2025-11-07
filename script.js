@@ -317,14 +317,18 @@ function initContactForm() {
       formData.append('message', message);
       formData.append('_captcha', 'false');
       formData.append('_subject', 'New Contact Form Submission from Portfolio');
-      formData.append('_to', 'samyamrajb@gmail.com');
 
       const response = await fetch('https://formsubmit.co/ajax/samyamrajb@gmail.com', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         // Show success message
         form.classList.add('hidden');
         if (successMessage) {
@@ -333,10 +337,11 @@ function initContactForm() {
           successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       } else {
-        throw new Error('Submission failed');
+        throw new Error(result.message || 'Submission failed');
       }
     } catch (error) {
       // Show error message
+      console.error('Form submission error:', error);
       alert('Sorry, there was an error sending your message. Please try again later.');
       sendBtn.disabled = false;
       sendBtn.querySelector('span').textContent = originalText;
