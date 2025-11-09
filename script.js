@@ -943,6 +943,8 @@ function disableInspection() {
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   disableInspection();
+  initLandingPage();
+  initTimeMilestones();
   initGlowingS();
   initThemeToggle();
   setupMobileMenu();
@@ -1168,6 +1170,163 @@ function downloadQR() {
   link.href = qrUrl;
   link.download = 'qrcode.png';
   link.click();
+}
+
+// ========== LANDING PAGE ==========
+function initLandingPage() {
+  const landingOverlay = document.getElementById('landingOverlay');
+  const exploreBtn = document.getElementById('exploreBtn');
+  const mainContent = document.getElementById('main');
+  
+  if (!landingOverlay || !exploreBtn || !mainContent) {
+    // If elements don't exist, make sure main content is visible
+    const main = document.getElementById('main');
+    if (main) {
+      main.style.opacity = '1';
+      main.style.pointerEvents = 'auto';
+    }
+    return;
+  }
+
+  // Check if user has already visited (using sessionStorage)
+  const hasVisited = sessionStorage.getItem('hasVisited');
+  
+  if (hasVisited) {
+    // User has visited before, skip landing page
+    landingOverlay.classList.add('hidden');
+    mainContent.classList.remove('hidden');
+    mainContent.classList.add('visible');
+    return;
+  }
+
+  // Show landing page initially
+  landingOverlay.classList.remove('hidden');
+  mainContent.classList.add('hidden');
+  mainContent.classList.remove('visible');
+
+  // Handle explore button click
+  exploreBtn.addEventListener('click', () => {
+    // Fade out landing page
+    landingOverlay.classList.add('hidden');
+    
+    // Fade in main content
+    setTimeout(() => {
+      mainContent.classList.remove('hidden');
+      mainContent.classList.add('visible');
+      
+      // Trigger animations for elements that should reveal
+      const revealElements = document.querySelectorAll('.will-reveal');
+      revealElements.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add('in-view');
+        }
+      });
+      
+      // Trigger scroll animations
+      initAnimations();
+    }, 300);
+
+    // Mark as visited for this session
+    sessionStorage.setItem('hasVisited', 'true');
+  });
+
+  // Also allow Enter key to proceed
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !landingOverlay.classList.contains('hidden')) {
+      exploreBtn.click();
+    }
+  });
+}
+
+// ========== TIME MILESTONE POPUPS ==========
+function initTimeMilestones() {
+  const popup = document.getElementById('timeMilestonePopup');
+  const closeBtn = document.getElementById('closeMilestone');
+  const closeBtnX = document.getElementById('closeMilestoneX');
+  const milestoneTitle = document.getElementById('milestoneTitle');
+  const milestoneMessage = document.getElementById('milestoneMessage');
+  const milestoneIcon = document.querySelector('.milestone-icon');
+  
+  if (!popup) return;
+
+  const milestones = [
+    { time: 60, title: '1 Minute Explorer! 🎉', message: 'You\'ve been here for 1 minute. Thanks for exploring!', icon: '⏱️' },
+    { time: 300, title: '5 Minutes Deep Dive! 🚀', message: 'Wow! 5 minutes already. You\'re really interested!', icon: '⭐' },
+    { time: 600, title: '10 Minutes Champion! 🏆', message: '10 minutes! You\'re a true explorer. Want to connect?', icon: '👑' }
+  ];
+
+  const shownMilestones = new Set();
+  let startTime = Date.now();
+  let checkInterval = null;
+
+  function showMilestone(milestone) {
+    if (shownMilestones.has(milestone.time)) return;
+    
+    shownMilestones.add(milestone.time);
+    milestoneTitle.textContent = milestone.title;
+    milestoneMessage.textContent = milestone.message;
+    milestoneIcon.textContent = milestone.icon;
+    
+    popup.classList.add('show');
+    
+    // Auto-hide after 8 seconds
+    setTimeout(() => {
+      hideMilestone();
+    }, 8000);
+  }
+
+  function hideMilestone() {
+    popup.classList.remove('show');
+  }
+
+  function checkMilestones() {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000); // in seconds
+    
+    milestones.forEach(milestone => {
+      if (elapsed >= milestone.time && !shownMilestones.has(milestone.time)) {
+        showMilestone(milestone);
+      }
+    });
+  }
+
+  // Close button handlers
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hideMilestone);
+  }
+  if (closeBtnX) {
+    closeBtnX.addEventListener('click', hideMilestone);
+  }
+
+  // Start checking milestones only after landing page is dismissed
+  function startMilestoneTracking() {
+    // Reset start time when main content becomes visible
+    startTime = Date.now();
+    shownMilestones.clear();
+    
+    // Check every 5 seconds
+    checkInterval = setInterval(checkMilestones, 5000);
+    // Also check immediately
+    checkMilestones();
+  }
+
+  // Wait for landing page to be dismissed
+  const observer = new MutationObserver((mutations) => {
+    const mainContent = document.getElementById('main');
+    if (mainContent && mainContent.classList.contains('visible')) {
+      startMilestoneTracking();
+      observer.disconnect();
+    }
+  });
+
+  const mainContent = document.getElementById('main');
+  if (mainContent) {
+    observer.observe(mainContent, { attributes: true, attributeFilter: ['class'] });
+    
+    // If already visible (user has visited before), start immediately
+    if (mainContent.classList.contains('visible')) {
+      startMilestoneTracking();
+    }
+  }
 }
 
 // ========== INTERACTIVE TERMINAL ==========

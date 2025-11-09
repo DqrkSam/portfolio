@@ -830,6 +830,102 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Landing Page Overlay */
+.landing-overlay {
+  background: linear-gradient(180deg, var(--bg-a) 0%, var(--bg-b) 100%);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.landing-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 10;
+}
+
+.logo-landing img {
+  filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.05); }
+}
+
+@keyframes animate-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: animate-gradient 3s ease infinite;
+}
+
+.explore-btn {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 40px rgba(167, 139, 250, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(167, 139, 250, 0.5);
+  }
+}
+
+.main-content {
+  transition: opacity 0.8s ease, pointer-events 0.8s ease;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.main-content.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.main-content.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Time Milestone Popup */
+.milestone-popup {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+}
+
+.milestone-popup.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.milestone-icon {
+  animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Dark mode landing */
+[data-theme="dark"] .landing-overlay {
+  background: linear-gradient(180deg, var(--bg-a) 0%, var(--bg-b) 100%);
+}
+
 /* Morphing Blob Background */
 .morphing-blobs {
   opacity: 0.4;
