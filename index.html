@@ -95,27 +95,28 @@
   <!-- NAV -->
   <header class="fixed top-0 left-0 right-0 z-50 px-6 pt-4">
     <nav class="mx-auto max-w-[var(--container)]">
-      <div class="nav-glass backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl flex items-center justify-between px-6 py-4">
-        <div class="flex items-center gap-4">
-          <div class="logo-3d h-12 w-12 flex items-center justify-center overflow-hidden">
+      <div class="nav-glass backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl flex items-center justify-between px-4 md:px-6 py-4 gap-4">
+        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+          <div class="logo-3d h-10 w-10 md:h-12 md:w-12 flex items-center justify-center overflow-hidden">
             <img src="images/x-logo.ico" alt="Samyam Logo" class="w-full h-full object-contain" />
           </div>
           <div class="hidden sm:block">
-            <div class="font-bold text-lg">Samyam (SY)</div>
+            <div class="font-bold text-base md:text-lg">Samyam (SY)</div>
             <div class="text-xs text-slate-600">Designer & Developer</div>
           </div>
         </div>
 
-        <ul class="hidden md:flex items-center gap-6">
-          <li><a class="nav-link hover:text-purple-700 transition-all" href="#home">Home</a></li>
-          <li><a class="nav-link hover:text-purple-700 transition-all" href="#work">Work</a></li>
-          <li><a class="nav-link hover:text-purple-700 transition-all" href="#projects">Projects</a></li>
-          <li><a class="nav-link hover:text-purple-700 transition-all" href="#testimonials">Testimonials</a></li>
-          <li><a class="nav-link hover:text-purple-700 transition-all" href="#social">Socials</a></li>
-          <li><a class="nav-cta hover:text-white transition-all rounded-full bg-gradient-to-r from-purple1 to-purple2 px-5 py-2 text-sm font-semibold shadow-lg" href="#contact">Connect</a></li>
+        <ul class="hidden md:flex items-center gap-3 lg:gap-5 flex-1 justify-center">
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#home">Home</a></li>
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#about">About</a></li>
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#projects">Projects</a></li>
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#tools">Tools</a></li>
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#testimonials">Testimonials</a></li>
+          <li><a class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base" href="#social">Socials</a></li>
+          <li><a class="nav-cta hover:text-white transition-all rounded-full bg-gradient-to-r from-purple1 to-purple2 px-4 lg:px-5 py-2 text-xs lg:text-sm font-semibold shadow-lg whitespace-nowrap" href="#contact">Connect</a></li>
         </ul>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
           <!-- Theme Toggle -->
           <button id="themeToggle" aria-label="Toggle theme" class="theme-toggle-btn p-2 rounded-lg bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all">
             <svg id="sunIcon" class="w-5 h-5 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,8 +155,9 @@
 
         <ul class="flex flex-col gap-5 text-lg">
           <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#home">Home</a></li>
-          <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#work">Work</a></li>
+          <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#about">About</a></li>
           <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#projects">Projects</a></li>
+          <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#tools">Tools</a></li>
           <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#testimonials">Testimonials</a></li>
           <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#social">Socials</a></li>
           <li><a data-close class="block py-2 hover:text-purple-700 transition-colors" href="#contact">Connect</a></li>
@@ -234,67 +236,82 @@
       </div>
     </section>
 
-    <!-- WORK SECTION -->
-    <section id="work" class="py-32 relative">
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-32 relative">
       <div class="mx-auto max-w-[var(--container)] px-6">
-        <div class="text-center mb-16 will-reveal">
-          <h2 class="text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600 bg-clip-text text-transparent">Featured Work</h2>
-          <p class="text-slate-600 text-lg">Crafting experiences that matter</p>
-        </div>
-
-        <div class="space-y-24">
-          <!-- Work Item 1 -->
-          <div class="work-item grid lg:grid-cols-2 gap-12 items-center">
-            <div class="will-reveal">
-              <div class="work-card glass-card rounded-3xl p-10 shadow-2xl border border-white/30 hover:scale-[1.02] transition-transform duration-500">
-                <div class="inline-block mb-4">
-                  <span class="text-4xl">🎨</span>
-                </div>
-                <h3 class="text-3xl font-bold mb-4 text-slate-900">Design System — Tokens & Toolkit</h3>
-                <p class="text-slate-700 text-lg leading-relaxed mb-6">Built a token-first design system that scales across products, with accessible components and visual regression tests.</p>
-                <a class="work-link inline-flex items-center gap-2 text-purple-700 font-semibold hover:gap-4 transition-all" href="#">
-                  <span>Read case study</span>
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div class="will-reveal" data-delay="1">
-              <div class="work-preview relative">
-                <div class="preview-glow absolute inset-0 rounded-3xl bg-gradient-to-br from-purple1/30 to-purple2/30 blur-2xl -z-10"></div>
-                <div class="h-80 rounded-3xl relative overflow-hidden shadow-2xl border border-white/20">
-                  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&q=80" alt="Design System" class="w-full h-full object-cover">
-                  <div class="absolute inset-0 bg-gradient-to-br from-purple1/20 to-purple2/20"></div>
-                </div>
-              </div>
-            </div>
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-16 will-reveal">
+            <h2 class="text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600 bg-clip-text text-transparent">About Me</h2>
+            <p class="text-slate-600 text-lg">Get to know the person behind the work</p>
           </div>
 
-          <!-- Work Item 2 -->
-          <div class="work-item grid lg:grid-cols-2 gap-12 items-center">
-            <div class="will-reveal order-2 lg:order-1">
-              <div class="work-preview relative">
-                <div class="preview-glow absolute inset-0 rounded-3xl bg-gradient-to-br from-purple2/30 to-purple1/30 blur-2xl -z-10"></div>
-                <div class="h-80 rounded-3xl relative overflow-hidden shadow-2xl border border-white/20">
-                  <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop&q=80" alt="Onboarding Motion" class="w-full h-full object-cover">
-                  <div class="absolute inset-0 bg-gradient-to-br from-purple2/20 to-purple1/20"></div>
-                </div>
-              </div>
+          <div class="glass-card rounded-3xl p-10 lg:p-16 shadow-2xl border border-white/30 will-reveal" data-delay="1">
+            <div class="text-center mb-12">
+              <h3 class="text-4xl lg:text-5xl font-black mb-4 bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600 bg-clip-text text-transparent">
+                Samyam Raj Bhatta
+              </h3>
+              <p class="text-lg text-slate-600 font-medium">Designer & Developer</p>
             </div>
-            <div class="will-reveal order-1 lg:order-2" data-delay="1">
-              <div class="work-card glass-card rounded-3xl p-10 shadow-2xl border border-white/30 hover:scale-[1.02] transition-transform duration-500">
-                <div class="inline-block mb-4">
-                  <span class="text-4xl">✨</span>
+
+            <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
+              <p>
+                I'm a product-focused front-end engineer passionate about building fast, accessible UI systems with delightful micro-interactions. I combine design and code to ship polished experiences that users love.
+              </p>
+              <p>
+                My approach centers on creating interfaces that are not just visually appealing, but also intuitive, performant, and inclusive. I believe great design should be accessible to everyone, and I'm committed to building experiences that work seamlessly across devices and for users of all abilities.
+              </p>
+              <p>
+                When I'm not coding, you'll find me exploring new design trends, experimenting with motion graphics, or contributing to open-source projects. I'm always learning and pushing the boundaries of what's possible on the web.
+              </p>
+            </div>
+
+            <div class="mt-12 pt-12 border-t border-white/20">
+              <h4 class="text-2xl font-bold mb-6 text-slate-900">What I Do</h4>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-slate-900 mb-2">UI/UX Design</h5>
+                    <p class="text-slate-600 text-sm">Creating beautiful, user-centered interfaces with attention to detail and accessibility.</p>
+                  </div>
                 </div>
-                <h3 class="text-3xl font-bold mb-4 text-slate-900">Onboarding Motion Library</h3>
-                <p class="text-slate-700 text-lg leading-relaxed mb-6">Micro-interactions and motion-safe presets for onboarding flows with reduced motion fallback.</p>
-                <a class="work-link inline-flex items-center gap-2 text-purple-700 font-semibold hover:gap-4 transition-all" href="#">
-                  <span>Read case study</span>
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                  </svg>
-                </a>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-slate-900 mb-2">Front-End Development</h5>
+                    <p class="text-slate-600 text-sm">Building performant, scalable web applications with modern technologies.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-slate-900 mb-2">Motion Design</h5>
+                    <p class="text-slate-600 text-sm">Crafting smooth, meaningful animations that enhance user experience.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-slate-900 mb-2">Accessibility</h5>
+                    <p class="text-slate-600 text-sm">Ensuring digital products are usable and inclusive for everyone.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -387,6 +404,142 @@
               </a>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS SECTION -->
+    <section id="tools" class="py-32 relative">
+      <div class="mx-auto max-w-[var(--container)] px-6">
+        <div class="text-center mb-16 will-reveal">
+          <h2 class="text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600 bg-clip-text text-transparent">Developer Tools</h2>
+          <p class="text-slate-600 text-lg">Useful tools for web development and design</p>
+          <a href="features/index.html" class="inline-block mt-4 text-purple-700 font-semibold hover:underline">
+            View All Tools →
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <!-- Color Palette Generator -->
+          <div class="glass-card rounded-3xl p-8 shadow-2xl border border-white/30 will-reveal">
+            <h3 class="text-2xl font-bold mb-6 text-slate-900">Color Palette Generator</h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-5 gap-2 mb-4" id="colorPalette">
+                <div class="h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform relative group" style="background: #A78BFA;" data-color="#A78BFA" onclick="copyColor(this)" title="Click to copy">
+                  <span class="absolute inset-0 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+                </div>
+                <div class="h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform relative group" style="background: #C4B5FD;" data-color="#C4B5FD" onclick="copyColor(this)" title="Click to copy">
+                  <span class="absolute inset-0 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+                </div>
+                <div class="h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform relative group" style="background: #DDD6FE;" data-color="#DDD6FE" onclick="copyColor(this)" title="Click to copy">
+                  <span class="absolute inset-0 flex items-center justify-center text-slate-800 text-xs opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+                </div>
+                <div class="h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform relative group" style="background: #EDE9FE;" data-color="#EDE9FE" onclick="copyColor(this)" title="Click to copy">
+                  <span class="absolute inset-0 flex items-center justify-center text-slate-800 text-xs opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+                </div>
+                <div class="h-20 rounded-lg cursor-pointer hover:scale-110 transition-transform relative group" style="background: #F5F3FF;" data-color="#F5F3FF" onclick="copyColor(this)" title="Click to copy">
+                  <span class="absolute inset-0 flex items-center justify-center text-slate-800 text-xs opacity-0 group-hover:opacity-100 transition-opacity font-bold">Copy</span>
+                </div>
+              </div>
+              <button onclick="generatePalette()" class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-purple1 to-purple2 text-white font-semibold hover:scale-105 transition-transform">
+                Generate New Palette
+              </button>
+              <div class="mt-4 p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/40">
+                <p class="text-xs text-slate-600 mb-2">Hex Codes:</p>
+                <div id="hexCodes" class="text-sm font-mono text-slate-800 space-y-1"></div>
+                <button onclick="copyPalette()" class="mt-3 text-xs text-purple-700 font-semibold hover:underline">Copy All</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gradient Generator -->
+          <div class="glass-card rounded-3xl p-8 shadow-2xl border border-white/30 will-reveal" data-delay="1">
+            <h3 class="text-2xl font-bold mb-6 text-slate-900">Gradient Generator</h3>
+            <div class="space-y-4">
+              <div class="h-32 rounded-xl mb-4" id="gradientPreview" style="background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);"></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Color 1</label>
+                  <input type="color" id="gradientColor1" value="#A78BFA" class="w-full h-10 rounded-lg cursor-pointer" onchange="updateGradient()">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Color 2</label>
+                  <input type="color" id="gradientColor2" value="#C4B5FD" class="w-full h-10 rounded-lg cursor-pointer" onchange="updateGradient()">
+                </div>
+              </div>
+              <select id="gradientDirection" onchange="updateGradient()" class="w-full px-4 py-2 rounded-xl border border-white/30 bg-white/50 backdrop-blur-sm">
+                <option value="135deg">Diagonal (135deg)</option>
+                <option value="90deg">Vertical (90deg)</option>
+                <option value="0deg">Horizontal (0deg)</option>
+                <option value="45deg">Diagonal (45deg)</option>
+              </select>
+              <div class="mt-4 p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/40">
+                <p class="text-xs text-slate-600 mb-2">CSS Code:</p>
+                <code id="gradientCode" class="text-xs font-mono text-slate-800 block break-all"></code>
+                <button onclick="copyGradient()" class="mt-3 text-xs text-purple-700 font-semibold hover:underline">Copy CSS</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shadow Generator -->
+          <div class="glass-card rounded-3xl p-8 shadow-2xl border border-white/30 will-reveal" data-delay="2">
+            <h3 class="text-2xl font-bold mb-6 text-slate-900">Shadow Generator</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-center h-32 rounded-xl mb-4 bg-white border border-white/40" id="shadowPreview">
+                <div class="px-6 py-3 rounded-lg bg-gradient-to-r from-purple1 to-purple2 text-white font-semibold" id="shadowBox">Preview Box</div>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">X Offset: <span id="xOffsetValue">10</span>px</label>
+                  <input type="range" id="xOffset" min="-50" max="50" value="10" class="w-full" oninput="updateShadow()">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Y Offset: <span id="yOffsetValue">10</span>px</label>
+                  <input type="range" id="yOffset" min="-50" max="50" value="10" class="w-full" oninput="updateShadow()">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Blur: <span id="blurValue">20</span>px</label>
+                  <input type="range" id="blur" min="0" max="100" value="20" class="w-full" oninput="updateShadow()">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Spread: <span id="spreadValue">0</span>px</label>
+                  <input type="range" id="spread" min="-50" max="50" value="0" class="w-full" oninput="updateShadow()">
+                </div>
+                <div>
+                  <label class="text-xs text-slate-600 mb-1 block">Opacity: <span id="opacityValue">0.3</span></label>
+                  <input type="range" id="opacity" min="0" max="1" step="0.1" value="0.3" class="w-full" oninput="updateShadow()">
+                </div>
+              </div>
+              <div class="mt-4 p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-white/40">
+                <p class="text-xs text-slate-600 mb-2">CSS Code:</p>
+                <code id="shadowCode" class="text-xs font-mono text-slate-800 block break-all"></code>
+                <button onclick="copyShadow()" class="mt-3 text-xs text-purple-700 font-semibold hover:underline">Copy CSS</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR Code Generator -->
+          <div class="glass-card rounded-3xl p-8 shadow-2xl border border-white/30 will-reveal" data-delay="3">
+            <h3 class="text-2xl font-bold mb-6 text-slate-900">QR Code Generator</h3>
+            <div class="space-y-4">
+              <input type="text" id="qrInput" placeholder="Enter URL or text..." value="https://samyam.xyz" class="w-full px-4 py-3 rounded-xl border border-white/30 bg-white/50 backdrop-blur-sm focus:bg-white/80 transition-all" oninput="generateQR()">
+              <div class="flex items-center justify-center p-6 bg-white rounded-xl border border-white/40" id="qrCodeContainer">
+                <div id="qrCode" class="w-48 h-48"></div>
+              </div>
+              <button onclick="downloadQR()" class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-purple1 to-purple2 text-white font-semibold hover:scale-105 transition-transform">
+                Download QR Code
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12 will-reveal">
+          <a href="features/index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple1 to-purple2 text-white font-semibold hover:scale-105 transition-transform">
+            <span>View All Tools</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>

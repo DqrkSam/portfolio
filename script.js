@@ -549,7 +549,7 @@ function initParticleCursor() {
 // Language Support
 const translations = {
   en: {
-    nav: { home: 'Home', work: 'Work', projects: 'Projects', testimonials: 'Testimonials', socials: 'Socials', connect: 'Connect', contact: 'Contact' },
+    nav: { home: 'Home', about: 'About', projects: 'Projects', tools: 'Tools', testimonials: 'Testimonials', socials: 'Socials', connect: 'Connect', contact: 'Contact' },
     hero: { 
       greeting: "Hello — I'm Samyam",
       title: "I design interfaces with motion, clarity and accessibility.",
@@ -567,7 +567,7 @@ const translations = {
     social: { title: "Connect", subtitle: "Follow my journey and latest updates" }
   },
   es: {
-    nav: { home: 'Inicio', work: 'Trabajo', projects: 'Proyectos', testimonials: 'Testimonios', socials: 'Sociales', connect: 'Conectar', contact: 'Contacto' },
+    nav: { home: 'Inicio', about: 'Acerca de', projects: 'Proyectos', tools: 'Herramientas', testimonials: 'Testimonios', socials: 'Sociales', connect: 'Conectar', contact: 'Contacto' },
     hero: { 
       greeting: "Hola — Soy Samyam",
       title: "Diseño interfaces con movimiento, claridad y accesibilidad.",
@@ -585,7 +585,7 @@ const translations = {
     social: { title: "Conectar", subtitle: "Sigue mi viaje y últimas actualizaciones" }
   },
   fr: {
-    nav: { home: 'Accueil', work: 'Travail', projects: 'Projets', testimonials: 'Témoignages', socials: 'Réseaux', connect: 'Se connecter', contact: 'Contact' },
+    nav: { home: 'Accueil', about: 'À propos', projects: 'Projets', tools: 'Outils', testimonials: 'Témoignages', socials: 'Réseaux', connect: 'Se connecter', contact: 'Contact' },
     hero: { 
       greeting: "Bonjour — Je suis Samyam",
       title: "Je conçois des interfaces avec mouvement, clarté et accessibilité.",
@@ -603,7 +603,7 @@ const translations = {
     social: { title: "Se connecter", subtitle: "Suivez mon parcours et dernières mises à jour" }
   },
   de: {
-    nav: { home: 'Startseite', work: 'Arbeit', projects: 'Projekte', testimonials: 'Referenzen', socials: 'Soziale', connect: 'Verbinden', contact: 'Kontakt' },
+    nav: { home: 'Startseite', about: 'Über mich', projects: 'Projekte', tools: 'Werkzeuge', testimonials: 'Referenzen', socials: 'Soziale', connect: 'Verbinden', contact: 'Kontakt' },
     hero: { 
       greeting: "Hallo — Ich bin Samyam",
       title: "Ich gestalte Benutzeroberflächen mit Bewegung, Klarheit und Barrierefreiheit.",
@@ -621,7 +621,7 @@ const translations = {
     social: { title: "Verbinden", subtitle: "Folgen Sie meiner Reise und neuesten Updates" }
   },
   ja: {
-    nav: { home: 'ホーム', work: '作品', projects: 'プロジェクト', testimonials: 'お客様の声', socials: 'ソーシャル', connect: '接続', contact: 'お問い合わせ' },
+    nav: { home: 'ホーム', about: 'について', projects: 'プロジェクト', tools: 'ツール', testimonials: 'お客様の声', socials: 'ソーシャル', connect: '接続', contact: 'お問い合わせ' },
     hero: { 
       greeting: "こんにちは — サミャムです",
       title: "動き、明確さ、アクセシビリティを備えたインターフェースをデザインします。",
@@ -639,7 +639,7 @@ const translations = {
     social: { title: "接続", subtitle: "私の旅と最新の更新をフォロー" }
   },
   zh: {
-    nav: { home: '首页', work: '作品', projects: '项目', testimonials: '客户评价', socials: '社交', connect: '连接', contact: '联系' },
+    nav: { home: '首页', about: '关于', projects: '项目', tools: '工具', testimonials: '客户评价', socials: '社交', connect: '连接', contact: '联系' },
     hero: { 
       greeting: "你好 — 我是 Samyam",
       title: "我设计具有动感、清晰度和可访问性的界面。",
@@ -657,7 +657,7 @@ const translations = {
     social: { title: "连接", subtitle: "关注我的旅程和最新更新" }
   },
   ne: {
-    nav: { home: 'घर', work: 'काम', projects: 'प्रोजेक्टहरू', testimonials: 'ग्राहक समीक्षा', socials: 'सामाजिक', connect: 'जडान', contact: 'सम्पर्क' },
+    nav: { home: 'घर', about: 'बारेमा', projects: 'प्रोजेक्टहरू', tools: 'उपकरणहरू', testimonials: 'ग्राहक समीक्षा', socials: 'सामाजिक', connect: 'जडान', contact: 'सम्पर्क' },
     hero: { 
       greeting: "नमस्ते — म सम्यम हुँ",
       title: "म गति, स्पष्टता र पहुँचको साथ इन्टरफेस डिजाइन गर्छु।",
@@ -720,7 +720,7 @@ function initLanguageSupport() {
 
     // Update navigation
     document.querySelectorAll('.nav-link').forEach((link, index) => {
-      const keys = ['home', 'work', 'projects', 'testimonials', 'socials', 'contact'];
+      const keys = ['home', 'about', 'projects', 'tools', 'testimonials', 'socials'];
       if (keys[index] && t.nav[keys[index]]) {
         link.textContent = t.nav[keys[index]];
       }
@@ -928,4 +928,211 @@ document.addEventListener('DOMContentLoaded', () => {
   initParticleCursor();
   initLanguageSupport();
   initRibbonsBackground();
+  initTools();
 });
+
+// Tools Functions
+function initTools() {
+  // Initialize tools if they exist on the page
+  if (document.getElementById('colorPalette')) {
+    generatePalette();
+    updateHexCodes();
+  }
+  if (document.getElementById('gradientPreview')) {
+    updateGradient();
+  }
+  if (document.getElementById('shadowPreview')) {
+    updateShadow();
+  }
+  if (document.getElementById('qrInput')) {
+    generateQR();
+  }
+}
+
+// Color Palette Generator
+function generatePalette() {
+  const palette = document.getElementById('colorPalette');
+  if (!palette) return;
+  
+  const baseHue = Math.floor(Math.random() * 360);
+  const colors = [];
+  
+  for (let i = 0; i < 5; i++) {
+    const hue = (baseHue + (i * 30)) % 360;
+    const saturation = 60 + Math.random() * 20;
+    const lightness = 70 + (i * 5);
+    const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    colors.push(color);
+    
+    const div = palette.children[i];
+    if (div) {
+      div.style.background = color;
+      div.setAttribute('data-color', color);
+      // Update onclick to use the new color
+      div.setAttribute('onclick', 'copyColor(this)');
+    }
+  }
+  
+  updateHexCodes();
+}
+
+function updateHexCodes() {
+  const palette = document.getElementById('colorPalette');
+  const hexCodes = document.getElementById('hexCodes');
+  if (!palette || !hexCodes) return;
+  
+  let html = '';
+  for (let i = 0; i < palette.children.length; i++) {
+    const color = palette.children[i].getAttribute('data-color');
+    const hex = rgbToHex(color);
+    html += `<div>${hex}</div>`;
+  }
+  hexCodes.innerHTML = html;
+}
+
+function rgbToHex(rgb) {
+  if (rgb.startsWith('#')) return rgb.toUpperCase();
+  if (rgb.startsWith('hsl')) {
+    const hsl = rgb.match(/\d+/g);
+    const h = hsl[0] / 360;
+    const s = hsl[1] / 100;
+    const l = hsl[2] / 100;
+    
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    return '#' + [r, g, b].map(x => {
+      const hex = Math.round(x * 255).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    }).join('').toUpperCase();
+  }
+  return rgb;
+}
+
+function copyColor(element) {
+  const color = element.getAttribute('data-color');
+  const hex = rgbToHex(color);
+  navigator.clipboard.writeText(hex).then(() => {
+    // Visual feedback
+    element.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      element.style.transform = '';
+    }, 200);
+  });
+}
+
+function copyPalette() {
+  const hexCodes = document.getElementById('hexCodes');
+  if (!hexCodes) return;
+  
+  const codes = Array.from(hexCodes.children).map(child => child.textContent).join(', ');
+  navigator.clipboard.writeText(codes).then(() => {
+    alert('Palette copied to clipboard!');
+  });
+}
+
+// Gradient Generator
+function updateGradient() {
+  const color1 = document.getElementById('gradientColor1')?.value || '#A78BFA';
+  const color2 = document.getElementById('gradientColor2')?.value || '#C4B5FD';
+  const direction = document.getElementById('gradientDirection')?.value || '135deg';
+  const preview = document.getElementById('gradientPreview');
+  const code = document.getElementById('gradientCode');
+  
+  if (preview) {
+    preview.style.background = `linear-gradient(${direction}, ${color1} 0%, ${color2} 100%)`;
+  }
+  
+  if (code) {
+    code.textContent = `background: linear-gradient(${direction}, ${color1} 0%, ${color2} 100%);`;
+  }
+}
+
+function copyGradient() {
+  const code = document.getElementById('gradientCode');
+  if (!code) return;
+  
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    alert('Gradient CSS copied to clipboard!');
+  });
+}
+
+// Shadow Generator
+function updateShadow() {
+  const xOffset = document.getElementById('xOffset')?.value || 10;
+  const yOffset = document.getElementById('yOffset')?.value || 10;
+  const blur = document.getElementById('blur')?.value || 20;
+  const spread = document.getElementById('spread')?.value || 0;
+  const opacity = document.getElementById('opacity')?.value || 0.3;
+  
+  // Update value displays
+  document.getElementById('xOffsetValue').textContent = xOffset;
+  document.getElementById('yOffsetValue').textContent = yOffset;
+  document.getElementById('blurValue').textContent = blur;
+  document.getElementById('spreadValue').textContent = spread;
+  document.getElementById('opacityValue').textContent = opacity;
+  
+  const shadowValue = `${xOffset}px ${yOffset}px ${blur}px ${spread}px rgba(167, 139, 250, ${opacity})`;
+  const shadowBox = document.getElementById('shadowBox');
+  const shadowCode = document.getElementById('shadowCode');
+  
+  if (shadowBox) {
+    shadowBox.style.boxShadow = shadowValue;
+  }
+  
+  if (shadowCode) {
+    shadowCode.textContent = `box-shadow: ${shadowValue};`;
+  }
+}
+
+function copyShadow() {
+  const code = document.getElementById('shadowCode');
+  if (!code) return;
+  
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    alert('Shadow CSS copied to clipboard!');
+  });
+}
+
+// QR Code Generator
+function generateQR() {
+  const input = document.getElementById('qrInput');
+  const container = document.getElementById('qrCode');
+  if (!input || !container) return;
+  
+  const text = input.value || 'https://samyam.dev';
+  
+  // Using a simple QR code API (you can replace with a library)
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+  
+  container.innerHTML = `<img src="${qrUrl}" alt="QR Code" class="w-full h-full object-contain">`;
+}
+
+function downloadQR() {
+  const input = document.getElementById('qrInput');
+  const container = document.getElementById('qrCode');
+  if (!input || !container) return;
+  
+  const text = input.value || 'https://samyam.dev';
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(text)}`;
+  
+  const link = document.createElement('a');
+  link.href = qrUrl;
+  link.download = 'qrcode.png';
+  link.click();
+}

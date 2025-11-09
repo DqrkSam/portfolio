@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tools & Features - Samyam's Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="../images/x-logo.ico">
+
+  <!-- Tailwind CDN -->
+  <script>
+    if (!window.tailwind) {
+      document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+    }
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { purple1: '#A78BFA', purple2: '#C4B5FD' },
+          spacing: { container: '1400px' }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="antialiased text-slate-900">
+  <!-- Scroll Progress Indicator -->
+  <div id="scrollProgress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple1 to-purple2 z-50 transition-all duration-150" style="width: 0%;"></div>
+  
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-6 pt-4">
+    <nav class="mx-auto max-w-[var(--container)]">
+      <div class="nav-glass backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl flex items-center justify-between px-6 py-4">
+        <div class="flex items-center gap-4">
+          <a href="../index.html" class="flex items-center gap-4">
+            <div class="logo-3d h-12 w-12 flex items-center justify-center overflow-hidden">
+              <img src="../images/x-logo.ico" alt="Samyam Logo" class="w-full h-full object-contain" />
+            </div>
+            <div class="hidden sm:block">
+              <div class="font-bold text-lg">Samyam (SY)</div>
+              <div class="text-xs text-slate-600">Designer & Developer</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <a href="../index.html" class="nav-link hover:text-purple-700 transition-all text-sm lg:text-base">Back to Portfolio</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-10 pt-32 pb-20">
+    <div class="mx-auto max-w-[var(--container)] px-6">
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h1 class="text-5xl lg:text-7xl font-black mb-4 bg-gradient-to-r from-slate-900 via-purple-800 to-purple-600 bg-clip-text text-transparent">
+          Tools & Features
+        </h1>
+        <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+          A collection of useful web development and design tools to help you build better projects
+        </p>
+      </div>
+
+      <!-- Tools Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Color Palette Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Color Palette Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Generate beautiful color palettes with hex codes and export options</p>
+          <a href="#color-palette" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Gradient Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Gradient Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Create CSS gradients with visual editor and copy code</p>
+          <a href="#gradient" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Shadow Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Shadow Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Generate CSS box-shadow values with live preview</p>
+          <a href="#shadow" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- QR Code Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">QR Code Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Generate QR codes for URLs, contact info, or text</p>
+          <a href="#qr-code" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Font Pairing Tool -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Font Pairing Tool</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Preview and test font combinations for your projects</p>
+          <a href="#font-pairing" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Border Radius Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Border Radius Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Visual tool to create border-radius values</p>
+          <a href="#border-radius" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Text Shadow Generator -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h10m-7 4h7M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Text Shadow Generator</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Create CSS text-shadow effects with preview</p>
+          <a href="#text-shadow" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Color Contrast Checker -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Color Contrast Checker</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Check WCAG contrast ratios between colors</p>
+          <a href="#contrast" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Hex to RGB Converter -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Hex to RGB Converter</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Convert hex colors to RGB/RGBA values</p>
+          <a href="#hex-rgb" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Pixel to Rem Converter -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Pixel to Rem Converter</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Convert pixel values to rem/em units</p>
+          <a href="#px-rem" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- JSON Formatter -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">JSON Formatter</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Format and validate JSON with syntax highlighting</p>
+          <a href="#json" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- CSS Minifier -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">CSS Minifier</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Minify or beautify CSS code</p>
+          <a href="#css-minify" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Base64 Encoder -->
+        <div class="glass-card rounded-2xl p-6 shadow-xl border border-white/30 hover:scale-[1.02] transition-transform">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple1/20 to-purple2/20 flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Base64 Encoder</h3>
+          </div>
+          <p class="text-slate-600 text-sm mb-4">Convert images or text to/from Base64</p>
+          <a href="#base64" class="text-purple-700 font-semibold text-sm hover:underline inline-flex items-center gap-1">
+            Use Tool <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Coming Soon Section -->
+      <div class="mt-16 text-center">
+        <p class="text-slate-600 mb-4">More tools coming soon!</p>
+        <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple1 to-purple2 text-white font-semibold hover:scale-105 transition-transform">
+          <span>Back to Portfolio</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+    });
+  </script>
+</body>
+</html>
+
