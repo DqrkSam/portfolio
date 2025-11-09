@@ -961,9 +961,28 @@ document.addEventListener('DOMContentLoaded', () => {
   initTools();
   // New advanced features
   initTerminal();
-  init3DSkills();
   initStatsCounter();
   initMagneticHover();
+  
+  // Initialize 3D skills after a delay to ensure DOM is ready
+  // Also re-initialize when content becomes visible
+  setTimeout(() => {
+    init3DSkills();
+  }, 500);
+  
+  // Also initialize when main content becomes visible (for landing page scenario)
+  const mainContent = document.getElementById('main');
+  if (mainContent) {
+    const observer = new MutationObserver(() => {
+      if (mainContent.classList.contains('visible') && !mainContent.dataset.skillsInitialized) {
+        setTimeout(() => {
+          init3DSkills();
+          mainContent.dataset.skillsInitialized = 'true';
+        }, 300);
+      }
+    });
+    observer.observe(mainContent, { attributes: true, attributeFilter: ['class'] });
+  }
 });
 
 // Tools Functions
@@ -1467,12 +1486,37 @@ I combine design and code to ship polished experiences.`,
 }
 
 // ========== 3D SKILLS VISUALIZATION ==========
+let skills3DInitialized = false;
+
 function init3DSkills() {
+  // Prevent multiple initializations
+  if (skills3DInitialized) return;
+  
   const canvas = document.getElementById('skills3dCanvas');
   const container = document.getElementById('skills3dContainer');
   const skillsGrid = document.getElementById('skillsGrid');
   const tooltip = document.getElementById('skillTooltip');
-  if (!canvas || !container || !skillsGrid) return;
+  
+  if (!canvas || !container || !skillsGrid) {
+    console.log('3D Skills: Elements not found, retrying...');
+    // Retry after a short delay if elements aren't ready
+    setTimeout(() => {
+      if (!skills3DInitialized) init3DSkills();
+    }, 500);
+    return;
+  }
+  
+  // Check if container is visible
+  const rect = container.getBoundingClientRect();
+  if (rect.width === 0 || rect.height === 0) {
+    console.log('3D Skills: Container not visible yet, retrying...');
+    setTimeout(() => {
+      if (!skills3DInitialized) init3DSkills();
+    }, 500);
+    return;
+  }
+  
+  skills3DInitialized = true;
 
   // Advanced skills data with categories, proficiency, and icons
   const skillsData = [
@@ -1568,10 +1612,23 @@ function init3DSkills() {
 
   // Initialize 3D canvas
   const ctx = canvas.getContext('2d');
-  let width = container.offsetWidth;
+  let width = container.offsetWidth || 800;
   let height = 600;
+  
+  // Ensure we have valid dimensions
+  if (width === 0) {
+    width = container.clientWidth || 800;
+  }
+  if (width === 0) {
+    width = window.innerWidth * 0.9 || 800;
+  }
+  
   canvas.width = width;
   canvas.height = height;
+  
+  // Set canvas display size
+  canvas.style.width = '100%';
+  canvas.style.height = `${height}px`;
 
   // Enhanced 3D particle system
   const particles = skillsData.map((skill, i) => {
@@ -1837,13 +1894,74 @@ function init3DSkills() {
 
   // Resize handler
   window.addEventListener('resize', () => {
-    width = container.offsetWidth;
-    canvas.width = width;
+    const newWidth = container.offsetWidth;
+    if (newWidth !== width && newWidth > 0) {
+      width = newWidth;
+      canvas.width = width;
+      canvas.height = height;
+      
+      // Recalculate particle positions
+      particles.forEach((particle, i) => {
+        const angle = (i / skillsData.length) * Math.PI * 2;
+        particle.x = width / 2 + Math.cos(angle) * particle.radius;
+        particle.y = height / 2 + Math.sin(angle) * particle.radius;
+      });
+    }
   });
+  
+  // Also check when section comes into view
+  const skillsSection = document.getElementById('skills-3d');
+  if (skillsSection) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && canvas.width === 0) {
+          // Reinitialize if canvas wasn't properly set up
+          width = container.offsetWidth;
+          if (width > 0) {
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Recalculate particles
+            particles.forEach((particle, i) => {
+              const angle = (i / skillsData.length) * Math.PI * 2;
+              particle.x = width / 2 + Math.cos(angle) * particle.radius;
+              particle.y = height / 2 + Math.sin(angle) * particle.radius;
+            });
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    sectionObserver.observe(skillsSection);
+  }
 
-  // Initialize
-  createSkillCards();
-  animate();
+  // Initialize - with error handling
+  try {
+    createSkillCards();
+    
+    // Small delay to ensure canvas is ready
+    setTimeout(() => {
+      if (canvas && container) {
+        // Re-check dimensions
+        width = container.offsetWidth;
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Recalculate particle positions
+        particles.forEach((particle, i) => {
+          const angle = (i / skillsData.length) * Math.PI * 2;
+          particle.angle = angle;
+          particle.x = width / 2 + Math.cos(angle) * particle.radius;
+          particle.y = height / 2 + Math.sin(angle) * particle.radius;
+          particle.z = Math.sin(angle * 2) * 60;
+        });
+        
+        animate();
+      }
+    }, 100);
+  } catch (error) {
+    console.error('Error initializing 3D skills:', error);
+  }
 }
 
 // ========== ANIMATED STATS COUNTER ==========
