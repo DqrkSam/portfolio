@@ -549,7 +549,7 @@ function initParticleCursor() {
 // Language Support
 const translations = {
   en: {
-    nav: { home: 'Home', about: 'About', projects: 'Projects', tools: 'Tools', testimonials: 'Testimonials', socials: 'Socials', connect: 'Connect', contact: 'Contact' },
+    nav: { home: 'Home', about: 'About', terminal: 'Terminal', skills: 'Skills', stats: 'Stats', projects: 'Projects', tools: 'Tools', testimonials: 'Testimonials', socials: 'Socials', connect: 'Connect', contact: 'Contact' },
     hero: { 
       greeting: "Hello — I'm Samyam",
       title: "I design interfaces with motion, clarity and accessibility.",
@@ -567,7 +567,7 @@ const translations = {
     social: { title: "Connect", subtitle: "Follow my journey and latest updates" }
   },
   es: {
-    nav: { home: 'Inicio', about: 'Acerca de', projects: 'Proyectos', tools: 'Herramientas', testimonials: 'Testimonios', socials: 'Sociales', connect: 'Conectar', contact: 'Contacto' },
+    nav: { home: 'Inicio', about: 'Acerca de', terminal: 'Terminal', skills: 'Habilidades', stats: 'Estadísticas', projects: 'Proyectos', tools: 'Herramientas', testimonials: 'Testimonios', socials: 'Sociales', connect: 'Conectar', contact: 'Contacto' },
     hero: { 
       greeting: "Hola — Soy Samyam",
       title: "Diseño interfaces con movimiento, claridad y accesibilidad.",
@@ -585,7 +585,7 @@ const translations = {
     social: { title: "Conectar", subtitle: "Sigue mi viaje y últimas actualizaciones" }
   },
   fr: {
-    nav: { home: 'Accueil', about: 'À propos', projects: 'Projets', tools: 'Outils', testimonials: 'Témoignages', socials: 'Réseaux', connect: 'Se connecter', contact: 'Contact' },
+    nav: { home: 'Accueil', about: 'À propos', terminal: 'Terminal', skills: 'Compétences', stats: 'Statistiques', projects: 'Projets', tools: 'Outils', testimonials: 'Témoignages', socials: 'Réseaux', connect: 'Se connecter', contact: 'Contact' },
     hero: { 
       greeting: "Bonjour — Je suis Samyam",
       title: "Je conçois des interfaces avec mouvement, clarté et accessibilité.",
@@ -603,7 +603,7 @@ const translations = {
     social: { title: "Se connecter", subtitle: "Suivez mon parcours et dernières mises à jour" }
   },
   de: {
-    nav: { home: 'Startseite', about: 'Über mich', projects: 'Projekte', tools: 'Werkzeuge', testimonials: 'Referenzen', socials: 'Soziale', connect: 'Verbinden', contact: 'Kontakt' },
+    nav: { home: 'Startseite', about: 'Über mich', terminal: 'Terminal', skills: 'Fähigkeiten', stats: 'Statistiken', projects: 'Projekte', tools: 'Werkzeuge', testimonials: 'Referenzen', socials: 'Soziale', connect: 'Verbinden', contact: 'Kontakt' },
     hero: { 
       greeting: "Hallo — Ich bin Samyam",
       title: "Ich gestalte Benutzeroberflächen mit Bewegung, Klarheit und Barrierefreiheit.",
@@ -621,7 +621,7 @@ const translations = {
     social: { title: "Verbinden", subtitle: "Folgen Sie meiner Reise und neuesten Updates" }
   },
   ja: {
-    nav: { home: 'ホーム', about: 'について', projects: 'プロジェクト', tools: 'ツール', testimonials: 'お客様の声', socials: 'ソーシャル', connect: '接続', contact: 'お問い合わせ' },
+    nav: { home: 'ホーム', about: 'について', terminal: 'ターミナル', skills: 'スキル', stats: '統計', projects: 'プロジェクト', tools: 'ツール', testimonials: 'お客様の声', socials: 'ソーシャル', connect: '接続', contact: 'お問い合わせ' },
     hero: { 
       greeting: "こんにちは — サミャムです",
       title: "動き、明確さ、アクセシビリティを備えたインターフェースをデザインします。",
@@ -639,7 +639,7 @@ const translations = {
     social: { title: "接続", subtitle: "私の旅と最新の更新をフォロー" }
   },
   zh: {
-    nav: { home: '首页', about: '关于', projects: '项目', tools: '工具', testimonials: '客户评价', socials: '社交', connect: '连接', contact: '联系' },
+    nav: { home: '首页', about: '关于', terminal: '终端', skills: '技能', stats: '统计', projects: '项目', tools: '工具', testimonials: '客户评价', socials: '社交', connect: '连接', contact: '联系' },
     hero: { 
       greeting: "你好 — 我是 Samyam",
       title: "我设计具有动感、清晰度和可访问性的界面。",
@@ -657,7 +657,7 @@ const translations = {
     social: { title: "连接", subtitle: "关注我的旅程和最新更新" }
   },
   ne: {
-    nav: { home: 'घर', about: 'बारेमा', projects: 'प्रोजेक्टहरू', tools: 'उपकरणहरू', testimonials: 'ग्राहक समीक्षा', socials: 'सामाजिक', connect: 'जडान', contact: 'सम्पर्क' },
+    nav: { home: 'घर', about: 'बारेमा', terminal: 'टर्मिनल', skills: 'कौशल', stats: 'तथ्याङ्क', projects: 'प्रोजेक्टहरू', tools: 'उपकरणहरू', testimonials: 'ग्राहक समीक्षा', socials: 'सामाजिक', connect: 'जडान', contact: 'सम्पर्क' },
     hero: { 
       greeting: "नमस्ते — म सम्यम हुँ",
       title: "म गति, स्पष्टता र पहुँचको साथ इन्टरफेस डिजाइन गर्छु।",
@@ -718,11 +718,25 @@ function initLanguageSupport() {
     // Update document language
     document.documentElement.lang = lang;
 
-    // Update navigation
-    document.querySelectorAll('.nav-link').forEach((link, index) => {
-      const keys = ['home', 'about', 'projects', 'tools', 'testimonials', 'socials'];
-      if (keys[index] && t.nav[keys[index]]) {
-        link.textContent = t.nav[keys[index]];
+    // Update navigation - match by href
+    const navMap = {
+      '#home': 'home',
+      '#about': 'about',
+      '#terminal': 'terminal',
+      '#skills-3d': 'skills',
+      '#stats': 'stats',
+      '#projects': 'projects',
+      '#tools': 'tools',
+      '#testimonials': 'testimonials',
+      '#social': 'socials',
+      '#contact': 'contact'
+    };
+    
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      const href = link.getAttribute('href');
+      const key = navMap[href];
+      if (key && t.nav[key]) {
+        link.textContent = t.nav[key];
       }
     });
     
@@ -731,6 +745,20 @@ function initLanguageSupport() {
     if (connectBtn && t.nav.connect) {
       connectBtn.textContent = t.nav.connect;
     }
+    
+    // Update mobile menu navigation
+    document.querySelectorAll('#mobileMenu a[data-close]').forEach((link) => {
+      const href = link.getAttribute('href');
+      const key = navMap[href];
+      if (key) {
+        // Special handling for contact link which says "Connect" in mobile menu
+        if (href === '#contact') {
+          link.textContent = t.nav.connect || t.nav.contact;
+        } else if (t.nav[key]) {
+          link.textContent = t.nav[key];
+        }
+      }
+    });
 
     // Update hero section
     const heroBadge = document.querySelector('.hero-badge');
@@ -929,6 +957,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageSupport();
   initRibbonsBackground();
   initTools();
+  // New advanced features
+  initTerminal();
+  init3DSkills();
+  initStatsCounter();
+  initMagneticHover();
 });
 
 // Tools Functions
@@ -1135,4 +1168,597 @@ function downloadQR() {
   link.href = qrUrl;
   link.download = 'qrcode.png';
   link.click();
+}
+
+// ========== INTERACTIVE TERMINAL ==========
+function initTerminal() {
+  const terminalInput = document.getElementById('terminalInput');
+  const terminalOutput = document.getElementById('terminalOutput');
+  if (!terminalInput || !terminalOutput) return;
+
+  const commands = {
+    help: () => `Available commands:
+  help          - Show this help message
+  about         - Learn about me
+  skills         - View my technical skills
+  projects       - List my projects
+  contact        - Get contact information
+  clear          - Clear terminal
+  ls             - List directory contents
+  whoami         - Display username
+  date           - Show current date
+  echo [text]    - Echo text back
+  theme          - Toggle theme
+  github         - Open GitHub profile
+  linkedin       - Open LinkedIn profile`,
+    
+    about: () => `I'm Samyam, a product-focused front-end engineer passionate about 
+building fast, accessible UI systems with delightful micro-interactions. 
+I combine design and code to ship polished experiences.`,
+    
+    skills: () => `Technical Skills:
+  • Frontend: React, Vue, Next.js, TypeScript
+  • Styling: Tailwind CSS, CSS3, SASS
+  • Tools: Git, Webpack, Vite, Figma
+  • Backend: Node.js, Express, MongoDB
+  • Design: UI/UX, Motion Design, Accessibility`,
+    
+    projects: () => `Featured Projects:
+  1. Interactive Landing Pages
+  2. Design Token Systems
+  3. Micro-Interaction Libraries
+  4. Performance-Optimized Web Apps`,
+    
+    contact: () => `You can reach me at:
+  Email: hello@samyam.dev
+  Twitter: @samyam
+  LinkedIn: /in/samyam
+  GitHub: github.com/samyam`,
+    
+    clear: () => {
+      terminalOutput.innerHTML = '';
+      return null;
+    },
+    
+    ls: () => `projects/  skills/  contact.txt  resume.pdf  README.md`,
+    
+    whoami: () => `samyam`,
+    
+    date: () => new Date().toLocaleString(),
+    
+    echo: (args) => args.join(' '),
+    
+    theme: () => {
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) themeToggle.click();
+      return 'Theme toggled!';
+    },
+    
+    github: () => {
+      window.open('https://github.com/samyam', '_blank');
+      return 'Opening GitHub...';
+    },
+    
+    linkedin: () => {
+      window.open('https://linkedin.com/in/samyam', '_blank');
+      return 'Opening LinkedIn...';
+    }
+  };
+
+  function addOutput(text, className = '') {
+    // Handle multi-line text by splitting on newlines
+    if (typeof text === 'string' && text.includes('\n')) {
+      const lines = text.split('\n');
+      lines.forEach((lineText, index) => {
+        const line = document.createElement('div');
+        line.className = `terminal-line ${className}`;
+        if (lineText.includes('$') || lineText.includes('<span')) {
+          line.innerHTML = lineText;
+        } else {
+          line.textContent = lineText;
+        }
+        terminalOutput.appendChild(line);
+      });
+    } else {
+      const line = document.createElement('div');
+      line.className = `terminal-line ${className}`;
+      if (typeof text === 'string' && (text.includes('$') || text.includes('<span'))) {
+        line.innerHTML = text;
+      } else {
+        line.textContent = text;
+      }
+      terminalOutput.appendChild(line);
+    }
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
+
+  function processCommand(input) {
+    const parts = input.trim().split(' ');
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+
+    addOutput(`<span class="terminal-user">samyam</span>:<span class="terminal-path">~</span>$ ${input}`, 'command-line');
+
+    if (commands[cmd]) {
+      const result = commands[cmd](args);
+      if (result !== null) {
+        addOutput(result);
+      }
+    } else if (cmd === '') {
+      // Empty command, do nothing
+    } else {
+      addOutput(`Command not found: ${cmd}. Type 'help' for available commands.`);
+    }
+  }
+
+  terminalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const input = terminalInput.value;
+      if (input.trim()) {
+        processCommand(input);
+      }
+      terminalInput.value = '';
+    }
+  });
+
+  // Focus input on click
+  terminalOutput.addEventListener('click', () => {
+    terminalInput.focus();
+  });
+}
+
+// ========== 3D SKILLS VISUALIZATION ==========
+function init3DSkills() {
+  const canvas = document.getElementById('skills3dCanvas');
+  const container = document.getElementById('skills3dContainer');
+  const skillsGrid = document.getElementById('skillsGrid');
+  const tooltip = document.getElementById('skillTooltip');
+  if (!canvas || !container || !skillsGrid) return;
+
+  // Advanced skills data with categories, proficiency, and icons
+  const skillsData = [
+    // Frontend
+    { name: 'React', category: 'frontend', proficiency: 95, icon: '⚛️' },
+    { name: 'TypeScript', category: 'frontend', proficiency: 90, icon: '📘' },
+    { name: 'JavaScript', category: 'frontend', proficiency: 98, icon: '🟨' },
+    { name: 'Next.js', category: 'frontend', proficiency: 88, icon: '▲' },
+    { name: 'Vue.js', category: 'frontend', proficiency: 85, icon: '💚' },
+    { name: 'HTML5', category: 'frontend', proficiency: 98, icon: '🌐' },
+    { name: 'CSS3', category: 'frontend', proficiency: 96, icon: '🎨' },
+    { name: 'Tailwind CSS', category: 'frontend', proficiency: 94, icon: '💨' },
+    { name: 'SASS', category: 'frontend', proficiency: 90, icon: '💅' },
+    { name: 'Three.js', category: 'frontend', proficiency: 80, icon: '🎮' },
+    { name: 'GSAP', category: 'frontend', proficiency: 85, icon: '✨' },
+    // Backend
+    { name: 'Node.js', category: 'backend', proficiency: 92, icon: '🟢' },
+    { name: 'Express', category: 'backend', proficiency: 90, icon: '🚂' },
+    { name: 'MongoDB', category: 'backend', proficiency: 88, icon: '🍃' },
+    { name: 'Python', category: 'backend', proficiency: 85, icon: '🐍' },
+    { name: 'GraphQL', category: 'backend', proficiency: 82, icon: '📊' },
+    { name: 'REST API', category: 'backend', proficiency: 95, icon: '🔌' },
+    // Tools
+    { name: 'Git', category: 'tools', proficiency: 95, icon: '🔀' },
+    { name: 'Webpack', category: 'tools', proficiency: 88, icon: '📦' },
+    { name: 'Vite', category: 'tools', proficiency: 92, icon: '⚡' },
+    { name: 'Docker', category: 'tools', proficiency: 80, icon: '🐳' },
+    { name: 'AWS', category: 'tools', proficiency: 75, icon: '☁️' },
+    // Design
+    { name: 'Figma', category: 'design', proficiency: 90, icon: '🎭' },
+    { name: 'UI/UX', category: 'design', proficiency: 92, icon: '🎨' },
+    { name: 'Accessibility', category: 'design', proficiency: 95, icon: '♿' },
+    { name: 'Performance', category: 'design', proficiency: 93, icon: '⚡' }
+  ];
+
+  let currentCategory = 'all';
+  let hoveredSkill = null;
+
+  // Create skills grid cards
+  function createSkillCards() {
+    skillsGrid.innerHTML = '';
+    const filteredSkills = currentCategory === 'all' 
+      ? skillsData 
+      : skillsData.filter(s => s.category === currentCategory);
+
+    filteredSkills.forEach((skill, index) => {
+      const card = document.createElement('div');
+      card.className = 'skill-card';
+      card.dataset.category = skill.category;
+      card.dataset.skill = skill.name.toLowerCase();
+      
+      card.innerHTML = `
+        <div class="skill-card-header">
+          <div class="skill-icon">${skill.icon}</div>
+          <div class="flex-1">
+            <h3 class="skill-name">${skill.name}</h3>
+            <div class="skill-category">${skill.category}</div>
+          </div>
+        </div>
+        <div class="skill-progress-container">
+          <div class="skill-progress-label">
+            <span class="skill-progress-text">Proficiency</span>
+            <span class="skill-progress-percent">${skill.proficiency}%</span>
+          </div>
+          <div class="skill-progress-bar">
+            <div class="skill-progress-fill" style="width: 0%" data-target="${skill.proficiency}"></div>
+          </div>
+        </div>
+      `;
+      
+      skillsGrid.appendChild(card);
+      
+      // Animate progress bar when in view
+      setTimeout(() => {
+        const progressFill = card.querySelector('.skill-progress-fill');
+        if (progressFill) {
+          progressFill.style.width = `${skill.proficiency}%`;
+        }
+      }, index * 50);
+    });
+  }
+
+  // Category filter functionality
+  document.querySelectorAll('.skill-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.skill-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.dataset.category;
+      createSkillCards();
+      update3DVisualization();
+    });
+  });
+
+  // Initialize 3D canvas
+  const ctx = canvas.getContext('2d');
+  let width = container.offsetWidth;
+  let height = 600;
+  canvas.width = width;
+  canvas.height = height;
+
+  // Enhanced 3D particle system
+  const particles = skillsData.map((skill, i) => {
+    const angle = (i / skillsData.length) * Math.PI * 2;
+    const radius = 180;
+    const z = Math.sin(angle * 2) * 60;
+    return {
+      x: width / 2 + Math.cos(angle) * radius,
+      y: height / 2 + Math.sin(angle) * radius,
+      z: z,
+      text: skill.name,
+      category: skill.category,
+      proficiency: skill.proficiency,
+      icon: skill.icon,
+      angle: angle,
+      radius: radius,
+      baseRadius: radius,
+      size: 5 + (skill.proficiency / 20),
+      color: getCategoryColor(skill.category)
+    };
+  });
+
+  function getCategoryColor(category) {
+    const colors = {
+      frontend: { r: 167, g: 139, b: 250 },
+      backend: { r: 34, g: 197, b: 94 },
+      tools: { r: 59, g: 130, b: 246 },
+      design: { r: 236, g: 72, b: 153 }
+    };
+    return colors[category] || colors.frontend;
+  }
+
+  let rotationX = 0;
+  let rotationY = 0;
+  let targetRotationX = 0;
+  let targetRotationY = 0;
+  let isDragging = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+
+  function update3DVisualization() {
+    const filteredParticles = currentCategory === 'all'
+      ? particles
+      : particles.filter(p => {
+          const skill = skillsData.find(s => s.name === p.text);
+          return skill && skill.category === currentCategory;
+        });
+
+    // Update particle positions for filtered view
+    filteredParticles.forEach((particle, i) => {
+      const angle = (i / filteredParticles.length) * Math.PI * 2;
+      particle.angle = angle;
+      particle.x = width / 2 + Math.cos(angle) * particle.radius;
+      particle.y = height / 2 + Math.sin(angle) * particle.radius;
+      particle.z = Math.sin(angle * 2) * 60;
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    
+    // Smooth rotation
+    rotationX += (targetRotationX - rotationX) * 0.1;
+    rotationY += (targetRotationY - rotationY) * 0.1;
+
+    // Auto-rotate when not dragging
+    if (!isDragging) {
+      targetRotationY += 0.003;
+    }
+
+    const filteredParticles = currentCategory === 'all'
+      ? particles
+      : particles.filter(p => {
+          const skill = skillsData.find(s => s.name === p.text);
+          return skill && skill.category === currentCategory;
+        });
+
+    // Sort by Z for proper depth rendering
+    const sortedParticles = [...filteredParticles].sort((a, b) => {
+      const aZ = getScreenZ(a);
+      const bZ = getScreenZ(b);
+      return bZ - aZ;
+    });
+
+    function getScreenZ(particle) {
+      const cosX = Math.cos(rotationX);
+      const sinX = Math.sin(rotationX);
+      const cosY = Math.cos(rotationY);
+      const sinY = Math.sin(rotationY);
+      const x = particle.x - width / 2;
+      const y = particle.y - height / 2;
+      const z = particle.z;
+      const rotatedZ = x * sinY + z * cosY;
+      return y * sinX + rotatedZ * cosX;
+    }
+
+    // Draw connection lines
+    sortedParticles.forEach((particle, i) => {
+      if (i < sortedParticles.length - 1) {
+        const nextParticle = sortedParticles[i + 1];
+        drawConnection(particle, nextParticle);
+      }
+    });
+
+    // Draw particles
+    sortedParticles.forEach(particle => {
+      drawParticle(particle);
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  function drawConnection(p1, p2) {
+    const pos1 = get3DPosition(p1);
+    const pos2 = get3DPosition(p2);
+    
+    if (pos1.scale > 0.1 && pos2.scale > 0.1) {
+      const gradient = ctx.createLinearGradient(pos1.x, pos1.y, pos2.x, pos2.y);
+      gradient.addColorStop(0, `rgba(${p1.color.r}, ${p1.color.g}, ${p1.color.b}, ${0.15 * pos1.scale})`);
+      gradient.addColorStop(1, `rgba(${p2.color.r}, ${p2.color.g}, ${p2.color.b}, ${0.15 * pos2.scale})`);
+      
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(pos1.x, pos1.y);
+      ctx.lineTo(pos2.x, pos2.y);
+      ctx.stroke();
+    }
+  }
+
+  function drawParticle(particle) {
+    const pos = get3DPosition(particle);
+    
+    if (pos.scale <= 0) return;
+
+    // Draw glow effect
+    const glowGradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, particle.size * pos.scale * 3);
+    glowGradient.addColorStop(0, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${0.3 * pos.scale})`);
+    glowGradient.addColorStop(1, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0)`);
+    ctx.fillStyle = glowGradient;
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, particle.size * pos.scale * 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw particle
+    const particleGradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, particle.size * pos.scale);
+    particleGradient.addColorStop(0, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${0.9 * pos.scale})`);
+    particleGradient.addColorStop(1, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${0.6 * pos.scale})`);
+    ctx.fillStyle = particleGradient;
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, particle.size * pos.scale, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw text
+    if (pos.scale > 0.4) {
+      ctx.fillStyle = `rgba(0, 0, 0, ${0.9 * pos.scale})`;
+      ctx.font = `bold ${14 * pos.scale}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(particle.text, pos.x, pos.y + 25 * pos.scale);
+    }
+  }
+
+  function get3DPosition(particle) {
+    const cosX = Math.cos(rotationX);
+    const sinX = Math.sin(rotationX);
+    const cosY = Math.cos(rotationY);
+    const sinY = Math.sin(rotationY);
+
+    const x = particle.x - width / 2;
+    const y = particle.y - height / 2;
+    const z = particle.z;
+
+    const rotatedX = x * cosY - z * sinY;
+    const rotatedZ = x * sinY + z * cosY;
+    const rotatedY = y * cosX - rotatedZ * sinX;
+    const finalZ = y * sinX + rotatedZ * cosX;
+
+    const scale = 300 / (300 + finalZ);
+    const screenX = width / 2 + rotatedX * scale;
+    const screenY = height / 2 + rotatedY * scale;
+
+    return { x: screenX, y: screenY, z: finalZ, scale };
+  }
+
+  // Mouse interaction
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    canvas.style.cursor = 'grabbing';
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX - canvas.getBoundingClientRect().left;
+    mouseY = e.clientY - canvas.getBoundingClientRect().top;
+
+    if (isDragging) {
+      const deltaX = e.clientX - lastMouseX;
+      const deltaY = e.clientY - lastMouseY;
+      targetRotationY += deltaX * 0.01;
+      targetRotationX += deltaY * 0.01;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    } else {
+      // Check hover
+      const filteredParticles = currentCategory === 'all'
+        ? particles
+        : particles.filter(p => {
+            const skill = skillsData.find(s => s.name === p.text);
+            return skill && skill.category === currentCategory;
+          });
+
+      let found = false;
+      for (const particle of filteredParticles) {
+        const pos = get3DPosition(particle);
+        const dist = Math.sqrt((mouseX - pos.x) ** 2 + (mouseY - pos.y) ** 2);
+        if (dist < particle.size * pos.scale * 2) {
+          showTooltip(particle, mouseX, mouseY);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        hideTooltip();
+      }
+    }
+  });
+
+  canvas.addEventListener('mouseup', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+    hideTooltip();
+  });
+
+  function showTooltip(particle, x, y) {
+    if (!tooltip) return;
+    const skill = skillsData.find(s => s.name === particle.text);
+    if (!skill) return;
+
+    tooltip.classList.remove('hidden');
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+    
+    document.getElementById('tooltipName').textContent = skill.name;
+    document.getElementById('tooltipCategory').textContent = skill.category.toUpperCase();
+    const progressBar = document.getElementById('tooltipProgress');
+    const progressPercent = document.getElementById('tooltipPercent');
+    if (progressBar) progressBar.style.width = `${skill.proficiency}%`;
+    if (progressPercent) progressPercent.textContent = `${skill.proficiency}%`;
+  }
+
+  function hideTooltip() {
+    if (tooltip) tooltip.classList.add('hidden');
+  }
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    width = container.offsetWidth;
+    canvas.width = width;
+  });
+
+  // Initialize
+  createSkillCards();
+  animate();
+}
+
+// ========== ANIMATED STATS COUNTER ==========
+function initStatsCounter() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  
+  function animateValue(element, start, end, duration) {
+    const startTime = performance.now();
+    const isLarge = end > 1000;
+    
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      
+      let current = start + (end - start) * easeOutQuart;
+      
+      if (isLarge && end >= 1000000) {
+        element.textContent = (current / 1000000).toFixed(1) + 'M';
+      } else if (isLarge && end >= 1000) {
+        element.textContent = Math.floor(current / 1000) + 'K';
+      } else {
+        element.textContent = Math.floor(current);
+      }
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        if (isLarge && end >= 1000000) {
+          element.textContent = (end / 1000000).toFixed(1) + 'M';
+        } else if (isLarge && end >= 1000) {
+          element.textContent = Math.floor(end / 1000) + 'K';
+        } else {
+          element.textContent = end;
+        }
+      }
+    }
+    
+    requestAnimationFrame(update);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        const target = parseInt(entry.target.dataset.target);
+        entry.target.dataset.animated = 'true';
+        animateValue(entry.target, 0, target, 2000);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  statNumbers.forEach(stat => observer.observe(stat));
+}
+
+// ========== MAGNETIC HOVER EFFECTS ==========
+function initMagneticHover() {
+  const magneticElements = document.querySelectorAll('.project-card-enhanced, .stat-card, .social-card, .testimonial-card-item');
+  
+  magneticElements.forEach(element => {
+    element.addEventListener('mousemove', (e) => {
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      const moveX = x * 0.15;
+      const moveY = y * 0.15;
+      
+      element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
+    });
+    
+    element.addEventListener('mouseleave', () => {
+      element.style.transform = '';
+    });
+  });
 }
