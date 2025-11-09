@@ -963,6 +963,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initTerminal();
   initStatsCounter();
   initMagneticHover();
+  initKeyboardShortcuts();
+  initAchievementSystem();
+  initCursorTrail();
   
   // Initialize 3D skills after a delay to ensure DOM is ready
   // Also re-initialize when content becomes visible
@@ -1288,6 +1291,9 @@ function initTimeMilestones() {
     
     popup.classList.add('show');
     
+    // Dispatch event for achievement system
+    document.dispatchEvent(new CustomEvent('timeMilestone', { detail: { time: milestone.time } }));
+    
     // Auto-hide after 8 seconds
     setTimeout(() => {
       hideMilestone();
@@ -1462,6 +1468,8 @@ I combine design and code to ship polished experiences.`,
       if (result !== null) {
         addOutput(result);
       }
+      // Dispatch event for achievement tracking
+      document.dispatchEvent(new CustomEvent('terminalCommand', { detail: { command: cmd } }));
     } else if (cmd === '') {
       // Empty command, do nothing
     } else {
@@ -1962,6 +1970,440 @@ function init3DSkills() {
   } catch (error) {
     console.error('Error initializing 3D skills:', error);
   }
+}
+
+// ========== KEYBOARD SHORTCUTS ==========
+function initKeyboardShortcuts() {
+  const overlay = document.getElementById('shortcutsOverlay');
+  const modal = overlay?.querySelector('.shortcuts-modal');
+  const backdrop = document.getElementById('shortcutsBackdrop');
+  const closeBtn = document.getElementById('closeShortcuts');
+  const shortcutsList = document.getElementById('shortcutsList');
+  
+  if (!overlay || !shortcutsList) return;
+
+  const shortcuts = [
+    { keys: ['?', 'Ctrl+K'], action: 'Show keyboard shortcuts' },
+    { keys: ['Esc'], action: 'Close modals/overlays' },
+    { keys: ['G', 'H'], action: 'Go to Home' },
+    { keys: ['G', 'A'], action: 'Go to About' },
+    { keys: ['G', 'P'], action: 'Go to Projects' },
+    { keys: ['G', 'T'], action: 'Go to Tools' },
+    { keys: ['G', 'C'], action: 'Go to Contact' },
+    { keys: ['T'], action: 'Toggle theme (dark/light)' },
+    { keys: ['/', 'Ctrl+F'], action: 'Focus terminal input' },
+    { keys: ['?'], action: 'Show this help' }
+  ];
+
+  function renderShortcuts() {
+    shortcutsList.innerHTML = shortcuts.map(shortcut => `
+      <div class="shortcut-item">
+        <span class="text-slate-700">${shortcut.action}</span>
+        <div class="shortcut-keys">
+          ${shortcut.keys.map(key => `<kbd class="shortcut-key">${key}</kbd>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function showShortcuts() {
+    overlay.classList.add('show');
+    setTimeout(() => {
+      modal?.classList.add('show');
+    }, 10);
+    renderShortcuts();
+  }
+
+  function hideShortcuts() {
+    modal?.classList.remove('show');
+    setTimeout(() => {
+      overlay.classList.remove('show');
+    }, 300);
+  }
+
+  // Keyboard listeners
+  document.addEventListener('keydown', (e) => {
+    // ? key
+    if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
+      if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        showShortcuts();
+      }
+    }
+    
+    // Ctrl+K or Cmd+K
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      showShortcuts();
+    }
+    
+    // Esc to close
+    if (e.key === 'Escape' && overlay.classList.contains('show')) {
+      hideShortcuts();
+    }
+    
+    // Navigation shortcuts
+    if (e.key === 'g' || e.key === 'G') {
+      // Wait for second key
+      const handler = (e2) => {
+        const key = e2.key.toLowerCase();
+        const mainContent = document.getElementById('main');
+        if (!mainContent?.classList.contains('visible')) return;
+        
+        switch(key) {
+          case 'h': window.location.hash = '#home'; break;
+          case 'a': window.location.hash = '#about'; break;
+          case 'p': window.location.hash = '#projects'; break;
+          case 't': 
+            if (document.getElementById('tools')) {
+              window.location.hash = '#tools';
+            } else {
+              document.getElementById('themeToggle')?.click();
+            }
+            break;
+          case 'c': window.location.hash = '#contact'; break;
+        }
+        document.removeEventListener('keydown', handler);
+      };
+      document.addEventListener('keydown', handler);
+      setTimeout(() => document.removeEventListener('keydown', handler), 1000);
+    }
+    
+    // T for theme toggle
+    if (e.key === 't' || e.key === 'T') {
+      if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        const mainContent = document.getElementById('main');
+        if (mainContent?.classList.contains('visible')) {
+          document.getElementById('themeToggle')?.click();
+        }
+      }
+    }
+    
+    // / or Ctrl+F to focus terminal
+    if (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key === 'f')) {
+      if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const terminalInput = document.getElementById('terminalInput');
+        if (terminalInput) {
+          terminalInput.focus();
+        }
+      }
+    }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', hideShortcuts);
+  if (backdrop) backdrop.addEventListener('click', hideShortcuts);
+  
+  renderShortcuts();
+}
+
+// ========== ACHIEVEMENT SYSTEM ==========
+function initAchievementSystem() {
+  const notification = document.getElementById('achievementNotification');
+  const achievementViewer = document.getElementById('achievementViewer');
+  const badgeBtn = document.getElementById('achievementBadgeBtn');
+  const achievementsGrid = document.getElementById('achievementsGrid');
+  
+  if (!notification || !achievementViewer) return;
+
+  const achievements = [
+    { id: 'first_visit', name: 'First Steps', desc: 'Visited the portfolio', icon: '👋', unlocked: false },
+    { id: 'explorer', name: 'Explorer', desc: 'Scrolled through all sections', icon: '🗺️', unlocked: false },
+    { id: 'terminal_master', name: 'Terminal Master', desc: 'Used 5+ terminal commands', icon: '💻', unlocked: false },
+    { id: 'theme_switcher', name: 'Theme Changer', desc: 'Switched theme 3 times', icon: '🌓', unlocked: false },
+    { id: 'time_traveler_1', name: 'Time Traveler', desc: 'Spent 1 minute exploring', icon: '⏱️', unlocked: false },
+    { id: 'time_traveler_5', name: 'Time Master', desc: 'Spent 5 minutes exploring', icon: '⭐', unlocked: false },
+    { id: 'time_traveler_10', name: 'Time Legend', desc: 'Spent 10 minutes exploring', icon: '👑', unlocked: false },
+    { id: 'skill_explorer', name: 'Skill Explorer', desc: 'Viewed all skill categories', icon: '🎯', unlocked: false },
+    { id: 'social_butterfly', name: 'Social Butterfly', desc: 'Clicked all social links', icon: '🦋', unlocked: false },
+    { id: 'tool_master', name: 'Tool Master', desc: 'Used all developer tools', icon: '🛠️', unlocked: false },
+    { id: 'language_learner', name: 'Polyglot', desc: 'Switched language 3 times', icon: '🌍', unlocked: false },
+    { id: 'completionist', name: 'Completionist', desc: 'Unlocked all achievements', icon: '🏆', unlocked: false }
+  ];
+
+  let unlockedAchievements = JSON.parse(localStorage.getItem('achievements') || '[]');
+  let terminalCommandCount = 0;
+  let themeSwitchCount = 0;
+  let languageSwitchCount = 0;
+  let socialClicks = new Set();
+  let toolUses = new Set();
+  let skillCategoriesViewed = new Set();
+  let maxScroll = 0;
+
+  // Load unlocked achievements
+  achievements.forEach(ach => {
+    if (unlockedAchievements.includes(ach.id)) {
+      ach.unlocked = true;
+    }
+  });
+
+  function unlockAchievement(id) {
+    const achievement = achievements.find(a => a.id === id);
+    if (!achievement || achievement.unlocked) return;
+
+    achievement.unlocked = true;
+    unlockedAchievements.push(id);
+    localStorage.setItem('achievements', JSON.stringify(unlockedAchievements));
+
+    // Show notification
+    document.getElementById('achievementTitle').textContent = achievement.name;
+    document.getElementById('achievementDesc').textContent = achievement.desc;
+    document.querySelector('.achievement-icon').textContent = achievement.icon;
+    
+    notification.classList.add('show');
+    
+    // Show badge button
+    if (badgeBtn) badgeBtn.classList.remove('hidden');
+    updateAchievementCount();
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 5000);
+
+    // Check for completionist
+    if (unlockedAchievements.length === achievements.length - 1) {
+      setTimeout(() => unlockAchievement('completionist'), 1000);
+    }
+  }
+
+  function updateAchievementCount() {
+    const count = document.getElementById('achievementCount');
+    if (count) {
+      count.textContent = unlockedAchievements.length;
+    }
+  }
+
+  function renderAchievements() {
+    if (!achievementsGrid) return;
+    achievementsGrid.innerHTML = achievements.map(ach => `
+      <div class="achievement-badge ${ach.unlocked ? '' : 'locked'}">
+        <div class="achievement-badge-icon">${ach.unlocked ? ach.icon : '🔒'}</div>
+        <div class="achievement-badge-name">${ach.name}</div>
+        <div class="achievement-badge-desc">${ach.desc}</div>
+      </div>
+    `).join('');
+  }
+
+  // Track achievements
+  // First visit - only if main content is visible (landing page was dismissed)
+  const mainContent = document.getElementById('main');
+  if (mainContent && mainContent.classList.contains('visible')) {
+    if (!sessionStorage.getItem('achievement_first_visit_shown')) {
+      setTimeout(() => {
+        unlockAchievement('first_visit');
+        sessionStorage.setItem('achievement_first_visit_shown', 'true');
+      }, 2000);
+    }
+  } else {
+    // Wait for main content to be visible
+    const observer = new MutationObserver(() => {
+      if (mainContent.classList.contains('visible') && !sessionStorage.getItem('achievement_first_visit_shown')) {
+        setTimeout(() => {
+          unlockAchievement('first_visit');
+          sessionStorage.setItem('achievement_first_visit_shown', 'true');
+        }, 2000);
+        observer.disconnect();
+      }
+    });
+    if (mainContent) observer.observe(mainContent, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  // Scroll tracking
+  let scrollCheckInterval = setInterval(() => {
+    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    maxScroll = Math.max(maxScroll, scrollPercent);
+    if (maxScroll >= 90 && !achievements.find(a => a.id === 'explorer').unlocked) {
+      unlockAchievement('explorer');
+      clearInterval(scrollCheckInterval);
+    }
+  }, 1000);
+
+  // Terminal command tracking
+  const originalAddOutput = window.addOutput;
+  document.addEventListener('terminalCommand', () => {
+    terminalCommandCount++;
+    if (terminalCommandCount >= 5 && !achievements.find(a => a.id === 'terminal_master').unlocked) {
+      unlockAchievement('terminal_master');
+    }
+  });
+
+  // Theme switch tracking
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      themeSwitchCount++;
+      if (themeSwitchCount >= 3 && !achievements.find(a => a.id === 'theme_switcher').unlocked) {
+        unlockAchievement('theme_switcher');
+      }
+    });
+  }
+
+  // Time milestone achievements (integrate with existing time milestones)
+  const timeMilestones = [60, 300, 600];
+  const timeAchievements = ['time_traveler_1', 'time_traveler_5', 'time_traveler_10'];
+  
+  // Skill category tracking
+  document.querySelectorAll('.skill-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+      if (category && category !== 'all') {
+        skillCategoriesViewed.add(category);
+        if (skillCategoriesViewed.size >= 4 && !achievements.find(a => a.id === 'skill_explorer').unlocked) {
+          unlockAchievement('skill_explorer');
+        }
+      }
+    });
+  });
+
+  // Language switch tracking
+  document.querySelectorAll('.lang-option').forEach(option => {
+    option.addEventListener('click', () => {
+      languageSwitchCount++;
+      if (languageSwitchCount >= 3 && !achievements.find(a => a.id === 'language_learner').unlocked) {
+        unlockAchievement('language_learner');
+      }
+    });
+  });
+
+  // Social link tracking
+  document.querySelectorAll('.social-link-btn, .social-card').forEach(link => {
+    link.addEventListener('click', () => {
+      socialClicks.add('social');
+      if (socialClicks.size >= 3 && !achievements.find(a => a.id === 'social_butterfly').unlocked) {
+        unlockAchievement('social_butterfly');
+      }
+    });
+  });
+
+  // Tool usage tracking
+  ['generatePalette', 'updateGradient', 'updateShadow', 'generateQR'].forEach(toolFunc => {
+    const original = window[toolFunc];
+    if (original) {
+      window[toolFunc] = function(...args) {
+        toolUses.add(toolFunc);
+        if (toolUses.size >= 4 && !achievements.find(a => a.id === 'tool_master').unlocked) {
+          unlockAchievement('tool_master');
+        }
+        return original.apply(this, args);
+      };
+    }
+  });
+
+  // Achievement viewer
+  if (badgeBtn) {
+    badgeBtn.addEventListener('click', () => {
+      renderAchievements();
+      achievementViewer.classList.add('show');
+      setTimeout(() => {
+        achievementViewer.querySelector('.achievement-modal')?.classList.add('show');
+      }, 10);
+    });
+  }
+
+  document.getElementById('closeAchievementViewer')?.addEventListener('click', () => {
+    achievementViewer.querySelector('.achievement-modal')?.classList.remove('show');
+    setTimeout(() => {
+      achievementViewer.classList.remove('show');
+    }, 300);
+  });
+
+  document.getElementById('achievementBackdrop')?.addEventListener('click', () => {
+    achievementViewer.querySelector('.achievement-modal')?.classList.remove('show');
+    setTimeout(() => {
+      achievementViewer.classList.remove('show');
+    }, 300);
+  });
+
+  document.getElementById('closeAchievement')?.addEventListener('click', () => {
+    notification.classList.remove('show');
+  });
+
+  // Integrate with time milestones - listen for time milestone events
+  document.addEventListener('timeMilestone', (e) => {
+    const time = e.detail.time;
+    const index = timeMilestones.indexOf(time);
+    if (index !== -1 && !achievements.find(a => a.id === timeAchievements[index]).unlocked) {
+      unlockAchievement(timeAchievements[index]);
+    }
+  });
+
+  updateAchievementCount();
+  renderAchievements();
+}
+
+// ========== INTERACTIVE CURSOR TRAIL ==========
+function initCursorTrail() {
+  const trail = [];
+  const maxTrailLength = 20;
+  let mouseX = 0;
+  let mouseY = 0;
+  let lastX = 0;
+  let lastY = 0;
+
+  function createParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.className = 'cursor-particle';
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    particle.style.background = `hsl(${Math.random() * 60 + 250}, 70%, 60%)`;
+    document.body.appendChild(particle);
+
+    const angle = Math.atan2(y - lastY, x - lastX);
+    const velocity = 2 + Math.random() * 2;
+    const vx = Math.cos(angle) * velocity;
+    const vy = Math.sin(angle) * velocity;
+
+    let px = x;
+    let py = y;
+    let opacity = 0.8;
+    const size = 4 + Math.random() * 4;
+
+    function animate() {
+      px += vx;
+      py += vy;
+      opacity -= 0.02;
+      particle.style.left = `${px}px`;
+      particle.style.top = `${py}px`;
+      particle.style.opacity = opacity;
+      particle.style.width = `${size * opacity}px`;
+      particle.style.height = `${size * opacity}px`;
+
+      if (opacity > 0) {
+        requestAnimationFrame(animate);
+      } else {
+        particle.remove();
+      }
+    }
+
+    animate();
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Create trail particles occasionally
+    if (Math.random() > 0.7) {
+      createParticle(mouseX, mouseY);
+    }
+
+    lastX = mouseX;
+    lastY = mouseY;
+  });
+
+  // Enhanced trail on interactive elements
+  const interactiveElements = document.querySelectorAll('a, button, .project-card-enhanced, .skill-card, .stat-card, .nav-link');
+  
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          createParticle(mouseX + (Math.random() - 0.5) * 20, mouseY + (Math.random() - 0.5) * 20);
+        }, i * 50);
+      }
+    });
+  });
 }
 
 // ========== ANIMATED STATS COUNTER ==========

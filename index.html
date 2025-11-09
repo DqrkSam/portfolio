@@ -55,6 +55,52 @@
     </div>
   </div>
 
+  <!-- Keyboard Shortcuts Overlay -->
+  <div id="shortcutsOverlay" class="shortcuts-overlay fixed inset-0 z-[100] hidden items-center justify-center">
+    <div class="shortcuts-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm" id="shortcutsBackdrop"></div>
+    <div class="shortcuts-modal glass-card rounded-3xl p-8 shadow-2xl border border-white/30 max-w-2xl w-full mx-4 relative z-10 transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-black bg-gradient-to-r from-purple1 to-purple2 bg-clip-text text-transparent">Keyboard Shortcuts</h2>
+        <button id="closeShortcuts" class="text-slate-400 hover:text-slate-600 transition-colors text-2xl">✕</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4" id="shortcutsList">
+        <!-- Shortcuts will be populated by JS -->
+      </div>
+      <div class="mt-6 text-center text-sm text-slate-500">
+        Press <kbd class="px-2 py-1 bg-white/20 rounded text-xs font-mono">?</kbd> or <kbd class="px-2 py-1 bg-white/20 rounded text-xs font-mono">Esc</kbd> to close
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievement Notification -->
+  <div id="achievementNotification" class="achievement-notification fixed top-6 right-6 z-[95] transform translate-x-full opacity-0 transition-all duration-500">
+    <div class="glass-card rounded-2xl p-5 shadow-2xl border border-white/30 backdrop-blur-xl max-w-sm">
+      <div class="flex items-start gap-4">
+        <div class="achievement-icon text-5xl flex-shrink-0">🏆</div>
+        <div class="flex-1">
+          <div class="text-xs text-purple-700 font-semibold mb-1">ACHIEVEMENT UNLOCKED!</div>
+          <h3 class="font-bold text-lg mb-1 text-slate-900" id="achievementTitle">Achievement Name</h3>
+          <p class="text-slate-600 text-sm" id="achievementDesc">Achievement description</p>
+        </div>
+        <button id="closeAchievement" class="text-slate-400 hover:text-slate-600 transition-colors">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievement Badge Collection (Hidden) -->
+  <div id="achievementViewer" class="achievement-viewer fixed inset-0 z-[100] hidden items-center justify-center">
+    <div class="achievement-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm" id="achievementBackdrop"></div>
+    <div class="achievement-modal glass-card rounded-3xl p-8 shadow-2xl border border-white/30 max-w-4xl w-full mx-4 relative z-10 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-black bg-gradient-to-r from-purple1 to-purple2 bg-clip-text text-transparent">Achievements</h2>
+        <button id="closeAchievementViewer" class="text-slate-400 hover:text-slate-600 transition-colors text-2xl">✕</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4" id="achievementsGrid">
+        <!-- Achievements will be populated by JS -->
+      </div>
+    </div>
+  </div>
+
   <!-- Time Milestone Popups -->
   <div id="timeMilestonePopup" class="milestone-popup fixed bottom-6 right-6 z-[90] transform translate-y-full opacity-0 transition-all duration-500">
     <div class="glass-card rounded-2xl p-6 shadow-2xl border border-white/30 backdrop-blur-xl max-w-sm">
@@ -914,6 +960,12 @@
       <span id="timerDisplay" class="text-purple-700 font-bold">0:00</span>
     </div>
   </div>
+
+  <!-- Achievement Badge Button (Hidden until first achievement) -->
+  <button id="achievementBadgeBtn" class="fixed bottom-6 left-24 z-40 glass-card rounded-2xl p-3 shadow-2xl border border-white/30 backdrop-blur-xl hidden hover:scale-110 transition-all relative" title="View Achievements">
+    <div class="text-2xl">🏆</div>
+    <div class="achievement-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold" id="achievementCount">0</div>
+  </button>
 
   <script src="ribbons.js"></script>
   <script src="script.js" type="module"></script>
