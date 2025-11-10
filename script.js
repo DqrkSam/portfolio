@@ -1394,10 +1394,10 @@ I combine design and code to ship polished experiences.`,
   4. Performance-Optimized Web Apps`,
     
     contact: () => `You can reach me at:
-  Email: hello@samyam.dev
-  Twitter: @samyam
-  LinkedIn: /in/samyam
-  GitHub: github.com/samyam`,
+  Email: info@samyam.xyz / help@samyam.xyz
+  Twitter: ...
+  LinkedIn: ...
+  GitHub: github.com/...`,
     
     clear: () => {
       terminalOutput.innerHTML = '';
@@ -1419,12 +1419,12 @@ I combine design and code to ship polished experiences.`,
     },
     
     github: () => {
-      window.open('https://github.com/samyam', '_blank');
+      window.open('https://github.com', '_blank');
       return 'Opening GitHub...';
     },
     
     linkedin: () => {
-      window.open('https://linkedin.com/in/samyam', '_blank');
+      window.open('https://linkedin.com', '_blank');
       return 'Opening LinkedIn...';
     }
   };
